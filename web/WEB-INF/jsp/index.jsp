@@ -6,13 +6,7 @@
   <jsp:param name="pageTitle" value="Home"/>
 </jsp:include>
   <div class="card ricerca_mobile">
-    <h3>Cerca un libro</h3>
-    <div class="search-container">
-      <form>
-        <input type="search" placeholder="Scrivi qui" required>
-        <input type="submit" value="Cerca">
-      </form>
-    </div>
+      <%@include file="search.html"%>
   </div>
   <div class="row">
     <div class="leftcolumn">
@@ -31,8 +25,6 @@
           </div>
       </div>
         </c:forEach>
-
-
       <div class="card" id="indexbox">
         <a href="changepage?page=${limit-1}" id="back"
         <c:set var = "limit" scope = "session" value = "limit"/>
@@ -57,10 +49,9 @@
       </div>
 
     </div>
-    <jsp:include page="rightcollum.jsp">
-      <jsp:param name="pageTitle" value="Home"/>
-    </jsp:include>
+      <jsp:include page="rightcollum.jsp"/>
   </div>
+</div>
 <%@include file="footer.html"%>
 </body>
 

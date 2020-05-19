@@ -4,13 +4,7 @@
 <!DOCTYPE html>
 <div class="rightcolumn">
     <div class="card right ricerca">
-        <h3>Cerca un libro</h3>
-        <div class="search-container">
-            <form>
-                <input type="search" placeholder="Scrivi qui" required>
-                <input type="submit" value="Cerca">
-            </form>
-        </div>
+        <%@include file="search.html"%>
     </div>
     <div class="card right">
         <h3>Classifica libri più venduti</h3>

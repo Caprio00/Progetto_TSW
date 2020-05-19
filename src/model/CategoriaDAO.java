@@ -41,6 +41,25 @@ import java.util.List;
 
 public class CategoriaDAO {
 
+	public Categoria doRetriveById(int id){
+		try (Connection con = ConPool.getConnection()) {
+			PreparedStatement ps = con.prepareStatement("SELECT id, nome, descrizione FROM categoria WHERE id=?");
+			ps.setInt(1, id);
+			ArrayList<Categoria> categorie = new ArrayList<>();
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Categoria c = new Categoria();
+				c.setId(rs.getInt(1));
+				c.setNome(rs.getString(2));
+				c.setDescrizione(rs.getString(3));
+				return c;
+			}
+			return null;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public List<Categoria> doRetrieveAll() {
 		try (Connection con = ConPool.getConnection()) {
 			PreparedStatement ps = con.prepareStatement("SELECT id, nome, descrizione FROM categoria");

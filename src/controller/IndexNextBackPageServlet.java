@@ -29,12 +29,18 @@ public class IndexNextBackPageServlet extends HttpServlet {
             l=l*10;
             List<Libro> prodotti=null;
             prodotti = libroDAO.doRetrieveAll(l-10,10);
-            if(libroDAO.doRetrieveAll(l,10).isEmpty()){
+            if (prodotti.isEmpty()){
+                prodotti = libroDAO.doRetrieveAll(0,10);
+                request.setAttribute("limit", "1");
+            }else if(libroDAO.doRetrieveAll(l,10).isEmpty()){
                 request.setAttribute("next", "-1");
+                request.setAttribute("limit", limit);
+            }else{
+                request.setAttribute("limit", limit);
             }
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/index.jsp");
             request.setAttribute("prodotti", prodotti);
-            request.setAttribute("limit", limit);
+
             requestDispatcher.forward(request, response);
         }
 
