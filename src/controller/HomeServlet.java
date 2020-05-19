@@ -12,14 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Categoria;
 import model.CategoriaDAO;
-import model.Prodotto;
-import model.ProdottoDAO;
+import model.Libro;
+import model.LibroDAO;
 
 @WebServlet(name = "HomeServlet", urlPatterns="", loadOnStartup=1)
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final ProdottoDAO prodottoDAO = new ProdottoDAO();
-
 	public void init() throws ServletException {
 		CategoriaDAO categoriaDAO = new CategoriaDAO();
 		List<Categoria> categorie = categoriaDAO.doRetrieveAll();
@@ -29,7 +27,9 @@ public class HomeServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Prodotto> prodotti = prodottoDAO.doRetrieveAll(0, 10);
+		LibroDAO libroDAO = new LibroDAO();
+		List<Libro> prodotti = libroDAO.doRetrieveAll(0, 10);
+		request.setAttribute("limit","1");
 		request.setAttribute("prodotti", prodotti);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/index.jsp");
 		requestDispatcher.forward(request, response);

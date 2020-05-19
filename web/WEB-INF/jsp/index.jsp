@@ -16,27 +16,44 @@
   </div>
   <div class="row">
     <div class="leftcolumn">
-        <c:forEach items="${prodotti}" var="prodotto">
+        <c:forEach items="${prodotti}" var="libro">
       <div class="card bookbox">
-          <img src="https://source.unsplash.com/category/nature" alt="nature" height="215px" class="image" />
+          <img src="${pageContext.request.contextPath}/img/${libro.path}" alt="libro" height="215px" class="image" />
           <div class="book">
             <h3>
-              ${prodotto.nome}
+              ${libro.titolo}
             </h3>
             <h4>
-                ${prodotto.prezzoEuro}€
+                ${libro.prezzoEuro}€
             </h4>
-            <p class="description">${prodotto.descrizione}</p>
-            <a href="prodotto?id=${prodotto.id}">Vai alla scheda tecnica</a>
+            <p class="description">${libro.descrizione}</p>
+            <a href="libro?id=${libro.isbn}">Vai alla scheda tecnica</a>
           </div>
       </div>
         </c:forEach>
 
 
       <div class="card" id="indexbox">
-        <a href="" id="back">«Indietro</a>
-        <h3 id="pageindex">Pagina 1</h5>
-          <a href="" id="next">Avanti»</a>
+        <a href="changepage?page=${limit-1}" id="back"
+        <c:set var = "limit" scope = "session" value = "limit"/>
+        <c:if test = "${limit <=1}">
+          style="
+          pointer-events: none;
+          cursor: default;
+          background-color: gray;
+          "
+        </c:if>
+        >«Indietro</a>
+        <h3 id="pageindex">Pagina ${limit}</h3>
+        <a href="changepage?page=${limit+1}" id="next"
+                <c:if test = "${next != null}">
+                  style="
+                  pointer-events: none;
+                  cursor: default;
+                  background-color: gray;
+                  "
+                </c:if>
+        >Avanti»</a>
       </div>
 
     </div>

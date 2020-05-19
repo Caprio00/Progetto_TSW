@@ -20,8 +20,9 @@ li {
 body {
   font-family: Arial;
   padding: 10px;
-  background-image: url(https://images4.alphacoders.com/888/thumb-1920-8.jpg);
-  background-attachment: fixed;
+  background-image: url(sfondo.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%
 }
 
 /* -------------------------------------------------- INIZIO HEADER -------------------------------------------------- */
@@ -29,7 +30,7 @@ body {
 /* -------------------- INIZIO SEZIONE SUPERIORE (COPERTINA) -------------------- */
 
 .header {
-  background-image: url(https://www.illibraio.it/wp-content/uploads/2017/12/libro-libri-biblioteca-leggere-lettura.jpg);
+  background-image: url(sfondohead.jpg);
   padding: 30px;
   text-align: center;
   border-top-left-radius: 6px;
@@ -170,6 +171,7 @@ body {
 .card {
   padding: 10px;
   margin-top: 20px;
+
   background-color: rgba(255, 255, 255, 70%);
   border-radius: 6px;
 }
@@ -356,6 +358,10 @@ textarea {
     display: block;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .bookbox {
+    display: inline-table;
   }
 
   #indexbox {

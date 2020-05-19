@@ -40,11 +40,11 @@ import java.util.LinkedHashMap;
  */
 public class Carrello {
 	public static class ProdottoQuantita {
-		private Prodotto prodotto;
+		private Libro libro;
 		private int quantita;
 
-		private ProdottoQuantita(Prodotto prodotto, int quantita) {
-			this.prodotto = prodotto;
+		private ProdottoQuantita(Libro libro, int quantita) {
+			this.libro = libro;
 			this.quantita = quantita;
 		}
 
@@ -56,20 +56,20 @@ public class Carrello {
 			this.quantita = quantita;
 		}
 
-		public Prodotto getProdotto() {
-			return prodotto;
+		public Libro getLibro() {
+			return libro;
 		}
 
 		public long getPrezzoTotCent() {
-			return quantita * prodotto.getPrezzoCent();
+			return quantita * libro.getprezzoEuro();
 		}
 
 		public String getPrezzoTotEuro() {
-			return String.format("%.2f", quantita * prodotto.getPrezzoCent() / 100.);
+			return String.format("%.2f", quantita * libro.getprezzoEuro() / 100.);
 		}
 	}
 
-	private LinkedHashMap<Integer, ProdottoQuantita> prodotti = new LinkedHashMap<>();
+	private LinkedHashMap<String, ProdottoQuantita> prodotti = new LinkedHashMap<>();
 
 	public Collection<ProdottoQuantita> getProdotti() {
 		return prodotti.values();
@@ -79,8 +79,8 @@ public class Carrello {
 		return prodotti.get(prodId);
 	}
 
-	public void put(Prodotto prodotto, int quantita) {
-		prodotti.put(prodotto.getId(), new ProdottoQuantita(prodotto, quantita));
+	public void put(Libro libro, int quantita) {
+		prodotti.put(libro.getIsbn(), new ProdottoQuantita(libro, quantita));
 	}
 
 	public ProdottoQuantita remove(int prodId) {
