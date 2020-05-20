@@ -3,7 +3,7 @@
 <%@taglib prefix="c"
           uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="header.jsp">
-  <jsp:param name="pageTitle" value="Home"/>
+  <jsp:param name="pageTitle" value="${title}"/>
 </jsp:include>
   <div class="card ricerca_mobile">
       <%@include file="search.html"%>
@@ -49,10 +49,4 @@
       </div>
 
     </div>
-      <jsp:include page="rightcollum.jsp"/>
-  </div>
-</div>
-<%@include file="footer.html"%>
-</body>
-
-</html>
+      <jsp:include page="footererightcollum.jsp"/>

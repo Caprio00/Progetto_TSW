@@ -24,15 +24,39 @@ public class CategoriaServlet extends HttpServlet {
         LibroDAO libroDAO = new LibroDAO();
         CategoriaDAO cat = new CategoriaDAO();
         String id = request.getParameter("id");
-        List<Libro> libri = libroDAO.doRetrieveByCategoria(Integer.parseInt(id),0,10);
-        Categoria categpriaAssociata=cat.doRetriveById(Integer.parseInt(id));
-        request.setAttribute("libri", libri);
-        request.setAttribute("categoria",categpriaAssociata);
-        request.setAttribute("limit","1");
+        String page = request.getParameter("page");
+        List<Libro> libri = null;
+        Categoria categoriaAssociata = null;
+        int l=-1;
+        if(page == null){
+            libri = libroDAO.doRetrieveByCategoria(Integer.parseInt(id),0,10);
+            categoriaAssociata=cat.doRetriveById(Integer.parseInt(id));
+            request.setAttribute("limit","1");
+        }else{
+            l = Integer.parseInt(page)*10;
+            libri = libroDAO.doRetrieveByCategoria(Integer.parseInt(id),l-10,10);
+            categoriaAssociata=cat.doRetriveById(Integer.parseInt(id));
+            request.setAttribute("limit",page);
+        }
+        if( l!=-1){
+            if(libroDAO.doRetrieveByCategoria(Integer.parseInt(id),l,10).isEmpty())
+                request.setAttribute("next", "-1");
+        }else{
+            if(libroDAO.doRetrieveByCategoria(Integer.parseInt(id),10,10).isEmpty())
+                request.setAttribute("next", "-1");
+        }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/view-categorie.jsp");
+
+        if(categoriaAssociata == null){
+            requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/sectionnotfound.jsp");
+        }else{
+            request.setAttribute("libri", libri);
+            request.setAttribute("categoria",categoriaAssociata);
+        }
+
         requestDispatcher.forward(request, response);
 
-
-
     }
+
+
 }

@@ -31,6 +31,7 @@ public class HomeServlet extends HttpServlet {
 		List<Libro> prodotti = libroDAO.doRetrieveAll(0, 10);
 		request.setAttribute("limit","1");
 		request.setAttribute("prodotti", prodotti);
+		request.setAttribute("title", "Home");
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/index.jsp");
 		requestDispatcher.forward(request, response);
 	}
