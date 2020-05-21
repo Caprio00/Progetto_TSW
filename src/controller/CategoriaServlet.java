@@ -27,31 +27,38 @@ public class CategoriaServlet extends HttpServlet {
         String page = request.getParameter("page");
         List<Libro> libri = null;
         Categoria categoriaAssociata = null;
-        int l=-1;
-        if(page == null){
-            libri = libroDAO.doRetrieveByCategoria(Integer.parseInt(id),0,10);
-            categoriaAssociata=cat.doRetriveById(Integer.parseInt(id));
-            request.setAttribute("limit","1");
-        }else{
-            l = Integer.parseInt(page)*10;
-            libri = libroDAO.doRetrieveByCategoria(Integer.parseInt(id),l-10,10);
-            categoriaAssociata=cat.doRetriveById(Integer.parseInt(id));
-            request.setAttribute("limit",page);
-        }
-        if( l!=-1){
-            if(libroDAO.doRetrieveByCategoria(Integer.parseInt(id),l,10).isEmpty())
-                request.setAttribute("next", "-1");
-        }else{
-            if(libroDAO.doRetrieveByCategoria(Integer.parseInt(id),10,10).isEmpty())
-                request.setAttribute("next", "-1");
-        }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/view-categorie.jsp");
+        int l=-1;
+        try{
+            if(page == null){
+                libri = libroDAO.doRetrieveByCategoria(Integer.parseInt(id),0,10);
+                categoriaAssociata=cat.doRetriveById(Integer.parseInt(id));
+                request.setAttribute("limit","1");
+            }else{
+                l = Integer.parseInt(page)*10;
+                libri = libroDAO.doRetrieveByCategoria(Integer.parseInt(id),l-10,10);
+                if(libri.size() == 0){
+                    throw new MyServletException("Non ci sono libri presenti in questa pagina");
+                }
+                categoriaAssociata=cat.doRetriveById(Integer.parseInt(id));
+                request.setAttribute("limit",page);
+            }
+            if( l!=-1){
+                if(libroDAO.doRetrieveByCategoria(Integer.parseInt(id),l,10).isEmpty())
+                    request.setAttribute("next", "-1");
+            }else{
+                if(libroDAO.doRetrieveByCategoria(Integer.parseInt(id),10,10).isEmpty())
+                    request.setAttribute("next", "-1");
+            }
 
-        if(categoriaAssociata == null){
-            requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/sectionnotfound.jsp");
-        }else{
-            request.setAttribute("libri", libri);
-            request.setAttribute("categoria",categoriaAssociata);
+            if(categoriaAssociata == null){
+               throw new MyServletException("Categoria non trovata");
+            }else{
+                request.setAttribute("libri", libri);
+                request.setAttribute("categoria",categoriaAssociata);
+            }
+        } catch (NumberFormatException er){
+            throw new MyServletException("Categoria non trovata");
         }
 
         requestDispatcher.forward(request, response);

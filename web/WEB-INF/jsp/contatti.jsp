@@ -8,10 +8,10 @@
   <%@include file="search.html"%>
 </div>
 <div class="row">
-      <div class="card">
-        <h3>Contattaci</h3>
-      </div>
       <div class="leftcolumn">
+        <div class="card">
+          <h3>Contattaci</h3>
+        </div>
         <div class="card">
           <div class="contact-container">
             <h3>Inviaci una mail</h3>
@@ -72,7 +72,7 @@
                 </div>
               </div>
               <div class="row">
-                <input type="submit" value="Invia messaggio" />
+                <input id="contatti" type="submit" value="Invia messaggio" />
               </div>
             </form>
             <h5>I campi segnati con * sono obbligatori</h5>

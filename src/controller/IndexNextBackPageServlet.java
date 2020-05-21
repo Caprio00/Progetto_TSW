@@ -25,22 +25,27 @@ public class IndexNextBackPageServlet extends HttpServlet {
                 throws ServletException, IOException {
             LibroDAO libroDAO = new LibroDAO();
             String limit= request.getParameter("page");
-            int l = Integer.parseInt(limit);
-            l=l*10;
-            List<Libro> prodotti=null;
-            prodotti = libroDAO.doRetrieveAll(l-10,10);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/index.jsp");
-            if (prodotti.isEmpty()){
-                requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/sectionnotfound.jsp");
-            }else if(libroDAO.doRetrieveAll(l,10).isEmpty()){
-                request.setAttribute("next", "-1");
-                request.setAttribute("limit", limit);
-            }else{
-                request.setAttribute("limit", limit);
+            try{
+                int l = Integer.parseInt(limit);
+                l=l*10;
+                List<Libro> prodotti=null;
+                prodotti = libroDAO.doRetrieveAll(l-10,10);
+                if (prodotti.isEmpty()){
+                    throw new MyServletException("Non ci sono libri presenti in questa pagina");
+                }else if(libroDAO.doRetrieveAll(l,10).isEmpty()){
+                    request.setAttribute("next", "-1");
+                    request.setAttribute("limit", limit);
+                }else{
+                    request.setAttribute("limit", limit);
+                }
+                request.setAttribute("title", "Pagina " + limit);
+                request.setAttribute("prodotti", prodotti);
+            } catch (NumberFormatException er){
+                throw new MyServletException("Non ci sono libri presenti in questa pagina");
             }
-            request.setAttribute("title", "Pagina " + limit);
-            request.setAttribute("prodotti", prodotti);
             requestDispatcher.forward(request, response);
+
         }
 
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
