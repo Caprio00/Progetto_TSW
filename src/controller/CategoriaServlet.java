@@ -36,6 +36,9 @@ public class CategoriaServlet extends HttpServlet {
                 request.setAttribute("limit","1");
             }else{
                 l = Integer.parseInt(page)*10;
+                if(l<=0){
+                    throw new MyServletException("Non ci sono libri presenti in questa pagina");
+                }
                 libri = libroDAO.doRetrieveByCategoria(Integer.parseInt(id),l-10,10);
                 if(libri.size() == 0){
                     throw new MyServletException("Non ci sono libri presenti in questa pagina");
