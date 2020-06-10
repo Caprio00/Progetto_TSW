@@ -31,7 +31,7 @@
     </div>
     <div class="righttopnav">
         <a href="login.html">Accedi o iscriviti</a>
-        <a href="#">Carrello(200)</a>
+        <a href="#">Carrello(${carrello})</a>
     </div>
 </div>
 

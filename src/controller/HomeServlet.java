@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Categoria;
 import model.CategoriaDAO;
@@ -32,6 +33,8 @@ public class HomeServlet extends HttpServlet {
 		request.setAttribute("limit","1");
 		request.setAttribute("prodotti", prodotti);
 		request.setAttribute("title", "Home");
+		HttpSession session = request.getSession();
+		session.setAttribute("carrello",0);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/index.jsp");
 		requestDispatcher.forward(request, response);
 	}
