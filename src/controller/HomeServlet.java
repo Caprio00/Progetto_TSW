@@ -28,13 +28,50 @@ public class HomeServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		LibroDAO libroDAO = new LibroDAO();
-		List<Libro> prodotti = libroDAO.doRetrieveAll(0, 10);
-		request.setAttribute("limit","1");
-		request.setAttribute("prodotti", prodotti);
-		request.setAttribute("title", "Home");
-		HttpSession session = request.getSession();
-		session.setAttribute("carrello",0);
+		String page= request.getParameter("page");
+		if(page == null){
+			page="1";
+			request.setAttribute("page", "1");
+		}else{
+			request.setAttribute("page", page);
+		}
+		String maxlimiti = request.getParameter("n");
+		int totlibriindex = libroDAO.countdoRetrieveAll();
+		if(maxlimiti == null){
+			maxlimiti = "10";
+			request.setAttribute("n", "10");
+		}else{
+			request.setAttribute("n", maxlimiti);
+		}
+		int maxlimitint = 10;
+		try {
+			maxlimitint =  Integer.parseInt(maxlimiti);
+		}catch (NumberFormatException er){
+			maxlimitint = 10;
+		}
+		int ceck= maxlimitint % 10;
+		if(ceck!=0 || maxlimitint<=0){
+			maxlimitint = 10;
+		}
+		int totlibri= (int) Math.ceil((double) totlibriindex/maxlimitint);
+		request.setAttribute("totlibri",totlibri);
+		try{
+			int l = Integer.parseInt(page);
+			l=l*maxlimitint;
+			List<Libro> prodotti=null;
+			prodotti = libroDAO.doRetrieveAll(l-maxlimitint,maxlimitint);
+			if (prodotti.isEmpty()){
+				throw new MyServletException("Non ci sono libri presenti in questa pagina");
+			}else if (l+1>totlibriindex){
+				request.setAttribute("next", "-1");
+			}
+			request.setAttribute("title", "Pagina " + page);
+			request.setAttribute("prodotti", prodotti);
+		} catch (NumberFormatException er){
+			throw new MyServletException("Non ci sono libri presenti in questa pagina");
+		}
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/index.jsp");
 		requestDispatcher.forward(request, response);
 	}

@@ -18,17 +18,18 @@
               ${libro.titolo}
             </h3>
             <h4>
-                ${libro.prezzoEuro}€
+                ${libro.prezzoEuro}
             </h4>
-            <p class="description">${libro.descrizione}</p>
+            <p class="description">${libro.sdescrizione}</p>
             <a href="libro?id=${libro.isbn}">Vai alla scheda tecnica</a>
           </div>
       </div>
         </c:forEach>
+        <%@include file="selectorpage.html"%>
       <div class="card" id="indexbox">
-        <a href="changepage?page=${limit-1}" id="back"
+        <a href="?page=${page-1}&n=${n}" id="back"
         <c:set var = "limit" scope = "session" value = "limit"/>
-        <c:if test = "${limit <=1}">
+        <c:if test = "${page <=1}">
           style="
           pointer-events: none;
           cursor: default;
@@ -36,8 +37,8 @@
           "
         </c:if>
         >«Indietro</a>
-        <h3 id="pageindex">Pagina ${limit}</h3>
-        <a href="changepage?page=${limit+1}" id="next"
+        <h3 id="pageindex">Pagina ${page} di ${totlibri}</h3>
+        <a href="?page=${page+1}&n=${n}" id="next"
                 <c:if test = "${next != null}">
                   style="
                   pointer-events: none;
@@ -49,4 +50,14 @@
       </div>
 
     </div>
+
+      <script>
+          $(document).ready( function() {
+              $('#select option[value=${n}]').prop('selected', true);
+              $('#select').change( function() {
+                  location.href = "?page=${page}&n=" + $(this).val();
+
+              });
+          });
+      </script>
       <jsp:include page="footererightcollum.jsp"/>

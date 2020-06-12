@@ -12,6 +12,18 @@ import java.util.stream.Collectors;
 
 public class LibroDAO {
 
+	public int countdoRetrieveAll(){
+		try (Connection con = ConPool.getConnection()) {
+			PreparedStatement ps = con
+					.prepareStatement("SELECT COUNT(*) FROM libro");
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public List<Libro> doRetrieveAll(int offset, int limit) {
 		try (Connection con = ConPool.getConnection()) {
 			PreparedStatement ps = con
@@ -41,11 +53,12 @@ public class LibroDAO {
 		}
 	}
 
-	public Libro doRetrieveByIsbn(double isbn) {
+
+	public Libro doRetrieveByIsbn(String isbn) {
 		try (Connection con = ConPool.getConnection()) {
 			PreparedStatement ps = con
 					.prepareStatement("SELECT isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina FROM libro WHERE isbn=?");
-			ps.setDouble(1, isbn);
+			ps.setString(1, isbn);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				Libro p = new Libro();
@@ -123,6 +136,19 @@ public class LibroDAO {
 				libri.add(p);
 			}
 			return libri;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public int countByCategoria(int categoria) {
+		try (Connection con = ConPool.getConnection()) {
+			PreparedStatement ps = con
+					.prepareStatement("SELECT COUNT(*) FROM libro LEFT JOIN libro_categoria ON libro.ISBN=libro_categoria.ISBN WHERE libro_categoria.id=?");
+			ps.setInt(1, categoria);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt(1);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

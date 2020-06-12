@@ -25,35 +25,48 @@ public class CategoriaServlet extends HttpServlet {
         CategoriaDAO cat = new CategoriaDAO();
         String id = request.getParameter("id");
         String page = request.getParameter("page");
+        String maxlimiti = request.getParameter("n");
+        if(maxlimiti == null){
+            maxlimiti = "10";
+            request.setAttribute("n",10);
+        }
+        request.setAttribute("n",maxlimiti);
+        int maxlimitint = Integer.parseInt(maxlimiti);
         List<Libro> libri = null;
         Categoria categoriaAssociata = null;
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/view-categorie.jsp");
+        int numlibri = libroDAO.countByCategoria(Integer.parseInt(id));
+        if(numlibri<maxlimitint){
+            request.setAttribute("totlibri", 1);
+        }else {
+            int totlibriindex = (int) Math.ceil((double) numlibri/maxlimitint);
+            request.setAttribute("totlibri",totlibriindex);
+        }
         int l=-1;
         try{
             if(page == null){
-                libri = libroDAO.doRetrieveByCategoria(Integer.parseInt(id),0,10);
+                libri = libroDAO.doRetrieveByCategoria(Integer.parseInt(id),0,maxlimitint);
                 categoriaAssociata=cat.doRetriveById(Integer.parseInt(id));
                 request.setAttribute("limit","1");
+                if(numlibri<maxlimitint){
+                    request.setAttribute("next", "-1");
+                }
             }else{
-                l = Integer.parseInt(page)*10;
+                l = Integer.parseInt(page)*maxlimitint;
                 if(l<=0){
                     throw new MyServletException("Non ci sono libri presenti in questa pagina");
                 }
-                libri = libroDAO.doRetrieveByCategoria(Integer.parseInt(id),l-10,10);
+                libri = libroDAO.doRetrieveByCategoria(Integer.parseInt(id),l-maxlimitint,maxlimitint);
                 if(libri.size() == 0){
                     throw new MyServletException("Non ci sono libri presenti in questa pagina");
                 }
                 categoriaAssociata=cat.doRetriveById(Integer.parseInt(id));
                 request.setAttribute("limit",page);
-            }
-            if( l!=-1){
-                if(libroDAO.doRetrieveByCategoria(Integer.parseInt(id),l,10).isEmpty())
+                int limite= l + 1;
+                if(limite > numlibri){
                     request.setAttribute("next", "-1");
-            }else{
-                if(libroDAO.doRetrieveByCategoria(Integer.parseInt(id),10,10).isEmpty())
-                    request.setAttribute("next", "-1");
+                }
             }
-
             if(categoriaAssociata == null){
                throw new MyServletException("Categoria non trovata");
             }else{

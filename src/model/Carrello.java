@@ -38,36 +38,37 @@ import java.util.LinkedHashMap;
  * @author Mattia De Rosa
  *
  */
+/*
 public class Carrello {
-	public static class ProdottoQuantita {
-		private Libro libro;
-		private int quantita;
+public static class ProdottoQuantita {
+	private Libro libro;
+	private int quantita;
 
-		private ProdottoQuantita(Libro libro, int quantita) {
-			this.libro = libro;
-			this.quantita = quantita;
-		}
-
-		public int getQuantita() {
-			return quantita;
-		}
-
-		public void setQuantita(int quantita) {
-			this.quantita = quantita;
-		}
-
-		public Libro getLibro() {
-			return libro;
-		}
-
-		public long getPrezzoTotCent() {
-			return quantita * libro.getprezzoEuro();
-		}
-
-		public String getPrezzoTotEuro() {
-			return String.format("%.2f", quantita * libro.getprezzoEuro() / 100.);
-		}
+	private ProdottoQuantita(Libro libro, int quantita) {
+		this.libro = libro;
+		this.quantita = quantita;
 	}
+
+	public int getQuantita() {
+		return quantita;
+	}
+
+	public void setQuantita(int quantita) {
+		this.quantita = quantita;
+	}
+
+	public Libro getLibro() {
+		return libro;
+	}
+
+	public long getPrezzoTotCent() {
+		return quantita * libro.getprezzoEuro();
+	}
+
+	public String getPrezzoTotEuro() {
+		return String.format("%.2f", quantita * libro.getprezzoEuro() / 100.);
+	}
+}
 
 	private LinkedHashMap<String, ProdottoQuantita> prodotti = new LinkedHashMap<>();
 
@@ -125,4 +126,4 @@ public class Carrello {
 		return true;
 	}
 
-}
+}*/

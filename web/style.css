@@ -8,6 +8,10 @@
   margin-left: 10px;
 }
 
+#selector{
+  display: flex;
+}
+
 .description p {
   text-align: justify;
   font-size: 2vw;
@@ -216,7 +220,6 @@ input[type="search"] {
 input[type="submit"] {
   padding: 6px;
   margin-top: 8px;
-  margin-right: 16px;
   background: #2d2c2a;
   color: white;
   font-size: 17px;
@@ -280,15 +283,22 @@ input[type="submit"]:hover {
   display: inline-flex;
 }
 
+
 /* -------------------- FINE BARRA PAGINE -------------------- */
 
 /* -------------------- INIZIO CORPO PAGINA CONTATTI -------------------- */
 
 .contact-container input[type="text"],
 input[type="email"],
-select,
 textarea {
   width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+}
+
+select{
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -394,14 +404,6 @@ textarea {
     display: flex;
   }
 
-  .righttopnav {
-    display: contents;
-  }
-
-  .topnav a {
-    float: none;
-    width: 100%;
-  }
 
   #homediv{
     display: inline-grid;
@@ -411,8 +413,37 @@ textarea {
     width: 100%;
   }
 
+  .search-container{
+    display: flow-root;
+  }
 
+
+
+}
+
+
+@media screen and (max-width: 600px) {
+
+  .contact-container .col-75 {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .row {
+    display: grid;
+  }
+
+  .contact-container .col-25 {
+    width: unset;
+  }
+}
+
+@media screen and (max-width: 680px) {
   /* ---------- INIZIO DROPDOWN VERSIONE MOBILE ---------- */
+  .righttopnav {
+    display: contents;
+  }
+
   .dropdown {
     display: grid;
   }
@@ -429,8 +460,14 @@ textarea {
     color: white;
     background-color: #4a4844;
   }
+
+  .topnav a {
+    float: none;
+    width: 100%;
+  }
 }
 
 /* ---------- FINE DROPDOWN VERSIONE MOBILE ---------- */
+
 
 /* -------------------------------------------------- FINE MEDIAQUERY VERSIONE MOBILE -------------------------------------------------- */

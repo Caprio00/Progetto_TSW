@@ -1,7 +1,10 @@
 package model;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -17,6 +20,7 @@ public class Libro {
 	private String autore;
 	private String path;
 	private ArrayList<Categoria> categorie;
+	private String sdescrizione;
 
 	public ArrayList<Categoria> getCategorie(){
 		return categorie;
@@ -46,8 +50,18 @@ public class Libro {
 		return descrizione;
 	}
 
+	public String getSdescrizione() {
+		return sdescrizione;
+	}
+
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
+		if(descrizione.length() <=250) {
+			sdescrizione = descrizione;
+		}else {
+			sdescrizione = descrizione.substring(0,250) + "...";
+		}
+
 	}
 
 	public String getAutore() {
@@ -70,9 +84,9 @@ public class Libro {
 		return prezzo;
 	}
 
-	public long getprezzoEuro() {
-		long euro= prezzo/100;
-		return euro;
+	public String getprezzoEuro() {
+		NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.FRANCE);
+		return nf.format(((float)prezzo/100));
 	}
 
 	public void setPrezzo(int prezzo) {

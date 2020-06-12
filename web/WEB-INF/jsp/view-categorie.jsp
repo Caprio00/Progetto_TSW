@@ -14,7 +14,7 @@
             <h2>${categoria.nome}${avviso}</h2>
         </div>
         <div class="card">
-            <h4>${categoria.descrizione}</h4>
+            <p>${categoria.descrizione}</p>
         </div>
         <c:if test="${libri.size() == 0}">
         <div class="card">
@@ -30,17 +30,18 @@
                             ${libro.titolo}
                     </h3>
                     <h4>
-                            ${libro.prezzoEuro}€
+                            ${libro.prezzoEuro}
                     </h4>
-                    <p class="description">${libro.descrizione}</p>
+                    <p class="description">${libro.sdescrizione}</p>
                     <a href="libro?id=${libro.isbn}">Vai alla scheda tecnica</a>
                 </div>
             </div>
         </c:forEach>
         </c:if>
+        <%@include file="selectorpage.html"%>
         <c:if test = "${libri.size() != 0}">
         <div class="card" id="indexbox">
-            <a href="categoria?page=${limit-1}&id=${categoria.id}" id="back"
+            <a href="categoria?page=${limit-1}&id=${categoria.id}&n=${n}" id="back"
                     <c:set var = "limit" scope = "session" value = "limit"/>
                     <c:if test = "${limit <=1}">
                         style="
@@ -50,8 +51,8 @@
                         "
                     </c:if>
             >«Indietro</a>
-            <h3 id="pageindex">Pagina ${limit}</h3>
-            <a href="categoria?page=${limit+1}&id=${categoria.id}" id="next"
+            <h3 id="pageindex">Pagina ${limit} di ${totlibri}</h3>
+            <a href="categoria?page=${limit+1}&id=${categoria.id}&n=${n}" id="next"
                     <c:if test = "${next != null}">
                         style="
                         pointer-events: none;
@@ -63,4 +64,13 @@
         </div>
         </c:if>
     </div>
+    <script>
+        $(document).ready( function() {
+            $('#select option[value=${n}]').prop('selected', true);
+            $('#select').change( function() {
+                location.href = "categoria?page=${limit}&id=${categoria.id}&n=" + $(this).val();
+
+            });
+        });
+    </script>
     <jsp:include page="footererightcollum.jsp"/>

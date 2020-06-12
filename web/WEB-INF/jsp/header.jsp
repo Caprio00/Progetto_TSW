@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE-edge" />
     <title>BookStore -  ${param.pageTitle}</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -30,8 +31,15 @@
         </div>
     </div>
     <div class="righttopnav">
-        <a href="login.html">Accedi o iscriviti</a>
-        <a href="#">Carrello(${carrello})</a>
+        <a href="login">Accedi o iscriviti</a>
+        <a href="#">Carrello (
+            <c:if test = "${carrello == null}">
+                0
+            </c:if>
+            <c:if test = "${carrello != null}">
+                ${carrello}
+            </c:if>
+            )</a>
     </div>
 </div>
 
