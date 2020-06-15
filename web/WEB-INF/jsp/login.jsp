@@ -6,31 +6,154 @@
     <jsp:param name="pageTitle" value="Accedi o registrati"/>
 </jsp:include>
 
-    <form action="/action_page.php">
-        <div class="card">
-            <h1>Register</h1>
-            <p>Please fill in this form to create an account.</p>
-            <hr>
-
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" id="email" required>
-
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
-
-            <label for="psw-repeat"><b>Repeat Password</b></label>
-            <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
-            <hr>
-            <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-
-            <button type="submit" class="registerbtn">Register</button>
+        <div class="row verticalrow">
+        <div class="card column">
+            <h2>Login</h2>
+            <div class="contact-container">
+                <form method="post" action="login">
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="username">Nome utente</label>
+                        </div>
+                        <div class="col-75">
+                            <input
+                                    type="text"
+                                    id="username"
+                                    name="username"
+                                    placeholder="Nome utente"
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="password">Password</label>
+                        </div>
+                        <div class="col-75">
+                            <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-75">
+                            <input type="checkbox" id="remember" name="remember" value="yes">
+                            <label for="remember">Ricordami per 30 giorni</label><br>
+                        </div>
+                    </div>
+                        <input id="login" type="submit" value="Accedi" />
+                    </div>
+                </form>
+            </div>
+            <div class="card column" id="submitdiv">
+                <h2>Registrati</h2>
+                <div class="contact-container">
+                    <form action="login" method="post">
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="nome">Nome</label>
+                            </div>
+                            <div class="col-75">
+                                <input
+                                        type="text"
+                                        id="nome"
+                                        name="nome"
+                                        placeholder="Nome"
+                                        required
+                                />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="cognome">Cognome</label>
+                            </div>
+                            <div class="col-75">
+                                <input
+                                        type="text"
+                                        id="cognome"
+                                        name="cognome"
+                                        placeholder="Cognome"
+                                        required
+                                />
+                            </div>
+                        </div>
+                            <div class="row">
+                            <div class="col-25">
+                                <label for="username">Nome utente</label>
+                            </div>
+                            <div class="col-75">
+                                <input
+                                        type="text"
+                                        id="username"
+                                        name="username"
+                                        placeholder="Nome utente"
+                                        required
+                                />
+                            </div>
+                            </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="col-75">
+                                <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder="Email"
+                                        required
+                                />
+                            </div>
+                        </div>
+                            <div class="row">
+                            <div class="col-25">
+                                <label for="sesso">Sesso</label>
+                            </div>
+                            <div class="col-75">
+                                <select name="sesso" id="sesso">
+                                    <option value="Maschio">Maschio</option>
+                                    <option value="Femmina">Femmina</option>
+                                </select>
+                            </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-25">
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="col-75">
+                                <input
+                                        type="password"
+                                        id="password"
+                                        name="password"
+                                        placeholder="Password"
+                                        required
+                                />
+                            </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-25">
+                                <label for="password">Conferma password</label>
+                            </div>
+                            <div class="col-75">
+                                <input
+                                        type="password"
+                                        id="password"
+                                        name="password"
+                                        placeholder="Conferma password"
+                                        required
+                                />
+                            </div>
+                            </div>
+                        <input id="submit" type="submit" value="Registrati" />
+                </div>
+                </div>
         </div>
 
-        <div class="container signin">
-            <p>Already have an account? <a href="#">Sign in</a>.</p>
-        </div>
-    </form>
 
-
+<%@include file="footer.html"%>
 </body>
 </html>

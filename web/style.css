@@ -289,7 +289,7 @@ input[type="submit"]:hover {
 /* -------------------- INIZIO CORPO PAGINA CONTATTI -------------------- */
 
 .contact-container input[type="text"],
-input[type="email"],
+input[type="email"],input[type="password"],
 textarea {
   width: 100%;
   padding: 12px;
@@ -471,3 +471,38 @@ select{
 
 
 /* -------------------------------------------------- FINE MEDIAQUERY VERSIONE MOBILE -------------------------------------------------- */
+
+/*-------CSS login ----*/
+
+#submitdiv{
+  margin-left: 20px;
+}
+
+.contact-container .col-75 select{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+}
+
+.column {
+  float: left;
+  width: 48%;
+  padding: 10px;
+}
+
+.verticalrow:after {
+  content: "";
+  clear: both;
+}
+
+@media screen and (max-width:770px) {
+  .column {
+    width: 100%;
+  }
+
+  #submitdiv{
+    margin-left: 0px;
+  }
+}

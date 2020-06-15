@@ -67,7 +67,12 @@ public class HomeServlet extends HttpServlet {
 			}else if (l+1>totlibriindex){
 				request.setAttribute("next", "-1");
 			}
-			request.setAttribute("title", "Pagina " + page);
+			if(page == "1"){
+				request.setAttribute("title", "Home");
+			}else{
+				request.setAttribute("title", "Pagina " + page);
+			}
+
 			request.setAttribute("prodotti", prodotti);
 		} catch (NumberFormatException er){
 			throw new MyServletException("Non ci sono libri presenti in questa pagina");

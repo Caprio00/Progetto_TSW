@@ -45,7 +45,9 @@ public class Utente {
 	private String username;
 	private String passwordhash;
 	private String nome;
+	private String cognome;
 	private String email;
+	private String sesso;
 	private boolean admin;
 
 	public int getId() {
@@ -58,6 +60,13 @@ public class Utente {
 
 	public String getUsername() {
 		return username;
+	}
+	public String getCognome() {
+		return cognome;
+	}
+
+	public String getSesso() {
+		return sesso;
 	}
 
 	public void setUsername(String username) {
@@ -99,12 +108,20 @@ public class Utente {
 		this.email = email;
 	}
 
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
 	public boolean isAdmin() {
 		return admin;
 	}
 
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
+	}
+
+	public void setSesso(String sesso) {
+		this.sesso = sesso;
 	}
 
 	@Override

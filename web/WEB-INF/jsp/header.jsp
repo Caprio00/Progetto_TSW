@@ -26,18 +26,39 @@
         <div class="dropdown-content">
             <c:forEach items="${categorie}" var="categoria">
                     <a href="categoria?id=<c:out value="${categoria.id}"/>"><c:out
-                            value="${categoria.nome}" /></a></menuitem>
+                            value="${categoria.nome}" /></a>
             </c:forEach>
         </div>
     </div>
     <div class="righttopnav">
+        <c:if test = "${utente != null}">
+        <div class="dropdown">
+            <button class="dropbtn">Ciao, ${utente.nome}</button>
+            <div class="dropdown-content">
+                <c:if test = "${utente.admin == false}">
+                    <a href=""/>I miei ordini</a>
+                    <a href=""/>I miei libri preferiti</a>
+                    <a href=""/>I miei dati</a>
+                </c:if>
+
+                <c:if test = "${utente.admin == true}">
+                    <a href=""/>Aggiungi libro</a>
+                    <a href=""/>Aggiungi codice sconto</a>
+                    <a href=""/>Gestisci ordini utenti</a>
+                </c:if>
+                <a href=""/>Esci</a>
+            </div>
+        </div>
+        </c:if>
+        <c:if test = "${utente == null}">
         <a href="login">Accedi o iscriviti</a>
-        <a href="#">Carrello (
+        </c:if>
+        <a href="carrello">Carrello (
             <c:if test = "${carrello == null}">
                 0
             </c:if>
             <c:if test = "${carrello != null}">
-                ${carrello}
+                ${carrello.totprodotti}
             </c:if>
             )</a>
     </div>
