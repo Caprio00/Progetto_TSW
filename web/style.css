@@ -167,19 +167,18 @@ body {
 
 /* ---------- INIZIO CARD DI RICERCA ---------- */
 input[type="search"] {
-  width: 100%;
+  width: 68%;
   padding: 6px;
   font-size: 17px;
   border: none;
+  border-radius: 4px;
 }
 
 input[type="submit"] {
-  padding: 6px;
-  margin-top: 8px;
-  margin-right: 16px;
+  padding: 7px;
   background: #2d2c2a;
   color: white;
-  font-size: 17px;
+  font-size: 14px;
   border: none;
   cursor: pointer;
   border-radius: 4px;
@@ -195,7 +194,8 @@ input[type="submit"]:hover {
 }
 
 #cerca{
-  width: 100%;
+  float: right;
+  width: 25%;
 }
 
 /* ---------- FINE CARD DI RICERCA ---------- */
@@ -210,6 +210,7 @@ input[type="submit"]:hover {
 
 .leftcolumn .card {
   width: 100%;
+  display: inline-table;
 }
 
 .book a {
@@ -297,7 +298,7 @@ select{
 
 .contact-container input[type="text"],
 input[type="email"],input[type="password"],
-textarea {
+input[type="telefono"], textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -321,19 +322,12 @@ textarea {
   border-radius: 4px;
   cursor: pointer;
   float: right;
+  margin-top: 10px;
 }
 
 .contact-container input[type="submit"]:hover {
   background-color: white;
   color: black;
-}
-
-.contact-container {
-  border-radius: 5px;
-  padding-top: 0px;
-  padding-bottom: 0;
-  padding-right: 20px;
-  padding-left: 20px;
 }
 
 .contact-container .col-25 {
@@ -366,12 +360,12 @@ h5.check{
 .card.bookbox_page{
   float: left;
   display: inline-flex;
-  width: 60%;
+  width: 49%;
 }
 
 .card.buybox{
   float: right;
-  width: 38%;
+  width: 49%;
 }
 
 #product {
@@ -401,9 +395,13 @@ a.button:hover{
 }
 
 #call{
+  text-align: center;
   width: auto;
   float: right;
-  margin-right: 36px;
+}
+
+#tempo{
+  text-align: justify;
 }
 
 /* -------------------- FINE CORPO PAGINA LIBRO -------------------- */
@@ -466,11 +464,6 @@ a.button:hover{
     display: block;
   }
 
-  #contatti{
-    float: none;
-    width: 100%;
-  }
-
   .ricerca {
     display: none;
   }
@@ -493,12 +486,17 @@ a.button:hover{
     display: inline-grid;
   }
 
-  #cerca{
-    width: 100%;
-  }
-
   .search-container{
     display: flow-root;
+  }
+
+  input[type="search"] {
+    width: 75%;
+  }
+
+  #cerca{
+    width: 20%;
+    font-size: 15px;
   }
 
 }
@@ -536,6 +534,25 @@ a.button:hover{
     width: 100%;
   }
 
+  input[type="search"] {
+    width: 100%;
+  }
+
+  #cerca{
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .contact-container input[type="submit"] {
+    margin-top: 10px;
+    font-size: 17px;
+  }
+
+  #contatti{
+    float: none;
+    width: 100%;
+  }
+
   /* ---------- FINE DROPDOWN VERSIONE MOBILE ---------- */
 
   .contact-container .col-75 {
@@ -551,6 +568,15 @@ a.button:hover{
   .contact-container .col-25 {
     width: unset;
   }
+
+  .card.buybox{
+    width: 100%;
+  }
+
+  .card.bookbox_page{
+    width: 100%;
+  }
+
 }
 
 /* -------------------- FINE MEDIAQUERY VERSIONE PICCOLA -------------------- */

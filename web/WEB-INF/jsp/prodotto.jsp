@@ -5,6 +5,9 @@
 <jsp:include page="header.jsp">
     <jsp:param name="pageTitle" value="${libro.titolo}"/>
 </jsp:include>
+<div class="card ricerca_mobile">
+    <%@include file="search.html"%>
+</div>
 <div class="row">
     <div class="leftcolumn">
             <div class="card bookbox_page">
@@ -13,12 +16,12 @@
                     <h3>
                         Titolo: ${libro.titolo}<hr>
                         Autore: ${libro.autore}<hr>
-                        Prezzo: ${libro.prezzoEuro}€<hr>
-                        Formato: ${libro.tipo}<hr>
-                        <c:if test = "${libro.numero_disponibili==null}">
-                            Pezzi disponibili: illimitati
+                        Prezzo: ${libro.prezzoEuro}<hr>
+                        Formato: ${libro.tipo}
+                        <c:if test = "${libro.numero_disponibili!=0}">
+                            <hr>
+                            Pezzi disponibili: ${libro.numero_disponibili}
                         </c:if>
-                        Pezzi disponibili: ${libro.numero_disponibili}
                     </h3>
                 </div>
             </div>
@@ -55,7 +58,7 @@
             if(now.getHours()>=19) {
                 max.setDate(max.getDate() + 1);
             }
-            delivery_day.setDate(now.getDate() + 1);
+            delivery_day.setDate(max.getDate() + 1);
             countdown = max.getTime()-now.getTime();
             let hours = Math.floor((countdown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             let minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
@@ -69,7 +72,23 @@
             if(seconds<10){
                 seconds = "0" + seconds;
             }
-            document.getElementById("tempo").innerHTML = "Ordina entro " + hours + " ore " + minutes + " minuti " + seconds +  " secondi per far si che venga spedito entro il " + delivery_day.getDate();
+            let ora, minuto, secondo;
+            if(hours==1){
+                ora = " ora ";
+            }
+            else
+                ora = " ore ";
+            if(minutes==1){
+                minuto = " minuto ";
+            }
+            else
+                minuto = " minuti ";
+            if(seconds==1){
+                secondo = " secondo ";
+            }
+            else
+                secondo = " secondi ";
+            document.getElementById("tempo").innerHTML = "Ordina entro " + hours + ora + minutes + minuto + seconds + secondo + "per far si che venga spedito entro il " + delivery_day.getDate();
         },1000)
 
     </script>

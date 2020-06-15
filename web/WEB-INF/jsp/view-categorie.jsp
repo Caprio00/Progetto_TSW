@@ -13,7 +13,7 @@
         <div class="card">
             <h2>${categoria.nome}${avviso}</h2>
         </div>
-        <div class="card">
+        <div class="card description">
             <p>${categoria.descrizione}</p>
         </div>
         <c:if test="${libri.size() == 0}">
