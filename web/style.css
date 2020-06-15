@@ -12,9 +12,8 @@
   display: flex;
 }
 
-.description p {
+.description {
   text-align: justify;
-  font-size: 2vw;
 }
 
 li {
@@ -152,6 +151,57 @@ body {
   clear: both;
 }
 
+/* -------------------- INIZIO COLONNA DESTRA -------------------- */
+.rightcolumn {
+  float: left;
+  width: 25%;
+  background-color: transparent;
+  padding-left: 20px;
+}
+
+.right {
+  padding-left: 12px;
+  padding-bottom: 11px;
+  display: flow-root;
+}
+
+/* ---------- INIZIO CARD DI RICERCA ---------- */
+input[type="search"] {
+  width: 100%;
+  padding: 6px;
+  font-size: 17px;
+  border: none;
+}
+
+input[type="submit"] {
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #2d2c2a;
+  color: white;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+input[type="submit"]:hover {
+  background: white;
+  color: black;
+}
+
+.ricerca_mobile {
+  display: none;
+}
+
+#cerca{
+  width: 100%;
+}
+
+/* ---------- FINE CARD DI RICERCA ---------- */
+
+/* -------------------- FINE COLONNA DESTRA -------------------- */
+
 /* -------------------- INIZIO COLONNA SINISTRA PAGINA PRINCIPALE -------------------- */
 .leftcolumn {
   float: left;
@@ -195,57 +245,7 @@ body {
 
 /* -------------------- FINE COLONNA SINISTRA PAGINA PRINCIPALE -------------------- */
 
-/* -------------------- INIZIO COLONNA DESTRA PAGINA PRINCIPALE -------------------- */
-.rightcolumn {
-  float: left;
-  width: 25%;
-  background-color: transparent;
-  padding-left: 20px;
-}
-
-.right {
-  padding-left: 12px;
-  padding-bottom: 11px;
-  display: flow-root;
-}
-
-/* ---------- INIZIO CARD DI RICERCA ---------- */
-input[type="search"] {
-  width: 100%;
-  padding: 6px;
-  font-size: 17px;
-  border: none;
-}
-
-input[type="submit"] {
-  padding: 6px;
-  margin-top: 8px;
-  background: #2d2c2a;
-  color: white;
-  font-size: 17px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-input[type="submit"]:hover {
-  background: white;
-  color: black;
-}
-
-.ricerca_mobile {
-  display: none;
-}
-
-#cerca{
-  float: right;
-}
-
-/* ---------- FINE CARD DI RICERCA ---------- */
-
-/* -------------------- FINE COLONNA DESTRA PAGINA PRINCIPALE -------------------- */
-
-/* -------------------- INIZIO BARRA PAGINE -------------------- */
+/* -------------------- INIZIO BARRA INFERIORE PAGINE -------------------- */
 #back {
   float: left;
   display: block;
@@ -284,9 +284,16 @@ input[type="submit"]:hover {
 }
 
 
-/* -------------------- FINE BARRA PAGINE -------------------- */
+/* -------------------- FINE BARRA INFERIORE PAGINE -------------------- */
 
 /* -------------------- INIZIO CORPO PAGINA CONTATTI -------------------- */
+
+select{
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
 
 .contact-container input[type="text"],
 input[type="email"],input[type="password"],
@@ -296,13 +303,6 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: none;
-}
-
-select{
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
 }
 
 .contact-container label {
@@ -354,12 +354,94 @@ select{
   clear: both;
 }
 
+h5.check{
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
 /* -------------------- FINE CORPO PAGINA CONTATTI -------------------- */
+
+/* -------------------- INIZIO CORPO PAGINA LIBRO -------------------- */
+
+.card.bookbox_page{
+  float: left;
+  display: inline-flex;
+  width: 60%;
+}
+
+.card.buybox{
+  float: right;
+  width: 38%;
+}
+
+#product {
+  display: inline-block;
+  margin: auto;
+  text-align: center;
+}
+
+.bookbox.descriptor{
+  display: inline-block;
+}
+
+a.button{
+  width: 100%;
+  background-color: #2d2c2a;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+a.button:hover{
+  background-color: white;
+  color: #2d2c2a;
+}
+
+#call{
+  width: auto;
+  float: right;
+  margin-right: 36px;
+}
+
+/* -------------------- FINE CORPO PAGINA LIBRO -------------------- */
+
+/* -------------------- INIZIO CORPO PAGINA LOGIN -------------------- */
+
+.contact-container .col-75 select{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+}
+
+.column {
+  width: 48.5%;
+  padding: 10px;
+}
+
+#logindiv{
+  float: left;
+}
+
+#submitdiv{
+  float: right;
+}
+
+.verticalrow:after {
+  content: "";
+  clear: both;
+}
+
+/* -------------------- FINE CORPO PAGINA LOGIN -------------------- */
 
 /* -------------------------------------------------- INIZIO FOOTER -------------------------------------------------- */
 
 .footer {
-  color: rgba(255, 255, 255, 75%);
+  color: white;
   padding: 20px;
   text-align: center;
   background-color: #2d2c2a;
@@ -369,7 +451,9 @@ select{
 
 /* -------------------------------------------------- FINE FOOTER -------------------------------------------------- */
 
-/* -------------------------------------------------- INIZIO MEDIAQUERY VERSIONE MOBILE -------------------------------------------------- */
+/* -------------------------------------------------- INIZIO MEDIAQUERY -------------------------------------------------- */
+
+/* -------------------- INIZIO MEDIAQUERY VERSIONE GRANDE -------------------- */
 
 @media screen and (max-width: 950px) {
   .leftcolumn,
@@ -383,6 +467,7 @@ select{
   }
 
   #contatti{
+    float: none;
     width: 100%;
   }
 
@@ -404,7 +489,6 @@ select{
     display: flex;
   }
 
-
   #homediv{
     display: inline-grid;
   }
@@ -417,29 +501,15 @@ select{
     display: flow-root;
   }
 
-
-
 }
+/* -------------------- FINE MEDIAQUERY VERSIONE GRANDE -------------------- */
 
-
-@media screen and (max-width: 600px) {
-
-  .contact-container .col-75 {
-    width: 100%;
-    margin-top: 0;
-  }
-
-  .row {
-    display: grid;
-  }
-
-  .contact-container .col-25 {
-    width: unset;
-  }
-}
+/* -------------------- INIZIO MEDIAQUERY VERSIONE PICCOLA -------------------- */
 
 @media screen and (max-width: 700px) {
+
   /* ---------- INIZIO DROPDOWN VERSIONE MOBILE ---------- */
+
   .righttopnav {
     display: contents;
   }
@@ -465,39 +535,29 @@ select{
     float: none;
     width: 100%;
   }
+
+  /* ---------- FINE DROPDOWN VERSIONE MOBILE ---------- */
+
+  .contact-container .col-75 {
+    float: none;
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .row {
+    display: grid;
+  }
+
+  .contact-container .col-25 {
+    width: unset;
+  }
 }
 
-/* ---------- FINE DROPDOWN VERSIONE MOBILE ---------- */
+/* -------------------- FINE MEDIAQUERY VERSIONE PICCOLA -------------------- */
 
+/* -------------------- INIZIO MEDIAQUERY LOGIN VERSIONE MOBILE -------------------- */
 
-/* -------------------------------------------------- FINE MEDIAQUERY VERSIONE MOBILE -------------------------------------------------- */
-
-/*-------CSS login ----*/
-
-#submitdiv{
-  margin-left: 20px;
-}
-
-.contact-container .col-75 select{
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: none;
-}
-
-.column {
-  float: left;
-  width: 48%;
-  padding: 10px;
-}
-
-.verticalrow:after {
-  content: "";
-  clear: both;
-}
-
-@media screen and (max-width:770px) {
+@media screen and (max-width:800px) {
   .column {
     width: 100%;
   }
@@ -506,3 +566,7 @@ select{
     margin-left: 0px;
   }
 }
+
+/* -------------------- FINE MEDIAQUERY LOGIN VERSIONE MOBILE -------------------- */
+
+/* -------------------------------------------------- FINE MEDIAQUERY VERSIONE MOBILE -------------------------------------------------- */

@@ -7,7 +7,7 @@
 </jsp:include>
 
         <div class="row verticalrow">
-        <div class="card column">
+        <div class="card column" id="logindiv">
             <h2>Login</h2>
             <div class="contact-container">
                 <form method="post" action="login">

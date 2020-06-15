@@ -10,7 +10,7 @@
 <div class="row">
       <div class="leftcolumn">
         <div class="card">
-          <h3>Contattaci</h3>
+          <h2>Contattaci</h2>
         </div>
         <div class="card">
           <div class="contact-container">
@@ -75,8 +75,15 @@
                 <input id="contatti" type="submit" value="Invia messaggio" />
               </div>
             </form>
-            <h5>I campi segnati con * sono obbligatori</h5>
+            <h5 class="check">I campi segnati con * sono obbligatori</h5>
           </div>
         </div>
-      </div>
-   <jsp:include page="footererightcollum.jsp"/>
+          <div class="card">
+            <h3>Chiamaci a telefono</h3>
+            <div class="row">
+              <a href="tel:+390123456789" class="button" id="call"> Chiama +39.0123.456789! </a>
+            </div>
+            <h5 class="check">I centrali sono attivi dal lunedì al venerdi dalle 9:00 alle 18:00</h5>
+          </div>
+        </div>
+        <jsp:include page="footererightcollum.jsp"/>
