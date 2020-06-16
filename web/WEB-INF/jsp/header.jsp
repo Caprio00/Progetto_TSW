@@ -21,7 +21,7 @@
 <div class="topnav">
     <a href="${pageContext.request.contextPath}">Home</a>
     <a href="contattaci">Contatti</a>
-    <a href="">Chi siamo</a>
+    <a href="descrizione">Chi siamo</a>
     <div class="dropdown">
         <button class="dropbtn">Categorie</button>
         <div class="dropdown-content">
