@@ -4,6 +4,29 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+#errorserver {
+  background-color: #ff00008f;
+  border-radius: 6px;
+  padding: 3px;
+  font-size: 11px;
+  color:white;
+}
+
+ul#profile{
+  list-style: none;
+}
+
+.profile{
+  display: flow-root;
+}
+
+.error{
+  font-size: 11px;
+  font-weight: bold;
+  color: red;
+  margin-left: 4px;
+}
+
 .book {
   margin-left: 10px;
 }
@@ -294,7 +317,7 @@ select{
 
 .contact-container input[type="text"],
 input[type="email"],input[type="password"],
-input[type="telefono"], textarea {
+input[type="telefono"],input[type="number"], textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -542,6 +565,7 @@ a.button:hover{
   .contact-container input[type="submit"] {
     margin-top: 10px;
     font-size: 17px;
+    width: 100%;
   }
 
   #contatti{
@@ -582,6 +606,10 @@ a.button:hover{
 @media screen and (max-width:800px) {
   .column {
     width: 100%;
+  }
+
+  .contact-container label{
+    margin-left: 1px;
   }
 
   #submitdiv{

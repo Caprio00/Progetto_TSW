@@ -53,6 +53,9 @@ public class Categoria {
 	}
 
 	public void setNome(String nome) {
+		String first = "" + nome.charAt(0);
+		String upfirst= first.toUpperCase();
+		nome = upfirst + nome.substring(1);
 		this.nome = nome;
 	}
 
@@ -61,6 +64,9 @@ public class Categoria {
 	}
 
 	public void setDescrizione(String descrizione) {
+		String first = "" + descrizione.charAt(0);
+		String upfirst= first.toUpperCase();
+		descrizione = upfirst + descrizione.substring(1);
 		this.descrizione = descrizione;
 	}
 

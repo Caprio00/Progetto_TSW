@@ -13,7 +13,7 @@
             <div class="card bookbox_page">
                 <img src="${pageContext.request.contextPath}/img/${libro.path}" alt="libro" height="215px" class="image" />
                 <div class="book" id="product">
-                    <h3>
+                    <h4>
                         Titolo: ${libro.titolo}<hr>
                         Autore: ${libro.autore}<hr>
                         Prezzo: ${libro.prezzoEuro}<hr>
@@ -22,14 +22,19 @@
                             <hr>
                             Pezzi disponibili: ${libro.numero_disponibili}
                         </c:if>
-                    </h3>
+                    </h4>
                 </div>
             </div>
         <div class="card buybox">
             <div class="book">
             <h3 id="tempo"></h3>
             <a href="" class="button">Aggiungi al carrello</a>
+                <c:if test = "${preferiti == null}">
             <a href="" class="button">Aggiungi ai preferiti</a>
+                </c:if>
+                <c:if test = "${preferiti != null}">
+                <a href="" class="button">Rimuovi dai preferiti</a>
+                </c:if>
             </div>
         </div>
         <div class="card bookbox descriptor">
@@ -88,7 +93,8 @@
             }
             else
                 secondo = " secondi ";
-            document.getElementById("tempo").innerHTML = "Ordina entro " + hours + ora + minutes + minuto + seconds + secondo + "per far si che venga spedito entro il " + delivery_day.getDate();
+            var months = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
+            document.getElementById("tempo").innerHTML = "Ordina entro " + hours + ora + minutes + minuto + seconds + secondo + "per far si che venga spedito entro il " + delivery_day.getDate() + " " + months[delivery_day.getMonth()];
         },1000)
 
     </script>

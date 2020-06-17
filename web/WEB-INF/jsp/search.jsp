@@ -29,7 +29,7 @@
                         <h4>
                                 ${libro.prezzoEuro}
                         </h4>
-                        <p class="description">${libro.descrizione}</p>
+                        <p class="description">${libro.sdescrizione}</p>
                         <a href="libro?id=${libro.isbn}">Vai alla scheda tecnica</a>
                     </div>
                 </div>

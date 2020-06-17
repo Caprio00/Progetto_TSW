@@ -17,5 +17,11 @@
                 Completamento naturale della nostra attività di editori di libri è la catena di librerie, un network di 575 store su tutto il territorio nazionale.
                 Siamo editori di magazine, di carta e digitali: brand di successo che portano nel mondo lo stile italiano, anche grazie alle edizioni internazionali delle nostre testate più note.</h4>
         </div>
+        <div class="card">
+            <video id="video" controls autoplay muted onloadedmetadata="this.muted = true" width=100%>
+                <source src="img/progetto.mp4" type="video/mp4">
+                Il tuo broswer non supporta HTML5
+            </video>
+        </div>
     </div>
     <jsp:include page="footererightcollum.jsp"/>

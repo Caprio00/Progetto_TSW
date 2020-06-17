@@ -36,14 +36,14 @@
         <div class="dropdown">
             <button class="dropbtn">Ciao, ${utente.nome}</button>
             <div class="dropdown-content">
+                <a href="profilo"/>I miei dati</a>
                 <c:if test = "${utente.admin == false}">
                     <a href=""/>I miei ordini</a>
-                    <a href=""/>I miei libri preferiti</a>
-                    <a href=""/>I miei dati</a>
+                    <a href="preferiti"/>I miei libri preferiti</a>
                 </c:if>
 
                 <c:if test = "${utente.admin == true}">
-                    <a href=""/>Aggiungi libro</a>
+                    <a href="addlibro"/>Aggiungi libro</a>
                     <a href=""/>Aggiungi codice sconto</a>
                     <a href=""/>Gestisci ordini utenti</a>
                 </c:if>

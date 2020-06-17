@@ -19,14 +19,14 @@ public class Libro {
 	private int numero_disponibili;
 	private String autore;
 	private String path;
-	private ArrayList<Categoria> categorie;
+	private List<Categoria> categorie;
 	private String sdescrizione;
 
-	public ArrayList<Categoria> getCategorie(){
+	public List<Categoria> getCategorie(){
 		return categorie;
 	}
 
-	public void setCategorie(ArrayList<Categoria> c){
+	public void setCategorie(List<Categoria> c){
 		categorie=c;
 	}
 

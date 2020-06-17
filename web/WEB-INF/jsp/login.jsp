@@ -9,6 +9,9 @@
         <div class="row verticalrow">
         <div class="card column" id="logindiv">
             <h2>Login</h2>
+            <c:if test = "${errorserverlogin != null}">
+                <div id="errorserver"><p>${errorserverlogin}</p></div>
+            </c:if>
             <div class="contact-container">
                 <form method="post" action="login">
                     <div class="row">
@@ -51,6 +54,9 @@
             </div>
             <div class="card column" id="submitdiv">
                 <h2>Registrati</h2>
+                <c:if test = "${fomrerror != null}">
+                <div id="errorserver"><p>${fomrerror}</p></div>
+                </c:if>
                 <div class="contact-container">
                     <form action="login" method="post">
                         <div class="row">
@@ -83,13 +89,13 @@
                         </div>
                             <div class="row">
                             <div class="col-25">
-                                <label for="username">Nome utente</label>
+                                <label for="usernamesubmit">Nome utente</label>
                             </div>
                             <div class="col-75">
                                 <input
                                         type="text"
-                                        id="username"
-                                        name="username"
+                                        id="usernamesubmit"
+                                        name="usernamesubmit"
                                         placeholder="Nome utente"
                                         required
                                 />
@@ -122,13 +128,13 @@
                             </div>
                             <div class="row">
                             <div class="col-25">
-                                <label for="password">Password</label>
+                                <label for="passwordsubmit">Password</label>
                             </div>
                             <div class="col-75">
                                 <input
                                         type="password"
-                                        id="password"
-                                        name="password"
+                                        id="passwordsubmit"
+                                        name="passwordsubmit"
                                         placeholder="Password"
                                         required
                                 />
@@ -136,13 +142,13 @@
                             </div>
                             <div class="row">
                             <div class="col-25">
-                                <label for="password">Conferma password</label>
+                                <label for="passwordsubmitconfirm">Conferma password</label>
                             </div>
                             <div class="col-75">
                                 <input
                                         type="password"
-                                        id="password"
-                                        name="password"
+                                        id="passwordsubmitconfirm"
+                                        name="passwordsubmitconfirm"
                                         placeholder="Conferma password"
                                         required
                                 />
@@ -152,6 +158,9 @@
                 </div>
                 </div>
         </div>
+
+
+
 
 
 <%@include file="footer.html"%>

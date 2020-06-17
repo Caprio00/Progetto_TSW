@@ -100,21 +100,38 @@ public class UtenteDAO {
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				Utente utente = new Utente();
-				ps.setString(1, utente.getUsername());
-				ps.setString(2, utente.getPasswordhash());
-				ps.setString(3, utente.getNome());
-				ps.setString(4, utente.getCognome());
-				ps.setString(5, utente.getSesso());
-				ps.setString(6, utente.getEmail());
-				ps.setBoolean(7, utente.isAdmin());
-				return utente;
+				Utente p = new Utente();
+				p.setId(rs.getInt(1));
+				p.setUsername(rs.getString(2));
+				p.setPassword(rs.getString(3));
+				p.setNome(rs.getString(4));
+				p.setCognome(rs.getString(5));
+				p.setSesso(rs.getString(6));
+				p.setEmail(rs.getString(7));
+				p.setAdmin(rs.getBoolean(8));
+				return p;
 			}
 			return null;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
+
+	public boolean doRetrieveByEmail(String email) {
+		try (Connection con = ConPool.getConnection()) {
+			PreparedStatement ps = con.prepareStatement(
+					"SELECT id, username, passwordhash, nome, cognome, sesso, email, admin FROM utente WHERE email=?");
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+			return false;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 
 	public void doSave(Utente utente) {
 		try (Connection con = ConPool.getConnection()) {

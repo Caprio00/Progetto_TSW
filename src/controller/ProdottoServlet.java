@@ -1,9 +1,6 @@
 package controller;
 
-import model.Categoria;
-import model.CategoriaDAO;
-import model.Libro;
-import model.LibroDAO;
+import model.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +22,14 @@ public class ProdottoServlet extends HttpServlet {
             LibroDAO libroDAO = new LibroDAO();
             Libro libro = libroDAO.doRetrieveByIsbn(isbn);
             request.setAttribute("libro",libro);
+            HttpSession session = request.getSession();
+            if(session.getAttribute("utente")!= null){
+                PreferitoDAO dao = new PreferitoDAO();
+                Libro user = dao.doRetrieveByUserIdandIsbn((Utente) session.getAttribute("utente"),libro);
+                if(user != null){
+                    request.setAttribute("preferiti",1);
+                }
+            }
         }
            catch(NumberFormatException er){
                 throw  new MyServletException("Libro non trovato");
