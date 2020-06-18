@@ -18,40 +18,32 @@
         </c:if>
         <c:if test = "${carrello.libro.size() >= 0}">
             <div class="card">
+                <div class="product_page">
             <div class="card bookbox_page cart">
-                <img src="${pageContext.request.contextPath}/img/Topolino.jpg" alt="libro" height="215px" class="image" />
-                <div class="book" id="product">
-                    <h4>
-                        Titolo: Dio cane<hr>
-                        Autore: Gesu bambino<hr>
-                        Formato: Cristo in croce
-                        <c:if test = "${libro.numero_disponibili!=0}">
-                            <hr>
-                            Pezzi disponibili: gli anni di hitler
-                        </c:if>
-                    </h4>
+                <img src="img/Topolino.jpg" alt="libro" height="130px" class="image" />
+                <div class="product_info">
+                    <p class="title">Dio cane</p>
+                    <p class="descrizione">Dio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio cane</p>
                 </div>
         </div>
             <div class="card buybox cart">
-                <div class="book">
-                    <h4>
-                    Prezzo: quanto si fa pagare tua sorella<hr>
-                    Quantità: <input type="number" value="1" min="1"><!-- aggiungere il max dipendentemente dalla disponibilità del prodotto-->
-                    <button class="remove-product">Rimuovi</button><hr>
-                    Subtotale prodotto: più o meno quanto tua madre sull'autostrada
-                    </h4>
-                </div>
+
+                <p class="price_view">10€</p>
+                    <div class="quantity"><input type="number" value="1" min="1"><!-- aggiungere il max dipendentemente dalla disponibilità del prodotto-->
+                            <button class="remove-product">Rimuovi</button></p>
+                        </div>
             </div>
             </div>
-            <div class="card book">
+            </div>
+            <div class="card" style="display: flow-root">
                 <div class="total">
-                    <h4>
-                        Subtotale netto: quanto si fa pagare tua sorella per le orgie<hr>
-                        Tasse: perfino lo stato ne è a conoscenza e apprezza<hr>
-                        Costo spedizione: quando prende i pacchi grossi<hr>
+                    <font size="2">
+                        Subtotale netto: quanto si fa pagare tua sorella per le orgie<br>
+                        Tasse: perfino lo stato ne è a conoscenza e apprezza<br>
+                        Costo spedizione: quando prende i pacchi grossi<br>
                        Totale completo: porta a casa un bel po' di soldi
-                    </h4>
-                <a href="" id="checkout">Procedi al pagamento</a>
+                    </font>
+                <a href="" id="paybutton">Procedi al pagamento</a>
             </div>
             </div>
         </c:if>
