@@ -317,7 +317,7 @@ select{
 
 .contact-container input[type="text"],
 input[type="email"],input[type="password"],
-input[type="telefono"],input[type="number"], textarea {
+input[type="telefono"], textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -377,7 +377,6 @@ h5.check{
 /* -------------------- INIZIO CORPO PAGINA LIBRO -------------------- */
 
 .card.bookbox_page{
-  float: left;
   display: inline-flex;
   width: 49%;
 }
@@ -454,6 +453,29 @@ a.button:hover{
 }
 
 /* -------------------- FINE CORPO PAGINA LOGIN -------------------- */
+
+/* -------------------- INIZIO CORPO PAGINA CARRELLO -------------------- */
+
+.remove-product {
+  border: 0;
+  padding: 4px 8px;
+  background-color: #2d2c2a;
+  color: #fff;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.remove-product:hover {
+  color: black;
+  background-color: #f2f2f2;
+}
+
+.cart{
+  background-color: transparent;
+  margin-top: 0px;
+}
+
+/* -------------------- FINE CORPO PAGINA CARRELLO -------------------- */
 
 /* -------------------------------------------------- INIZIO FOOTER -------------------------------------------------- */
 

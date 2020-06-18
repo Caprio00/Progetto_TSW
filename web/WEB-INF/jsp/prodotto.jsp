@@ -10,21 +10,21 @@
 </div>
 <div class="row">
     <div class="leftcolumn">
-            <div class="card bookbox_page">
-                <img src="${pageContext.request.contextPath}/img/${libro.path}" alt="libro" height="215px" class="image" />
-                <div class="book" id="product">
-                    <h4>
-                        Titolo: ${libro.titolo}<hr>
-                        Autore: ${libro.autore}<hr>
-                        Prezzo: ${libro.prezzoEuro}<hr>
-                        Formato: ${libro.tipo}
-                        <c:if test = "${libro.numero_disponibili!=0}">
-                            <hr>
-                            Pezzi disponibili: ${libro.numero_disponibili}
-                        </c:if>
-                    </h4>
-                </div>
+        <div class="card bookbox_page">
+            <img src="${pageContext.request.contextPath}/img/${libro.path}" alt="libro" height="215px" class="image" />
+            <div class="book" id="product">
+                <h4>
+                    Titolo: ${libro.titolo}<hr>
+                    Autore: ${libro.autore}<hr>
+                    Prezzo: ${libro.prezzoEuro}<hr>
+                    Formato: ${libro.tipo}
+                    <c:if test = "${libro.numero_disponibili!=0}">
+                        <hr>
+                        Pezzi disponibili: ${libro.numero_disponibili}
+                    </c:if>
+                </h4>
             </div>
+        </div>
         <div class="card buybox">
             <div class="book">
             <h3 id="tempo"></h3>
