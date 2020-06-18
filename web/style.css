@@ -618,7 +618,7 @@ a.button:hover{
 
 @media screen and (max-width: 700px) {
 
-  /* ---------- INIZIO DROPDOWN VERSIONE MOBILE ---------- */
+/* ---------- INIZIO DROPDOWN VERSIONE MOBILE ---------- */
 
   .righttopnav {
     display: contents;
@@ -688,7 +688,6 @@ a.button:hover{
 
   .card.bookbox_page{
     width: 100%;
-    display: contents;
   }
 
 }
