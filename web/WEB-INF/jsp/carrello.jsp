@@ -19,14 +19,14 @@
         <c:if test = "${carrello.libro.size() >= 0}">
             <div class="card">
                 <div class="product_page">
-            <div class="card bookbox_page cart">
+            <div class="card info_page cart">
                 <img src="img/Topolino.jpg" alt="libro" height="130px" class="image" />
                 <div class="product_info">
                     <p class="title">Dio cane</p>
                     <p class="descrizione">Dio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio caneDio cane</p>
                 </div>
         </div>
-            <div class="card buybox cart">
+            <div class="card cartbox cart">
 
                 <p class="price_view">10€</p>
                     <div class="quantity"><input type="number" value="1" min="1"><!-- aggiungere il max dipendentemente dalla disponibilità del prodotto-->

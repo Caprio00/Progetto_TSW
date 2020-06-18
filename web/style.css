@@ -351,12 +351,16 @@ select{
 
 .contact-container input[type="text"],
 input[type="email"],input[type="password"],
-input[type="telefono"],input[type="number"], textarea {
+input[type="telefono"],input[type="number"],input[type="file"] ,textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: none;
+}
+
+.contact-container input[type="file"]{
+  background-color: white;
 }
 
 .contact-container label {
@@ -412,12 +416,23 @@ h5.check{
 
 .card.bookbox_page{
   display: inline-flex;
+  width: 49%;
+}
+
+.card.info_page{
+  display: inline-flex;
   width: 80%;
 }
 
-.card.buybox{
+.card.cartbox{
   float: right;
   width: 20%;
+}
+
+
+.card.buybox{
+  float: right;
+  width: 49%;
 }
 
 .product_info {
