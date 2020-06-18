@@ -3,7 +3,7 @@
 <%@taglib prefix="c"
           uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="header.jsp">
-    <jsp:param name="pageTitle" value="Aggiungi libro"/>
+    <jsp:param name="pageTitle" value="${titolo}"/>
 </jsp:include>
 <div class="card ricerca_mobile">
     <%@include file="search.html" %>
@@ -11,7 +11,7 @@
 <div class="row">
     <div class="leftcolumn">
         <div class="card profile">
-            <h2>Aggiugni libro</h2>
+            <h2>${titolo}</h2>
         </div>
         <div class="card">
             <div class="contact-container">
@@ -25,6 +25,7 @@
                                         id="titolo"
                                         name="titolo"
                                         placeholder="Titolo"
+                                        value="${libro.titolo}"
                                         required
                                 />
 
@@ -40,6 +41,7 @@
                                     id="autore"
                                     name="autore"
                                     placeholder="Autore"
+                                    value="${libro.autore}"
                                     required
                             />
                         </div>
@@ -54,6 +56,7 @@
                                         id="npage"
                                         name="npage"
                                         placeholder="Numero pagine"
+                                        value="${libro.numero_pagine}"
                                         required
                                 />
                             </div>
@@ -68,6 +71,7 @@
                                     id="ndisp"
                                     name="ndisp"
                                     placeholder="Numero libri disponibili"
+                                    value="${libro.numero_disponibili}"
                                     required
                             />
                         </div>
@@ -81,7 +85,8 @@
                                     type="number"
                                     id="isbn"
                                     name="isbn"
-                                    placeholder="Numero pagine"
+                                    placeholder="ISBN"
+                                    value="${libro.numberisbn}"
                                     required
                             />
                         </div>
@@ -96,6 +101,7 @@
                                         id="anno"
                                         name="anno"
                                         placeholder="Anno di pubblicazione"
+                                        value="${libro.anno_pubblicazione}"
                                         required
                                 />
                             </div>
@@ -106,8 +112,8 @@
                         </div>
                         <div class="col-75">
                             <select name="tipo" id="tipo">
-                                <option value="Cartaceo">Cartaceo</option>
-                                <option value="eBook">eBook</option>
+                                <option value="Cartaceo" <c:if test = "${libro != null && libro.tipo == \"Cartaceo\"}">selected</c:if>>Cartaceo</option>
+                                <option value="eBook" <c:if test = "${libro != null && libro.tipo == \"eBook\"}">selected</c:if>>eBook</option>
                             </select>
                         </div>
                     </div>
@@ -121,7 +127,7 @@
                         </div>
                         <div class="row">
                             <div class="col-25">
-                                <label for="subject">Descrizione libro*</label>
+                                <label for="subject" >Descrizione libro*</label>
                             </div>
                             <div class="col-75">
                   <textarea
@@ -130,7 +136,7 @@
                           placeholder="Scrivi qui"
                           style="height: 200px;"
                           required
-                  ></textarea>
+                  >${libro.descrizione}</textarea>
                             </div>
                         </div>
                     <div class="row">

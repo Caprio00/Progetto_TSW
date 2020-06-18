@@ -1,9 +1,6 @@
 package controller;
 
-import model.Categoria;
-import model.CategoriaDAO;
-import model.Utente;
-import model.UtenteDAO;
+import model.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/addlibro")
+@WebServlet("/editlibro")
 
 public class AggiungiLibroServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -23,6 +20,15 @@ public class AggiungiLibroServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
         if(utente != null && utente.isAdmin() == true){
+            String isbn = request.getParameter("id");
+            if(isbn != null){
+                request.setAttribute("titolo","Modifica libro");
+                LibroDAO dao = new LibroDAO();
+                Libro libro = dao.doRetrieveByIsbn(isbn);
+                request.setAttribute("libro",libro);
+            }else{
+                request.setAttribute("titolo","Aggiugni libro");
+            }
             CategoriaDAO dao = new CategoriaDAO();
             List<Categoria> list = dao.doRetrieveAll();
             request.setAttribute("categorie",list);

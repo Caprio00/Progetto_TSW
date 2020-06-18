@@ -36,7 +36,7 @@
                 <a href="" class="button">Rimuovi dai preferiti</a>
                 </c:if>
                 <c:if test = "${utente != null && utente.admin == true}">
-                    <a href="addlibro?id=${libro.isbn}" class="button">Modifica libro</a>
+                    <a href="editlibro?id=${libro.isbn}" class="button">Modifica libro</a>
                 </c:if>
             </div>
         </div>

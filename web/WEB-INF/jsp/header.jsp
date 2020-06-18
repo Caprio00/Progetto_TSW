@@ -43,7 +43,7 @@
                 </c:if>
 
                 <c:if test = "${utente.admin == true}">
-                    <a href="addlibro"/>Aggiungi libro</a>
+                    <a href="editlibro"/>Aggiungi libro</a>
                     <a href=""/>Aggiungi codice sconto</a>
                     <a href=""/>Gestisci ordini utenti</a>
                 </c:if>

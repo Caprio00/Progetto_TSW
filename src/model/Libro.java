@@ -10,6 +10,7 @@ import java.util.Objects;
 
 public class Libro {
 	private String isbn;
+	private String numberisbn;
 	private String titolo;
 	private String descrizione;
 	private int prezzo;
@@ -34,8 +35,20 @@ public class Libro {
 		return isbn;
 	}
 
+	public String getNumberisbn() {
+		return numberisbn;
+	}
+
 	public void setIsbn(String isbn) {
-		this.isbn = isbn;
+		numberisbn = isbn.replace("-", "");
+		if(isbn.contains("-")== false){
+			String a = isbn.substring(0,3);
+			String b = isbn.substring(3);
+			this.isbn = a+"-"+ b;
+		}else{
+			this.isbn = isbn;
+		}
+
 	}
 
 	public String getTitolo() {

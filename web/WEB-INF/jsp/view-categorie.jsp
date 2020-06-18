@@ -10,7 +10,7 @@
 </div>
 <div class="row">
     <div class="leftcolumn">
-        <div class="card">
+        <div class="card" id="divcategorie">
             <h2>${categoria.nome}${avviso}</h2>
             <c:if test = "${utente != null && utente.admin == true}">
                 <div id="diveditcategorie"><a href="editcategoria?id=${categoria.id}" class="button" id="buttoncategorie">Modifica categoria</a></div>
