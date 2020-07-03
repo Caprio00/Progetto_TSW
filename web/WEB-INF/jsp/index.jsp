@@ -9,7 +9,7 @@
       <%@include file="search.html"%>
   </div>
   <div class="row">
-    <div class="leftcolumn">
+      <div class="leftcolumn">
         <c:forEach items="${prodotti}" var="libro">
       <div class="card bookbox">
           <img src="${pageContext.request.contextPath}/img/${libro.path}" alt="libro" height="215px" class="image" />

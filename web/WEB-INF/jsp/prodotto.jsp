@@ -37,6 +37,7 @@
                 </c:if>
                 <c:if test = "${utente != null && utente.admin == true}">
                     <a href="editlibro?id=${libro.isbn}" class="button">Modifica libro</a>
+                    <a href="deletelibro?id=${libro.isbn}" class="button">Elimina libro</a>
                 </c:if>
             </div>
         </div>

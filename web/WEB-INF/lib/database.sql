@@ -71,6 +71,16 @@ FOREIGN KEY (isbn) REFERENCES libro(isbn) on update cascade on delete cascade,
 primary key(isbn,id)
 );
 
+CREATE TABLE `login` (
+  `id` char(36) NOT NULL,
+  `idutente` int(11) NOT NULL,
+  `token` char(36) NOT NULL,
+  `time` timestamp NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY (`idutente`),
+  CONSTRAINT FOREIGN KEY (`idutente`) REFERENCES `utente` (`id`)
+);
+
 LOCK TABLES `utente` WRITE;
 INSERT INTO `utente` VALUES (1,'utente1',SHA1('password1'),'Utente 1','cognome','Maschio' ,'utente1@test.com',1),(2,'utente2',SHA1('password2'),'Utente 2','cognome','Maschio','utente2@test.com',0),(3,'utente3',SHA1('password3'),'Utente 3','cognome','Maschio','utente3@test.com',0);
 UNLOCK TABLES;

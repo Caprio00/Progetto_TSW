@@ -19,7 +19,7 @@ public class AggiungiLibroServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
-        if(utente != null && utente.isAdmin() == true){
+       // if(utente != null && utente.isAdmin() == true){
             String isbn = request.getParameter("id");
             if(isbn != null){
                 request.setAttribute("titolo","Modifica libro");
@@ -34,9 +34,9 @@ public class AggiungiLibroServlet extends HttpServlet {
             request.setAttribute("categorie",list);
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/addlibro.jsp");
             dispatcher.forward(request,response);
-        }else{
-            throw new MyServletException("Sezione dedicata ai soli amministratori, perfavore prima fai il login");
-        }
+       // }else{
+      //      throw new MyServletException("Sezione dedicata ai soli amministratori, perfavore prima fai il login");
+       // }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

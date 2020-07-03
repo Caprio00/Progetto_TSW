@@ -226,19 +226,19 @@ public class LibroDAO {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-	}
+	}*/
 
-	public void doDelete(int id) {
+	public void doDelete(String isbn) {
 		try (Connection con = ConPool.getConnection()) {
-			PreparedStatement ps = con.prepareStatement("DELETE FROM prodotto WHERE id=?");
-			ps.setInt(1, id);
+			PreparedStatement ps = con.prepareStatement("DELETE FROM libro WHERE isbn=?");
+			ps.setString(1, isbn);
 			if (ps.executeUpdate() != 1) {
 				throw new RuntimeException("DELETE error.");
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-	}*/
+	}
 
 	private static ArrayList<Categoria> getCategorie(Connection con, String isbn) throws SQLException {
 		PreparedStatement ps = con.prepareStatement(
