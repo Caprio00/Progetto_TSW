@@ -1,16 +1,18 @@
 package controller;
 
+import model.Login;
+import model.LoginDAO;
 import model.Utente;
 import model.UtenteDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.UUID;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -116,8 +118,21 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("utente",utente);
             if(utente != null){
+                if(ricordaAccesso!= null && ricordaAccesso.equals("yes")){
+                    Login login = new Login();
+                    login.setIdutente(utente.getId());
+                    login.setToken(UUID.randomUUID().toString());
+                    login.setTime(Timestamp.from(Instant.now()));
+
+                    LoginDAO loginDAO =  new LoginDAO();
+                    loginDAO.doSave(login);
+
+                    Cookie cookie = new Cookie("login", login.getId() + "_" + login.getToken());
+                    cookie.setMaxAge(30 * 24 * 60 * 60); // 30 giorni
+                    response.addCookie(cookie);
+                }
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/profilo");
-                 dispatcher.forward(request, response);
+                dispatcher.forward(request, response);
             }
             else {
                 request.setAttribute("errorserverlogin", "Username o password errati!");

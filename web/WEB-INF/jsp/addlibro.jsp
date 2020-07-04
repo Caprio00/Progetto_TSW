@@ -15,7 +15,7 @@
         </div>
         <div class="card">
             <div class="contact-container">
-                <form enctype="multipart/form-data" method="post" id="addlibro" action="addlibroform">
+                <form enctype="multipart/form-data" method="post" id="addlibro">
                     <div class="row">
                         <div class="col-25">
                             <label for="titolo">Titolo*</label></div>
@@ -122,7 +122,8 @@
                                 <label for="img">Carica copertina*</label>
                             </div>
                             <div class="col-75">
-                                <input type="file"  onchange="return valida()"name="img" id="img" accept="image/*" required/>
+                                <input type="file"  onchange="return valida()" name="img" id="img" accept="image/*" required/>
+                                <p id="progressNumber"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -151,7 +152,7 @@
                         </div>
                     </div>
                         <div class="row">
-                            <input id="contatti" type="submit" value="Pubblica"/>
+                            <input id="contatti"  onclick="uploadFile()" type="submit" value="Pubblica"/>
                         </div>
                 </form>
                 <h5 class="check">I campi segnati con * sono obbligatori</h5>
@@ -201,7 +202,40 @@
 
         }
 
+        function uploadFile() {
+            var fd = new FormData();
+            fd.append("img", document.getElementById('img').files[0]);
+            var xhr = new XMLHttpRequest();
+            xhr.upload.addEventListener("progress", uploadProgress, false);
+            xhr.addEventListener("load", uploadComplete, false);
+            xhr.addEventListener("error", uploadFailed, false);
+            xhr.addEventListener("abort", uploadCanceled, false);
+            xhr.open("POST", "uploadImage", true);
+            xhr.send(fd);
+        }
 
+        function uploadProgress(evt) {
+            if (evt.lengthComputable) {
+                var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+                document.getElementById('progressNumber').innerHTML = percentComplete.toString() + '%';
+            }
+            else {
+                document.getElementById('progressNumber').innerHTML = 'unable to compute';
+            }
+        }
+
+        function uploadComplete(evt) {
+            /* This event is raised when the server send back a response */
+            alert(evt.target.responseText);
+        }
+
+        function uploadFailed(evt) {
+            alert("There was an error attempting to upload the file.");
+        }
+
+        function uploadCanceled(evt) {
+            alert("The upload has been canceled by the user or the browser dropped the connection.");
+        }
 
 
     });</script>

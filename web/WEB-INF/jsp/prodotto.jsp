@@ -27,16 +27,19 @@
         </div>
         <div class="card buybox">
             <div class="book">
+                <c:if test = "${utente == null || (utente != null && utente.admin == false)}">
             <h3 id="tempo"></h3>
             <a href="" class="button">Aggiungi al carrello</a>
-                <c:if test = "${preferiti == null}">
-            <a href="" class="button">Aggiungi ai preferiti</a>
                 </c:if>
-                <c:if test = "${preferiti != null}">
-                <a href="" class="button">Rimuovi dai preferiti</a>
+                <c:if test = "${utente != null && utente.admin == false && preferiti == null}">
+            <a href="addpreferito?id=${libro.isbn}" class="button">Aggiungi ai preferiti</a>
+                </c:if>
+                <c:if test = "${utente != null && utente.admin == false && preferiti != null}">
+                <a href="removepreferito?id=${libro.isbn}" class="button">Rimuovi dai preferiti</a>
                 </c:if>
                 <c:if test = "${utente != null && utente.admin == true}">
                     <a href="editlibro?id=${libro.isbn}" class="button">Modifica libro</a>
+                    <a href="deletelibro?id=${libro.isbn}" class="button">Elimina libro</a>
                 </c:if>
             </div>
         </div>
@@ -54,6 +57,7 @@
         </div>
     </div>
 
+    <c:if test = "${utente == null || (utente != null && utente.admin == false)}">
     <script>
         setInterval(()=>{
             let now = new Date();
@@ -101,6 +105,7 @@
         },1000)
 
     </script>
+    </c:if>
 
 
     <jsp:include page="footererightcollum.jsp"/>

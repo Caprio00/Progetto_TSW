@@ -19,7 +19,7 @@ public class PreferitoServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Utente user = (Utente) session.getAttribute("utente");
-        if(user != null) {
+        if(user != null && user.isAdmin() == false) {
             PreferitoDAO dao = new PreferitoDAO();
             List<Libro> libri = dao.doRetrieveByUserId(user);
             request.setAttribute("libri", libri);

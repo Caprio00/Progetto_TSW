@@ -114,10 +114,10 @@ public class LibroDAO {
 	public List<Libro> doRetrieveByNomeOrDescrizione(String against, int offset, int limit) {
 		try (Connection con = ConPool.getConnection()) {
 			PreparedStatement ps = con.prepareStatement(
-					"SELECT isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina FROM libro WHERE MATCH(titolo, descrizione) AGAINST(?) LIMIT ?, ?");
-			ps.setString(1, against);
-			ps.setInt(2, offset);
-			ps.setInt(3, limit);
+					"SELECT isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina FROM libro WHERE MATCH(titolo, descrizione) AGAINST(?) LIMIT ?,?");
+			ps.setString(1,against);
+			ps.setInt(2,offset);
+			ps.setInt(3,limit);
 			ArrayList<Libro> libri = new ArrayList<>();
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -226,19 +226,19 @@ public class LibroDAO {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-	}
+	}*/
 
-	public void doDelete(int id) {
+	public void doDelete(String isbn) {
 		try (Connection con = ConPool.getConnection()) {
-			PreparedStatement ps = con.prepareStatement("DELETE FROM prodotto WHERE id=?");
-			ps.setInt(1, id);
+			PreparedStatement ps = con.prepareStatement("DELETE FROM libro WHERE isbn=?");
+			ps.setString(1, isbn);
 			if (ps.executeUpdate() != 1) {
 				throw new RuntimeException("DELETE error.");
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-	}*/
+	}
 
 	private static ArrayList<Categoria> getCategorie(Connection con, String isbn) throws SQLException {
 		PreparedStatement ps = con.prepareStatement(
