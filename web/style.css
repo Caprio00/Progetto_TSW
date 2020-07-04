@@ -58,7 +58,7 @@ li {
 }
 
 body {
-  font-family: Arial;
+  font-family: Arial, serif;
   padding: 10px;
   background-image: url(img/sfondo.jpg);
   background-size: cover;
@@ -158,7 +158,7 @@ body {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -297,7 +297,7 @@ a#paybutton:hover {
 .card {
   padding: 10px;
   margin-top: 20px;
-  background-color: rgba(255, 255, 255, 70%);
+  background-color: rgba(255, 255, 255, 0.7);
   border-radius: 6px;
 }
 
@@ -373,10 +373,7 @@ input[type="telefono"],input[type="number"],input[type="file"] ,textarea {
 }
 
 .contact-container label {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-right: 12px;
-  padding-left: 0px;
+  padding: 12px 12px 12px 0;
   display: inline-block;
 }
 
@@ -428,48 +425,9 @@ h5.check{
   width: 49%;
 }
 
-.card.info_page{
-  display: inline-flex;
-  width: 80%;
-}
-
-.card.cartbox{
-  float: right;
-  width: 20%;
-}
-
-
 .card.buybox{
   float: right;
   width: 49%;
-}
-
-.product_info {
-  display: inline-block;
-  margin-left: 10px;
-}
-
-.product_info .title {
-  margin-bottom: 9px;
-  margin-top: 6px;
-  font-weight: bold;
-  font-size: 19px;
-}
-
-.product_info .descrizione {
-  margin-bottom: 2px;
-  margin-top: 0px;
-  font-size: 13px;
-}
-
-.quantity{
-  overflow: auto;
-  float: right;
-}
-
-.quantity input[type=number]{
-  width:45px;
-  padding: 8px 8px;
 }
 
 .bookbox.descriptor{
@@ -552,7 +510,68 @@ a.button:hover{
 
 .cart{
   background-color: transparent;
-  margin-top: 0px;
+  margin-top: 0;
+}
+
+#title_mobile{
+  display: none;
+}
+
+.card.info_page{
+  display: inline-flex;
+  width: 80%;
+}
+
+.card.cartbox{
+  float: right;
+  width: 20%;
+  padding-left: 0;
+}
+
+.product_info {
+  text-align: justify;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.product_info .title {
+  margin-bottom: 9px;
+  margin-top: 6px;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.product_info .descrizione {
+  margin-bottom: 2px;
+  margin-top: 0;
+  font-size: 13px;
+}
+
+.quantity{
+  float: right;
+}
+
+.quantity input[type=text]{
+  width:100%;
+  padding: 5px 5px;
+  margin-bottom: 10px;
+}
+
+a.remove_button{
+  display: block;
+  width: 100%;
+  background-color: #2d2c2a;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+}
+
+a.remove_button:hover{
+  background-color: white;
+  color: #2d2c2a;
 }
 
 /* -------------------- FINE CORPO PAGINA CARRELLO -------------------- */
@@ -623,11 +642,11 @@ a.button:hover{
 }
 /* -------------------- FINE MEDIAQUERY VERSIONE GRANDE -------------------- */
 
-/* -------------------- INIZIO MEDIAQUERY VERSIONE PICCOLA -------------------- */
+/* -------------------- INIZIO MEDIAQUERY VERSIONE MEDIA -------------------- */
 
 @media screen and (max-width: 700px) {
 
-/* ---------- INIZIO DROPDOWN VERSIONE MOBILE ---------- */
+  /* ---------- INIZIO DROPDOWN VERSIONE MOBILE ---------- */
 
   .righttopnav {
     display: contents;
@@ -699,25 +718,14 @@ a.button:hover{
     width: 100%;
   }
 
-}
-
-/* -------------------- FINE MEDIAQUERY VERSIONE PICCOLA -------------------- */
-
-/* -------------------- INIZIO MEDIAQUERY LOGIN VERSIONE MOBILE -------------------- */
-
-@media screen and (max-width:800px) {
-  .column {
+  .quantity .remove-product{
     width: 100%;
   }
-
-  .contact-container label{
-    margin-left: 1px;
-  }
-
-  #submitdiv{
-    margin-left: 0px;
-  }
 }
+
+/* -------------------- FINE MEDIAQUERY VERSIONE MEDIA -------------------- */
+
+/* -------------------- INIZIO MEDIAQUERY VERSIONE PICCOLA -------------------- */
 
 @media screen and (max-width:500px) {
   #divcategorie{
@@ -735,14 +743,45 @@ a.button:hover{
     width: 100%;
   }
 
-  .quantity input[type=number]{
-    width:100%;
-    padding: 4px 4px;
-    margin-bottom: 4px;
+  #title_mobile{
+    display: block;
+    text-align: center;
+    width: 100%;
   }
 
-  .quantity .remove-product{
+  .product_page{
+    display: block;
+  }
+
+  .product_info{
+    display: none;
+  }
+
+  .card.info_page{
+    width: 60%;
+  }
+
+  .card.cartbox{
+    width: 35%;
+    padding-right: 0;
+  }
+}
+
+/* -------------------- FINE MEDIAQUERY VERSIONE PICCOLA -------------------- */
+
+/* -------------------- INIZIO MEDIAQUERY LOGIN VERSIONE MOBILE -------------------- */
+
+@media screen and (max-width:800px) {
+  .column {
     width: 100%;
+  }
+
+  .contact-container label{
+    margin-left: 1px;
+  }
+
+  #submitdiv{
+    margin-left: 0;
   }
 }
 

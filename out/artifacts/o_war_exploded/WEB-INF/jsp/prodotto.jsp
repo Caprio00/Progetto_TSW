@@ -27,16 +27,19 @@
         </div>
         <div class="card buybox">
             <div class="book">
+                <c:if test = "${utente == null || (utente != null && utente.admin == false)}">
             <h3 id="tempo"></h3>
-            <a href="carrello?id=${libro.isbn}"  class="button">Aggiungi al carrello</a>
-                <c:if test = "${preferiti == null}">
-            <a href="" class="button">Aggiungi ai preferiti</a>
+            <a href="carrello?id=${libro.isbn}" class="button">Aggiungi al carrello</a>
                 </c:if>
-                <c:if test = "${preferiti != null}">
-                <a href="" class="button">Rimuovi dai preferiti</a>
+                <c:if test = "${utente != null && utente.admin == false && preferiti == null}">
+            <a href="addpreferito?id=${libro.isbn}" class="button">Aggiungi ai preferiti</a>
+                </c:if>
+                <c:if test = "${utente != null && utente.admin == false && preferiti != null}">
+                <a href="removepreferito?id=${libro.isbn}" class="button">Rimuovi dai preferiti</a>
                 </c:if>
                 <c:if test = "${utente != null && utente.admin == true}">
                     <a href="editlibro?id=${libro.isbn}" class="button">Modifica libro</a>
+                    <a href="deletelibro?id=${libro.isbn}" class="button">Elimina libro</a>
                 </c:if>
             </div>
         </div>
@@ -54,6 +57,7 @@
         </div>
     </div>
 
+    <c:if test = "${utente == null || (utente != null && utente.admin == false)}">
     <script>
         setInterval(()=>{
             let now = new Date();
@@ -96,11 +100,12 @@
             }
             else
                 secondo = " secondi ";
-            let months = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
+            var months = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
             document.getElementById("tempo").innerHTML = "Ordina entro " + hours + ora + minutes + minuto + seconds + secondo + "per far si che venga spedito entro il " + delivery_day.getDate() + " " + months[delivery_day.getMonth()];
         },1000)
 
     </script>
+    </c:if>
 
 
     <jsp:include page="footererightcollum.jsp"/>

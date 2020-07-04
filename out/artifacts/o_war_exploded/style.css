@@ -646,7 +646,7 @@ a.remove_button:hover{
 
 @media screen and (max-width: 700px) {
 
-/* ---------- INIZIO DROPDOWN VERSIONE MOBILE ---------- */
+  /* ---------- INIZIO DROPDOWN VERSIONE MOBILE ---------- */
 
   .righttopnav {
     display: contents;

@@ -47,6 +47,16 @@ descrizione mediumtext not null,
 primary key(id)
 );
 
+CREATE TABLE `login` (
+  `id` char(36) NOT NULL,
+  `idutente` int(11) NOT NULL,
+  `token` char(36) NOT NULL,
+  `time` timestamp NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY (`idutente`),
+  CONSTRAINT FOREIGN KEY (`idutente`) REFERENCES `utente` (`id`)
+);
+
 CREATE TABLE libro_categoria(
 ISBN varchar(14),
 id int,
@@ -58,7 +68,7 @@ primary key(isbn,id)
 CREATE TABLE libro_preferito(
 ISBN varchar(14),
 id int,
-FOREIGN KEY (id) REFERENCES categoria(id) on update cascade on delete cascade,
+FOREIGN KEY (id) REFERENCES utente(id) on update cascade on delete cascade,
 FOREIGN KEY (isbn) REFERENCES libro(isbn) on update cascade on delete cascade,
 primary key(isbn,id)
 );
@@ -237,3 +247,7 @@ UNLOCK TABLES;
 SELECT isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina FROM libro ;
 
 select * from utente;
+
+select * from libro_preferito;
+
+SELECT libro.isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina FROM libro,libro_preferito,utente WHERE libro.isbn=libro_preferito.isbn and utente.id=libro_preferito.id and libro.isbn=? and utente.id=?;

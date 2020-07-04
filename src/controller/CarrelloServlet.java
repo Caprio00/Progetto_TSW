@@ -1,6 +1,8 @@
 package controller;
 
 import model.Carrello;
+import model.Libro;
+import model.LibroDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,12 +17,19 @@ public class CarrelloServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if(session.getAttribute("carrello")== null){
-            Carrello carrello= new Carrello();
-            session.setAttribute("carrello",carrello);
-        }else{
-
+        Carrello carrello= null;
+        if(request.getParameter("id")!=null) {
+            if (session.getAttribute("carrello") == null) {
+                carrello = new Carrello();
+            } else {
+                carrello = (Carrello) session.getAttribute("carrello");
+            }
+            LibroDAO libroDAO = new LibroDAO();
+            Libro libro = libroDAO.doRetrieveByIsbn(request.getParameter("id"));
+            carrello.setLibro(libro);
+            session.setAttribute("carrello", carrello);
         }
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/carrello.jsp");
         dispatcher.forward(request,response);
     }
