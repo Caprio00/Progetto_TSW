@@ -27,8 +27,8 @@
         </div>
         <div class="card buybox">
             <div class="book">
-            <h3 id="tempo"></h3>
                 <c:if test = "${utente == null || (utente != null && utente.admin == false)}">
+            <h3 id="tempo"></h3>
             <a href="" class="button">Aggiungi al carrello</a>
                 </c:if>
                 <c:if test = "${utente != null && utente.admin == false && preferiti == null}">
@@ -57,6 +57,7 @@
         </div>
     </div>
 
+    <c:if test = "${utente == null || (utente != null && utente.admin == false)}">
     <script>
         setInterval(()=>{
             let now = new Date();
@@ -104,6 +105,7 @@
         },1000)
 
     </script>
+    </c:if>
 
 
     <jsp:include page="footererightcollum.jsp"/>
