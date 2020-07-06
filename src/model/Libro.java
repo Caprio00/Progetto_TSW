@@ -22,6 +22,7 @@ public class Libro {
 	private String path;
 	private List<Categoria> categorie;
 	private String sdescrizione;
+	private int quantitaCarrello;
 
 	public List<Categoria> getCategorie(){
 		return categorie;
@@ -136,6 +137,14 @@ public class Libro {
 
 	public void setNumero_disponibili(int numero_disponibili) {
 		this.numero_disponibili = numero_disponibili;
+	}
+
+	public void setQuantitaCarrello(int quantitaCarrello) {
+		this.quantitaCarrello = quantitaCarrello;
+	}
+
+	public int getQuantitaCarrello() {
+		return quantitaCarrello;
 	}
 
 	@Override
