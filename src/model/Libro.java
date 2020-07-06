@@ -22,6 +22,7 @@ public class Libro {
 	private String path;
 	private List<Categoria> categorie;
 	private String sdescrizione;
+	private String ssDescrizione;
 	private int quantitaCarrello;
 
 	public List<Categoria> getCategorie(){
@@ -68,12 +69,18 @@ public class Libro {
 		return sdescrizione;
 	}
 
+	public String getSSDescrizione() {
+		return ssDescrizione;
+	}
+
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 		if(descrizione.length() <=250) {
 			sdescrizione = descrizione;
+			ssDescrizione = descrizione.substring(0,130) + "...";
 		}else {
 			sdescrizione = descrizione.substring(0,250) + "...";
+			ssDescrizione = descrizione.substring(0,130) + "...";
 		}
 
 	}

@@ -21,14 +21,15 @@ public class ModificaCarrelloServlet extends HttpServlet {
             int disponibili = 0;
         int prezzoTotaleProdotto = 0;
         int quantita = 0;
-        try{
+        quantita = Integer.parseInt(request.getParameter("quantita"));
+        /*try{
            quantita = Integer.parseInt(request.getParameter("quantita"));
         }
         catch (NumberFormatException er){
             throw new MyServletException(
                     "Errore aggiornamento quantità"
             );
-        }
+        }*/
             if(quantita<= 0){
                 quantita =1;
             }

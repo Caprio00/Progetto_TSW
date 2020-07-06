@@ -513,13 +513,10 @@ a.button:hover{
   margin-top: 0;
 }
 
-#title_mobile{
-  display: none;
-}
-
 .card.info_page{
   display: inline-flex;
   width: 80%;
+  padding-left: 0;
 }
 
 .card.cartbox{
@@ -547,14 +544,22 @@ a.button:hover{
   font-size: 13px;
 }
 
+.product_page img{
+  max-height: 175px;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
 .quantity{
   float: right;
 }
 
-.quantity input[type=text]{
-  width:100%;
-  padding: 5px 5px;
-  margin-bottom: 10px;
+.quantita {
+  width:78px !important;
+  padding: 5px 5px !important;
+  margin-bottom: 10px !important;
+  text-align: right;
 }
 
 a.remove_button{
@@ -572,6 +577,10 @@ a.remove_button{
 a.remove_button:hover{
   background-color: white;
   color: #2d2c2a;
+}
+
+#descrizione_corta{
+  display: none;
 }
 
 /* -------------------- FINE CORPO PAGINA CARRELLO -------------------- */
@@ -743,27 +752,34 @@ a.remove_button:hover{
     width: 100%;
   }
 
-  #title_mobile{
-    display: block;
-    text-align: center;
-    width: 100%;
-  }
-
   .product_page{
     display: block;
   }
 
-  .product_info{
-    display: none;
-  }
-
   .card.info_page{
-    width: 60%;
+    padding: 0;
+    margin: 0;
+    width: 70%;
   }
 
   .card.cartbox{
-    width: 35%;
+    width: 25%;
     padding-right: 0;
+  }
+
+  .product_page img{
+    max-height: 120px;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+  }
+
+  #descrizione_normale{
+    display: none;
+  }
+
+  #descrizione_corta{
+    display: block;
   }
 }
 

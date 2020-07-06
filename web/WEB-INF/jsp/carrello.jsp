@@ -18,19 +18,19 @@
         <c:if test = "${carrello.libro.size() > 0}">
             <c:forEach items="${carrello.getLibro()}" var="libro">
                 <div class="card">
-                    <h4 id="title_mobile">${libro.getTitolo()}</h4>
                     <div class="product_page">
                         <div class="card info_page cart">
                             <img src="./img/${libro.path}" alt="libro" height="215px" class="image" />
                             <div class="product_info">
                                 <p class="title">${libro.getTitolo()}</p>
-                                <p class="descrizione">${libro.getDescrizione()}</p>
+                                <p class="descrizione" id="descrizione_normale">${libro.getSdescrizione()}</p>
+                                <p class="descrizione" id="descrizione_corta">${libro.getSSDescrizione()}</p>
                             </div>
                         </div>
                         <div class="card cartbox cart">
                             <p id="prezzoProdotto${libro.getIsbn()}" class="price_view">${carrello.convertiEuro(libro.prezzo*libro.getQuantitaCarrello())} €</p>
                             <div class="quantity">
-                                <input id="modificaQuantita${libro.getIsbn()}" type="text" value="${libro.getQuantitaCarrello()}"
+                                <input class="quantita" id="modificaQuantita${libro.getIsbn()}" type="number" value="${libro.getQuantitaCarrello()}"
                                 <c:if test="${libro.getTipo().equals('ebook')}">
                                         disabled
                                 </c:if>>
@@ -57,13 +57,9 @@
 
     <script>
         $(document).ready(function(){
-            if(quantita<=0 || quantita==""){
-                $("#modificaQuantita"+ id).val("1");
-            }
         $("input").change((event)=>{
             let id = (event.target.id).slice(16,event.target.id.lenght);
             let quantita = (event.target.value);
-            let idPrezzo = "prezzoProdotto" + id;
             $.ajax({
                 url : "ModificaCarrello",
                 data : {
@@ -92,6 +88,9 @@
                     console.log(quantita, disponibili);
                     if(disponibili<=quantita){
                         $("#modificaQuantita"+ id).val("" + disponibili);
+                    }
+                    if(quantita<=0 || quantita==""){
+                        $("#modificaQuantita"+ id).val("1");
                     }
                 }
             })
