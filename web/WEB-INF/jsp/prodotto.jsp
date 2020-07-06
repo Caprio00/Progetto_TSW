@@ -29,7 +29,7 @@
             <div class="book">
                 <c:if test = "${utente == null || (utente != null && utente.admin == false)}">
             <h3 id="tempo"></h3>
-            <a href="" class="button">Aggiungi al carrello</a>
+            <a href="carrello?id=${libro.isbn}" class="button">Aggiungi al carrello</a>
                 </c:if>
                 <c:if test = "${utente != null && utente.admin == false && preferiti == null}">
             <a href="addpreferito?id=${libro.isbn}" class="button">Aggiungi ai preferiti</a>
