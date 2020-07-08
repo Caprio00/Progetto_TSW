@@ -242,7 +242,7 @@ public class LibroDAO {
 
 	private static ArrayList<Categoria> getCategorie(Connection con, String isbn) throws SQLException {
 		PreparedStatement ps = con.prepareStatement(
-				"SELECT categoria.id, nome, descrizione FROM categoria LEFT JOIN libro_categoria ON libro_categoria.id=categoria.id WHERE isbn=?");
+				"SELECT categoria.id, nome, descrizione FROM categoria,libro_categoria where libro_categoria.id=categoria.id and isbn=?");
 		ps.setString(1, isbn);
 		ArrayList<Categoria> categorie = new ArrayList<>();
 		ResultSet rs = ps.executeQuery();

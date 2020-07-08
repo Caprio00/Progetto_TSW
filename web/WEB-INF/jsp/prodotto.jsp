@@ -69,7 +69,9 @@
             <h3>Anno di pubblicazione:</h3>
             <p class="description">${libro.anno_pubblicazione}</p><hr>
             <h3>Pagine:</h3>
-            <p class="description">${libro.numero_pagine}</p>
+            <p class="description">${libro.numero_pagine}</p><hr>
+            <h3>Categoria/e:</h3>
+            <p class="description">${libro.categoriestring}</p><br>
         </div>
     </div>
 

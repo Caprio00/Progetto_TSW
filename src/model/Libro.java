@@ -24,6 +24,8 @@ public class Libro {
 	private String sdescrizione;
 	private String ssDescrizione;
 	private int quantitaCarrello;
+	private String categoriestring;
+
 
 	public List<Categoria> getCategorie(){
 		return categorie;
@@ -31,10 +33,20 @@ public class Libro {
 
 	public void setCategorie(List<Categoria> c){
 		categorie=c;
+		categoriestring = "";
+		for(int i=0;i<c.size();i++){
+			categoriestring = categoriestring + c.get(i).getNome();
+			if (i != c.size() -1)
+			categoriestring = categoriestring + ",";
+		}
 	}
 
 	public String getIsbn() {
 		return isbn;
+	}
+
+	public String getCategoriestring() {
+		return categoriestring;
 	}
 
 	public String getNumberisbn() {
