@@ -5,6 +5,7 @@
 <jsp:include page="header.jsp">
     <jsp:param name="pageTitle" value="${titolo}"/>
 </jsp:include>
+
 <div class="card ricerca_mobile">
     <%@include file="search.html" %>
 </div>
@@ -13,9 +14,13 @@
         <div class="card profile">
             <h2>${titolo}</h2>
         </div>
+        <div class="card">${errore}</div>
         <div class="card">
             <div class="contact-container">
-                <form enctype="multipart/form-data" method="post" id="addlibro">
+                <form enctype="multipart/form-data"  action="caricalibro" method="post" id="addlibro">
+                    <c:if test = "${libro.numberisbn != null}">
+                    <input type="hidden" name="edit" value="${libro.numberisbn}">
+                    </c:if>
                     <div class="row">
                         <div class="col-25">
                             <label for="titolo">Titolo*</label></div>
@@ -57,11 +62,30 @@
                                         name="npage"
                                         placeholder="Numero pagine"
                                         value="${libro.numero_pagine}"
+                                        min="1"
                                         required
                                 />
                             </div>
                         </div>
                     <div class="row">
+                        <div class="col-25">
+                            <label for="prezzo">Prezzo*</label>
+                        </div>
+                        <div class="col-75">
+                            <input
+                                    type="number"
+                                    id="prezzo"
+                                    name="prezzo"
+                                    placeholder="Prezzo"
+                                    value="${libro.getPrezzoEuroNo()}"
+                                    step=0.01
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <c:if test = "${libro== null || libro.tipo == \"cartaceo\"}">
+                    <div class="row">
+
                         <div class="col-25">
                             <label for="ndisp">Numero libri disponibili*</label>
                         </div>
@@ -72,25 +96,32 @@
                                     name="ndisp"
                                     placeholder="Numero libri disponibili"
                                     value="${libro.numero_disponibili}"
+                                    min="1"
                                     required
                             />
                         </div>
                     </div>
+                    </c:if>
+                    <c:if test = "${libro.numberisbn == null}">
                     <div class="row">
                         <div class="col-25">
                             <label for="isbn">ISBN*</label>
                         </div>
+
                         <div class="col-75">
                             <input
-                                    type="number"
+                                    type="text"
                                     id="isbn"
                                     name="isbn"
                                     placeholder="ISBN"
                                     value="${libro.numberisbn}"
                                     required
+                                    pattern="^[0-9]{13}$" title="L'isbn deve essere lungo 13 caratteri e contenere solo numeri"
                             />
                         </div>
+
                     </div>
+                    </c:if>
                         <div class="row">
                             <div class="col-25">
                                 <label for="anno">Anno di pubblicazione*</label>
@@ -106,34 +137,36 @@
                                 />
                             </div>
                         </div>
+                    <c:if test = "${libro.numberisbn == null}">
                     <div class="row">
                         <div class="col-25">
                             <label for="tipo">Formato*</label>
                         </div>
                         <div class="col-75">
                             <select name="tipo" id="tipo">
-                                <option value="Cartaceo" <c:if test = "${libro != null && libro.tipo == \"Cartaceo\"}">selected</c:if>>Cartaceo</option>
-                                <option value="eBook" <c:if test = "${libro != null && libro.tipo == \"eBook\"}">selected</c:if>>eBook</option>
+                                <option value="cartaceo" <c:if test = "${libro != null && libro.tipo == \"cartaceo\"}">selected</c:if>>Cartaceo</option>
+                                <option value="ebook" <c:if test = "${libro != null && libro.tipo == \"ebook\"}">selected</c:if>>eBook</option>
                             </select>
                         </div>
                     </div>
+                    </c:if>
                         <div class="row">
                             <div class="col-25">
                                 <label for="img">Carica copertina*</label>
                             </div>
                             <div class="col-75">
-                                <input type="file"  onchange="return valida()" name="img" id="img" accept="image/*" required/>
+                                <input type="file"  onchange="valida()" name="img" id="img" accept="image/*" <c:if test = "${libro.numberisbn == null}">required</c:if>>
                                 <p id="progressNumber"></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-25">
-                                <label for="subject" >Descrizione libro*</label>
+                                <label for="descrizione" >Descrizione libro*</label>
                             </div>
                             <div class="col-75">
                   <textarea
-                          id="subject"
-                          name="subject"
+                          id="descrizione"
+                          name="descrizione"
                           placeholder="Scrivi qui"
                           style="height: 200px;"
                           required
@@ -145,32 +178,36 @@
                             <label id="categoria">Categoria(Puoi anche inserirne più di una)*</label>
                         </div>
                         <div class="col-75">
+                            <c:forEach items="${cecked}" var="cecked">
+                                <input type="checkbox" id="${cecked.id}" name="${cecked.id}" value="${cecked.id}" checked>
+                                <label for="${cecked.id}">${cecked.nome}</label><br>
+                            </c:forEach>
                             <c:forEach items="${categorie}" var="categoria">
-                            <input type="checkbox" id="${categoria.id}" name="${categoria.id}" value="${categoria.nome}">
+                            <input type="checkbox" id="${categoria.id}" name="${categoria.id}" value="${categoria.id}">
                                 <label for="${categoria.id}">${categoria.nome}</label><br>
                             </c:forEach>
                         </div>
                     </div>
                         <div class="row">
-                            <input id="contatti"  onclick="uploadFile()" type="submit" value="Pubblica"/>
+                            <input id="contatti" type="submit" value="Pubblica"/>
                         </div>
                 </form>
                 <h5 class="check">I campi segnati con * sono obbligatori</h5>
             </div>
         </div>
     </div>
-    <script>$(document).ready(function(){
-        if($('#tipo').val() == "eBook"){
+    <script> $(document).ready(function(){<c:if test = "${libro.numberisbn == null}">
+        if($('#tipo').val() == "ebook"){
             $('#ndisp').prop('required',false);
             $('#ndisp').prop('disabled',true);
         }else{$('#ndisp').prop('disabled',false);$('#ndisp').prop('required',true);}
 
         $('#tipo').change( function() {
-            if($('#tipo').val() == "eBook"){
+            if($('#tipo').val() == "ebook"){
                 $('#ndisp').prop('required',false);
                 $('#ndisp').prop('disabled',true);
             }else{$('#ndisp').prop('disabled',false);$('#ndisp').prop('required',true);}});
-
+        </c:if>
 
 
                 $('#addlibro').submit(function() {
@@ -185,59 +222,24 @@
                 });
 
 
-        function valida() {
-            var fileInput =
-                document.getElementById('img');
+    });
 
-            var filePath = fileInput.value;
 
-            var allowedExtensions =
-                /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+    function valida() {
+        var fileInput =
+            document.getElementById('img');
 
-            if (!allowedExtensions.exec(filePath)) {
-                alert('Tipo di file non valido');
-                fileInput.value = '';
-                return false;
-            }
+        var filePath = fileInput.value;
 
+        var allowedExtensions =
+            /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+
+        if (!allowedExtensions.exec(filePath)) {
+            alert('Tipo di file non valido');
+            fileInput.value = '';
+            return false;
         }
 
-        function uploadFile() {
-            var fd = new FormData();
-            fd.append("img", document.getElementById('img').files[0]);
-            var xhr = new XMLHttpRequest();
-            xhr.upload.addEventListener("progress", uploadProgress, false);
-            xhr.addEventListener("load", uploadComplete, false);
-            xhr.addEventListener("error", uploadFailed, false);
-            xhr.addEventListener("abort", uploadCanceled, false);
-            xhr.open("POST", "uploadImage", true);
-            xhr.send(fd);
-        }
-
-        function uploadProgress(evt) {
-            if (evt.lengthComputable) {
-                var percentComplete = Math.round(evt.loaded * 100 / evt.total);
-                document.getElementById('progressNumber').innerHTML = percentComplete.toString() + '%';
-            }
-            else {
-                document.getElementById('progressNumber').innerHTML = 'unable to compute';
-            }
-        }
-
-        function uploadComplete(evt) {
-            /* This event is raised when the server send back a response */
-            alert(evt.target.responseText);
-        }
-
-        function uploadFailed(evt) {
-            alert("There was an error attempting to upload the file.");
-        }
-
-        function uploadCanceled(evt) {
-            alert("The upload has been canceled by the user or the browser dropped the connection.");
-        }
-
-
-    });</script>
+    }</script>
     <jsp:include page="footererightcollum.jsp"/>
 

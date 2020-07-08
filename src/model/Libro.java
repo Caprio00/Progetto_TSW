@@ -62,7 +62,6 @@ public class Libro {
 		}else{
 			this.isbn = isbn;
 		}
-
 	}
 
 	public String getTitolo() {
@@ -87,15 +86,19 @@ public class Libro {
 
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
-		if(descrizione.length() <=250) {
-			sdescrizione = descrizione;
-			ssDescrizione = descrizione.substring(0,130) + "...";
-		}else {
+		if(descrizione.length() > 250) {
 			sdescrizione = descrizione.substring(0,250) + "...";
 			ssDescrizione = descrizione.substring(0,130) + "...";
+		} else if(descrizione.length() > 130) {
+			sdescrizione = descrizione;
+			ssDescrizione = descrizione.substring(0,130) + "...";;
+		}else {
+			sdescrizione = descrizione;
+			ssDescrizione = descrizione;
 		}
-
 	}
+
+	public String getPrezzoEuroNo(){return String.valueOf(((float)prezzo/100));}
 
 	public String getAutore() {
 		return autore;

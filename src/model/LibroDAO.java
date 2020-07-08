@@ -55,6 +55,11 @@ public class LibroDAO {
 
 
 	public Libro doRetrieveByIsbn(String isbn) {
+		if(isbn.contains("-")== false){
+			String a = isbn.substring(0,3);
+			String b = isbn.substring(3);
+			isbn = a+"-"+ b;
+		}
 		try (Connection con = ConPool.getConnection()) {
 			PreparedStatement ps = con
 					.prepareStatement("SELECT isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina FROM libro WHERE isbn=?");
@@ -155,31 +160,47 @@ public class LibroDAO {
 	}
 
 	public void doSave(Libro libro) {
+
 		try (Connection con = ConPool.getConnection()) {
+			if(libro.getTipo().equals("carataceo")){
 			PreparedStatement ps = con.prepareStatement(
-					"INSERT INTO libro(tipo,anno_pubblicazione,numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina) VALUES (?,?,?,?,?,?,?,?,?,?)",
+					"INSERT INTO libro(tipo,anno_pubblicazione,numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina,isbn) VALUES (?,?,?,?,?,?,?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1,libro.getTipo());
-			ps.setInt(2,libro.getAnno_pubblicazione());
-			ps.setInt(3,libro.getNumero_pagine());
-			ps.setInt(4,libro.getPrezzo());
-			ps.setInt(5,libro.getNumero_disponibili());
-			ps.setString(6,libro.getDescrizione());
-			ps.setString(7,libro.getAutore());
-			ps.setString(8,libro.getTitolo());
-			ps.setString(9,libro.getPath());
+			ps.setString(1, libro.getTipo());
+			ps.setInt(2, libro.getAnno_pubblicazione());
+			ps.setInt(3, libro.getNumero_pagine());
+			ps.setInt(4, libro.getPrezzo());
+			ps.setInt(5, libro.getNumero_disponibili());
+			ps.setString(6, libro.getDescrizione());
+			ps.setString(7, libro.getAutore());
+			ps.setString(8, libro.getTitolo());
+			ps.setString(9, libro.getPath());
+			ps.setString(10, libro.getIsbn());
 			if (ps.executeUpdate() != 1) {
 				throw new RuntimeException("INSERT error.");
 			}
-			ResultSet rs = ps.getGeneratedKeys();
-			rs.next();
-			String isbn = rs.getString(1);
-			libro.setIsbn(isbn);
+		}else{
+				PreparedStatement ps = con.prepareStatement(
+						"INSERT INTO libro(tipo,anno_pubblicazione,numero_pagine,prezzo,descrizione,autore,titolo,copertina,isbn) VALUES (?,?,?,?,?,?,?,?,?)",
+						Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, libro.getTipo());
+				ps.setInt(2, libro.getAnno_pubblicazione());
+				ps.setInt(3, libro.getNumero_pagine());
+				ps.setInt(4, libro.getPrezzo());
+				ps.setString(5, libro.getDescrizione());
+				ps.setString(6, libro.getAutore());
+				ps.setString(7, libro.getTitolo());
+				ps.setString(8, libro.getPath());
+				ps.setString(9, libro.getIsbn());
+				if (ps.executeUpdate() != 1) {
+					throw new RuntimeException("INSERT error.");
+				}
+			}
 
 			PreparedStatement psCa = con
 					.prepareStatement("INSERT INTO libro_categoria (isbn, id) VALUES (?, ?)");
 			for (Categoria c : libro.getCategorie()) {
-				psCa.setString(1, isbn);
+				psCa.setString(1, libro.getIsbn());
 				psCa.setInt(2, c.getId());
 				psCa.addBatch();
 			}
@@ -189,44 +210,62 @@ public class LibroDAO {
 		}
 	}
 
-	/*public void doUpdate(Libro libro) {
+	public void doUpdate(Libro libro) {
 		try (Connection con = ConPool.getConnection()) {
-			PreparedStatement ps = con
-					.prepareStatement("UPDATE prodotto SET nome=?, descrizione=?, prezzoCent=? WHERE id=?");
-			ps.setString(1, libro.getNome());
-			ps.setString(2, libro.getDescrizione());
-			ps.setLong(3, libro.getPrezzoCent());
-			ps.setInt(4, libro.getId());
-			if (ps.executeUpdate() != 1) {
-				throw new RuntimeException("UPDATE error.");
-			}
-
-			if (libro.getCategorie().isEmpty()) {
-				PreparedStatement psCaDel = con.prepareStatement("DELETE FROM prodotto_categoria WHERE idprodotto=?");
-				psCaDel.setInt(1, libro.getId());
-				psCaDel.executeUpdate();
-			} else {
-				PreparedStatement psCaDel = con
-						.prepareStatement("DELETE FROM prodotto_categoria WHERE idprodotto=? AND idcategoria NOT IN ("
-								+ libro.getCategorie().stream().map(c -> String.valueOf(c.getId()))
-										.collect(Collectors.joining(","))
-								+ ")");
-				psCaDel.setInt(1, libro.getId());
-				psCaDel.executeUpdate();
-
-				PreparedStatement psCa = con.prepareStatement(
-						"INSERT IGNORE INTO prodotto_categoria (idprodotto, idcategoria) VALUES (?, ?)");
-				for (Categoria c : libro.getCategorie()) {
-					psCa.setInt(1, libro.getId());
-					psCa.setInt(2, c.getId());
-					psCa.addBatch();
+			if(libro.getTipo().equals("carataceo")){
+				PreparedStatement ps = con.prepareStatement(
+						"UPDATE  libro SET tipo=?, anno_pubblicazione=?,numero_pagine=?,prezzo=?,numero_disponibili=?,descrizione=?,autore=?,titolo=?,copertina=?) WHERE ISBN=?",
+						Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, libro.getTipo());
+				ps.setInt(2, libro.getAnno_pubblicazione());
+				ps.setInt(3, libro.getNumero_pagine());
+				ps.setInt(4, libro.getPrezzo());
+				ps.setInt(5, libro.getNumero_disponibili());
+				ps.setString(6, libro.getDescrizione());
+				ps.setString(7, libro.getAutore());
+				ps.setString(8, libro.getTitolo());
+				ps.setString(9, libro.getPath());
+				ps.setString(10, libro.getIsbn());
+				if (ps.executeUpdate() != 1) {
+					throw new RuntimeException("INSERT error.");
 				}
-				psCa.executeBatch();
+			}else{
+				PreparedStatement ps = con.prepareStatement(
+						"UPDATE  libro SET tipo=?, anno_pubblicazione=?,numero_pagine=?,prezzo=?,numero_disponibili=?,descrizione=?,autore=?,titolo=?,copertina=? WHERE ISBN=?",
+						Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, libro.getTipo());
+				ps.setInt(2, libro.getAnno_pubblicazione());
+				ps.setInt(3, libro.getNumero_pagine());
+				ps.setInt(4, libro.getPrezzo());
+				ps.setInt(5,libro.getNumero_disponibili());
+				ps.setString(6, libro.getDescrizione());
+				ps.setString(7, libro.getAutore());
+				ps.setString(8, libro.getTitolo());
+				ps.setString(9, libro.getPath());
+				ps.setString(10, libro.getIsbn());
+				if (ps.executeUpdate() != 1) {
+					throw new RuntimeException("INSERT error.");
+				}
 			}
+
+			PreparedStatement psCa2 = con
+					.prepareStatement("DELETE FROM libro_categoria WHERE isbn=?");
+			psCa2.setString(1, libro.getIsbn());
+			psCa2.executeUpdate();
+
+			PreparedStatement psCa = con
+					.prepareStatement("INSERT INTO libro_categoria (isbn, id) VALUES (?, ?)");
+			for (Categoria c : libro.getCategorie()) {
+				psCa.setString(1, libro.getIsbn());
+				psCa.setInt(2, c.getId());
+				psCa.addBatch();
+			}
+			psCa.executeBatch();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-	}*/
+	}
+
 
 	public void doDelete(String isbn) {
 		try (Connection con = ConPool.getConnection()) {
@@ -235,6 +274,9 @@ public class LibroDAO {
 			if (ps.executeUpdate() != 1) {
 				throw new RuntimeException("DELETE error.");
 			}
+			PreparedStatement psCa = con.prepareStatement("DELETE FROM libro_categoria WHERE isbn=?");
+			psCa.setString(1, isbn);
+			psCa.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

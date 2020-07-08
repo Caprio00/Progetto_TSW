@@ -4,6 +4,17 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+input:valid{
+  border: 2px dashed green;
+}
+
+input:invalid {
+  border: 2px dashed red;
+}
+input:invalid:focus {
+  border: 2px dashed red;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
