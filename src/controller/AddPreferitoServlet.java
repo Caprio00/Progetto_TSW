@@ -1,5 +1,6 @@
 package controller;
 
+import model.LibroDAO;
 import model.Preferito;
 import model.PreferitoDAO;
 import model.Utente;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/addpreferito")
+@WebServlet("/addremovepreferito")
 public class AddPreferitoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
@@ -23,15 +24,31 @@ public class AddPreferitoServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Utente user = (Utente) session.getAttribute("utente");
         String isbn = request.getParameter("id");
+        String flag = request.getParameter("flag");
+        LibroDAO ldao = new LibroDAO();
         if(user != null && user.isAdmin() == false) {
             PreferitoDAO dao = new PreferitoDAO();
-            Preferito n = new Preferito();
-            n.setUtente(user.getId());
-            n.setLibro(isbn);
-            dao.add(n);
-            response.sendRedirect("preferiti");
+            if(ldao.doRetrieveByIsbn(isbn) == null){
+                return;
+            }else if(flag.equals("0")) {
+                Preferito n = new Preferito();
+                n.setUtente(user.getId());
+                n.setLibro(isbn);
+                dao.add(n);
+                response.setContentType("application/text");
+                response.getWriter().append("0");
+            }else if(flag.equals("1")){
+                Preferito n = new Preferito();
+                n.setUtente(user.getId());
+                n.setLibro(isbn);
+                dao.remove(n);
+                response.setContentType("application/text");
+                response.getWriter().append("1");
+            }else{
+                return;
+            }
         }else{
-            throw new MyServletException("Errore!");
+            return;
         }
     }
 }

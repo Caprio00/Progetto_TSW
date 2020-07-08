@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/RimuoviCarrelloServlet")
+@WebServlet("/rimuovicarrello")
 public class RimuoviCarrelloServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,9 +29,8 @@ public class RimuoviCarrelloServlet extends HttpServlet {
             }
             carrello.aggiornaTotProdotti();
             request.getSession().setAttribute("carrello", carrello);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/carrello.jsp");
-            dispatcher.forward(request,response);
+            response.setContentType("text/plain");
+            response.getWriter().write ("ok" + " " + carrello.convertiEuro(carrello.getTotaleNetto()) + " " + carrello.convertiEuro(carrello.getIva())  + " " + carrello.convertiEuro(carrello.getTotale()) + " " + carrello.convertiEuro(carrello.getCostoSpedizione()) + " " + carrello.convertiEuro(carrello.getTotaleLordo()) + " " + carrello.getTotprodotti());
         } catch(NumberFormatException er){
             throw  new MyServletException("Libro non trovato");
         }

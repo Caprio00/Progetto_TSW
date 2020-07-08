@@ -526,7 +526,6 @@ a.button:hover{
 }
 
 .product_info {
-  text-align: justify;
   display: inline-block;
   margin-left: 10px;
 }
@@ -644,7 +643,6 @@ a.remove_button:hover{
   }
 
   #cerca{
-    width: 20%;
     font-size: 15px;
   }
 
