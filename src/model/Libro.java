@@ -196,11 +196,11 @@ public class Libro {
 				getAnno_pubblicazione() == libro.getAnno_pubblicazione() &&
 				getNumero_pagine() == libro.getNumero_pagine() &&
 				getNumero_disponibili() == libro.getNumero_disponibili() &&
-				Objects.equals(getTitolo(), libro.getTitolo()) &&
-				Objects.equals(getDescrizione(), libro.getDescrizione()) &&
-				Objects.equals(getTipo(), libro.getTipo()) &&
-				Objects.equals(getDescrizione(), libro.getDescrizione()) &&
-				Objects.equals(getAutore(), libro.getAutore()) &&
-				Objects.equals(getPath(), libro.getPath());
+				getTitolo().equals(libro.getTitolo()) &&
+				getDescrizione().equals(libro.getDescrizione()) &&
+				getTipo().equals(libro.getTipo()) &&
+				getDescrizione().equals(libro.getDescrizione()) &&
+				getAutore().equals(libro.getAutore()) &&
+				getPath().equals(libro.getPath());
 	}
 }

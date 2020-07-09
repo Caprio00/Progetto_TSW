@@ -17,14 +17,12 @@ public class CarrelloServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Carrello carrello= null;
+        Carrello carrello= (Carrello) session.getAttribute("carrello");
+        LibroDAO libroDAO = new LibroDAO();
         if(request.getParameter("id")!=null) {
             if (session.getAttribute("carrello") == null) {
                 carrello = new Carrello();
-            } else {
-                carrello = (Carrello) session.getAttribute("carrello");
             }
-            LibroDAO libroDAO = new LibroDAO();
             Libro libro = libroDAO.doRetrieveByIsbn(request.getParameter("id"));
             if(carrello.getLibro().size() == 0){
                 carrello.setLibro(libro);
@@ -36,16 +34,40 @@ public class CarrelloServlet extends HttpServlet {
                        throw new MyServletException("Errore");
                     }
                 }
-                    carrello.setLibro(libro);
+                carrello.setLibro(libro);
+                for( int i=0; i<carrello.getLibro().size(); i++){
+                    Libro temp = libroDAO.doRetrieveByIsbn(carrello.getLibro().get(i).getIsbn());
+                    if(temp == null){
+                        carrello.removeLibro(carrello.getLibro().get(i));
+                        i--;
+                    }else if(temp.equals(carrello.getLibro().get(i)) == false){
+                        carrello.removeLibro(carrello.getLibro().get(i));
+                        carrello.setLibro(temp);
+                    }
+                    }
+
                     session.setAttribute("carrello", carrello);
                     response.sendRedirect("carrello");
                     return;
             }
 
         }else {
+            if(carrello !=null ){
+                for( int i=0; i<carrello.getLibro().size(); i++){
+                    Libro temp = libroDAO.doRetrieveByIsbn(carrello.getLibro().get(i).getIsbn());
+                    if(temp == null){
+                        carrello.removeLibro(carrello.getLibro().get(i));
+                        i--;
+                    }else if(temp.equals(carrello.getLibro().get(i)) == false){
+                        carrello.removeLibro(carrello.getLibro().get(i));
+                        carrello.setLibro(temp);
+                    }
+                }
+            session.setAttribute("carrello", carrello);
+            }
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/carrello.jsp");
             dispatcher.forward(request, response);
-        }
+    }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

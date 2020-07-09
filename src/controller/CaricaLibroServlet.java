@@ -82,6 +82,7 @@ public class CaricaLibroServlet extends HttpServlet {
                 }
             }else{
                 prezzoint = Integer.parseInt(prezzo);
+                prezzoint = prezzoint * 100;
             }
         }catch (NumberFormatException er){
             errore = errore + "Il campo prezzo deve contenere solo numeri<br>";
@@ -89,7 +90,7 @@ public class CaricaLibroServlet extends HttpServlet {
         if(numeroDisponibili != null && numeroDisponibili.length() == 0 && formato.equals("cartaceo")){
             errore = errore + "Il campo numero disponibili non può essere vuoto<br>";
         }
-        if(numeroDisponibili == null && formato.equals("ebook")){
+        if(numeroDisponibili == null){
             numeroDisponibili = "0";
         }
         if(numeroDisponibili != null){
@@ -170,7 +171,7 @@ public class CaricaLibroServlet extends HttpServlet {
         Part filePart = request.getPart("img");
         if(filePart.getSize() == 0 && edit == null){
             errore = errore + "Non hai inserito alcuna copertina<br>";
-        }else if(filePart.getContentType().endsWith("jpg") == false && filePart.getContentType().endsWith("jpeg") == false && filePart.getContentType().endsWith("png") == false){
+        }else if(edit == null && filePart.getContentType().endsWith("jpg") == false && filePart.getContentType().endsWith("jpeg") == false && filePart.getContentType().endsWith("png") == false){
             errore = errore + "La copertina non ha un estensione valida<br>";
         }
 
