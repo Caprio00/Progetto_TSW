@@ -19,14 +19,13 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession login = request.getSession();
-        RequestDispatcher requestDispatcher;
         if(login.getAttribute("utente")!= null){
-            requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/profilo.jsp");
+            response.sendRedirect("profilo");
         }
         else{
-         requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+            dispatcher.forward(request, response);
         }
-        requestDispatcher.forward(request, response);
     }
 
 
@@ -131,8 +130,7 @@ public class LoginServlet extends HttpServlet {
                     cookie.setMaxAge(30 * 24 * 60 * 60); // 30 giorni
                     response.addCookie(cookie);
                 }
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/profilo");
-                dispatcher.forward(request, response);
+                response.sendRedirect("profilo");
             }
             else {
                 request.setAttribute("errorserverlogin", "Username o password errati!");

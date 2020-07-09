@@ -168,12 +168,17 @@ public class CaricaLibroServlet extends HttpServlet {
         l.setCategorie(listCatform);
 
         Part filePart = request.getPart("img");
-        if(filePart.getSize() == 0 ){
-            if(edit == null){
-                errore = errore + "L'immagine non é stata caricata";
-                    throw new MyServletException(errore);
-            }
-        }else{
+        if(filePart.getSize() == 0 && edit == null){
+            errore = errore + "Non hai inserito alcuna copertina<br>";
+        }else if(filePart.getContentType().endsWith("jpg") == false && filePart.getContentType().endsWith("jpeg") == false && filePart.getContentType().endsWith("png") == false){
+            errore = errore + "La copertina non ha un estensione valida<br>";
+        }
+
+        if(errore.length() > 0) {
+                throw new MyServletException("Sono stati trovati i seguenti errori:<br><br>" + errore);
+        }
+
+        if(filePart.getSize() != 0){
             if(edit != null){
                 String destinazione = CARTELLA_UPLOAD + File.separator + l.getPath();
                 String pathDestinazione = Paths.get(getServletContext().getRealPath(destinazione)).toString();
@@ -197,9 +202,7 @@ public class CaricaLibroServlet extends HttpServlet {
             l.setPath(fileName);
         }
 
-        if(errore.length() > 0) {
-            throw new MyServletException(errore);
-        }else if(edit == null) {
+        if(edit == null) {
             ldao.doSave(l);
         }else if(edit !=null){
             ldao.doUpdate(l);

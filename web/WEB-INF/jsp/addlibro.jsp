@@ -276,7 +276,7 @@
         var filePath = fileInput.value;
 
         var allowedExtensions =
-            /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+            /(\.jpg|\.jpeg|\.png)$/i;
 
         if (!allowedExtensions.exec(filePath)) {
             alert('Tipo di file non valido');
