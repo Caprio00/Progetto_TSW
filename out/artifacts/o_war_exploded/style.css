@@ -4,6 +4,17 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+input:valid{
+  border: 2px dashed green;
+}
+
+input:invalid {
+  border: 2px dashed red;
+}
+input:invalid:focus {
+  border: 2px dashed red;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -238,7 +249,7 @@ input[type="submit"]:hover {
 
 #cerca{
   float: right;
-  width: 25%;
+  width: 27%;
 }
 
 /* ---------- FINE CARD DI RICERCA ---------- */
@@ -638,12 +649,10 @@ a.remove_button:hover{
     display: flow-root;
   }
 
-  input[type="search"] {
-    width: 75%;
-  }
-
   #cerca{
+    float: right;
     font-size: 15px;
+    width: 195px;
   }
 
 }
@@ -681,6 +690,7 @@ a.remove_button:hover{
     width: 100%;
   }
 
+  /* ---------- FINE DROPDOWN VERSIONE MOBILE ---------- */
   input[type="search"] {
     width: 100%;
   }
@@ -700,8 +710,6 @@ a.remove_button:hover{
     float: none;
     width: 100%;
   }
-
-  /* ---------- FINE DROPDOWN VERSIONE MOBILE ---------- */
 
   .contact-container .col-75 {
     float: none;

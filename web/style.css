@@ -249,7 +249,7 @@ input[type="submit"]:hover {
 
 #cerca{
   float: right;
-  width: 25%;
+  width: 27%;
 }
 
 /* ---------- FINE CARD DI RICERCA ---------- */
@@ -649,12 +649,9 @@ a.remove_button:hover{
     display: flow-root;
   }
 
-  input[type="search"] {
-    width: 75%;
-  }
-
   #cerca{
     font-size: 15px;
+    width: 195px;
   }
 
 }
@@ -692,6 +689,7 @@ a.remove_button:hover{
     width: 100%;
   }
 
+  /* ---------- FINE DROPDOWN VERSIONE MOBILE ---------- */
   input[type="search"] {
     width: 100%;
   }
@@ -712,8 +710,6 @@ a.remove_button:hover{
     width: 100%;
   }
 
-  /* ---------- FINE DROPDOWN VERSIONE MOBILE ---------- */
-
   .contact-container .col-75 {
     float: none;
     width: 100%;
@@ -730,6 +726,7 @@ a.remove_button:hover{
 
   .card.buybox{
     width: 100%;
+    padding-left: 0;
   }
 
   .card.bookbox_page{
