@@ -55,7 +55,7 @@ public class LibroDAO {
 
 
 	public Libro doRetrieveByIsbn(String isbn) {
-		if(isbn.contains("-")== false){
+		if(isbn.indexOf("-")<0){
 			String a = isbn.substring(0,3);
 			String b = isbn.substring(3);
 			isbn = a+"-"+ b;
@@ -162,7 +162,7 @@ public class LibroDAO {
 	public void doSave(Libro libro) {
 
 		try (Connection con = ConPool.getConnection()) {
-			if(libro.getTipo().equals("carataceo")){
+			if(libro.getTipo().equals("cartaceo")){
 			PreparedStatement ps = con.prepareStatement(
 					"INSERT INTO libro(tipo,anno_pubblicazione,numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina,isbn) VALUES (?,?,?,?,?,?,?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);

@@ -24,6 +24,7 @@
                                     id="username"
                                     name="username"
                                     placeholder="Nome utente"
+                                    autocomplete="on"
                                     required
                             />
                         </div>
@@ -69,6 +70,7 @@
                                         id="nome"
                                         name="nome"
                                         placeholder="Nome"
+                                        autocomplete="on"
                                         required
                                 />
                             </div>
@@ -83,6 +85,7 @@
                                         id="cognome"
                                         name="cognome"
                                         placeholder="Cognome"
+                                        autocomplete="on"
                                         required
                                 />
                             </div>
@@ -97,6 +100,7 @@
                                         id="usernamesubmit"
                                         name="usernamesubmit"
                                         placeholder="Nome utente"
+                                        autocomplete="on"
                                         required
                                 />
                             </div>
@@ -111,6 +115,7 @@
                                         id="email"
                                         name="email"
                                         placeholder="Email"
+                                        autocomplete="on"
                                         required
                                 />
                             </div>

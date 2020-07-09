@@ -14,7 +14,6 @@
         <div class="card profile">
             <h2>${titolo}</h2>
         </div>
-        <div class="card">${errore}</div>
         <div class="card">
             <div class="contact-container">
                 <form enctype="multipart/form-data"  action="caricalibro" method="post" id="addlibro">
@@ -105,7 +104,7 @@
                     <c:if test = "${libro.numberisbn == null}">
                     <div class="row">
                         <div class="col-25">
-                            <label for="isbn">ISBN*</label>
+                            <label id="lisbn" for="isbn">ISBN*</label>
                         </div>
 
                         <div class="col-75">
@@ -124,7 +123,7 @@
                     </c:if>
                         <div class="row">
                             <div class="col-25">
-                                <label for="anno">Anno di pubblicazione*</label>
+                                <label id="lanno" for="anno">Anno di pubblicazione*</label>
                             </div>
                             <div class="col-75">
                                 <input
@@ -152,7 +151,7 @@
                     </c:if>
                         <div class="row">
                             <div class="col-25">
-                                <label for="img">Carica copertina*</label>
+                                <label for="img">Carica copertina <c:if test = "${libro.numberisbn != null}">(Se non vuoi modificare la copertina lascia il campo vuoto)</c:if></label>
                             </div>
                             <div class="col-75">
                                 <input type="file"  onchange="valida()" name="img" id="img" accept="image/*" <c:if test = "${libro.numberisbn == null}">required</c:if>>
@@ -209,15 +208,60 @@
             }else{$('#ndisp').prop('disabled',false);$('#ndisp').prop('required',true);}});
         </c:if>
 
+        $('#isbn').change(function () {
+            $.get({url: "ceckisbn?id=" + $("#isbn").val(), success: function(result){
+                    if(result == "no"){
+                        $("#isbn").css("border","2px solid red");
+                        $("#lisbn").css("color","red");
+                        alert("Un libro con questo isbn esiste giá");
+                    }else{
+                        $("#isbn").css("border","2px solid green");
+                        $("#lisbn").css("color","black");
+                    }
+                }});
+
+        });
+
+        $('#anno').change(function () {
+            if (parseInt($("#anno").val()) > new Date().getFullYear()) {
+                $("#lanno").css("color", "red");
+                $("#anno").css("border","2px solid red");
+            }else{
+                $("#anno").css("border","2px solid green");
+                $("#lanno").css("color","black");
+            }
+        });
+
 
                 $('#addlibro').submit(function() {
+                    var errore = "Sono stati trovati i seguenti errori:\n\n";
+                    if(parseInt($("#anno").val()) > new Date().getFullYear()){
+                        $("#lanno").css("color", "red");
+                        $("#anno").css("border","2px solid red;");
+                        errore = errore + "L'anno inserito da te non é valido, l'anno deve essere inferiore alla date attuale\n";
+                    }
+
                     if ($("input[type=checkbox]").is(
                         ":checked")) {
-                        return true;
                     } else {
-                        alert("Devi selezionare almeno una categoria");
+                        errore = errore + "Devi selezionare almeno una categoria\n";
                         $("#categoria").css("color","red");
+                    }
+
+                    $.get({url: "ceckisbn?id=" + $("#isbn").val(), success: function(result){
+                        console.log(result);
+                            if(result == "no"){
+                                errore = errore + "Un libro con questo isbn esiste giá \n";
+                                $("#lisbn").css("color","red");
+                            }
+                        }});
+
+                    if(errore.length > 42){
+                        alert(errore);
+                        errore = "Sono stati trovati i seguenti errori:\n\n";
                         return false;
+                    }else{
+                        return true;
                     }
                 });
 

@@ -1,27 +1,19 @@
 package controller;
 
-import model.Categoria;
-import model.CategoriaDAO;
-import model.Libro;
-import model.LibroDAO;
+import model.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 
@@ -31,6 +23,9 @@ public class CaricaLibroServlet extends HttpServlet {
     private static final String CARTELLA_UPLOAD = "img";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Utente user = (Utente) session.getAttribute("utente");
+        if(user != null && user.isAdmin() ==  true){
         String titolo = request.getParameter("titolo");
         String autore = request.getParameter("autore");
         String numeroPagine = request.getParameter("npage");
@@ -122,7 +117,14 @@ public class CaricaLibroServlet extends HttpServlet {
             errore = errore + "Il campo anno pubblicazioni non può essere vuoto<br>";
         }
         try {
+            Date date =  new Date();
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"));
+            cal.setTime(date);
+            int year = cal.get(Calendar.YEAR);
             aPub = Integer.parseInt(annoPubblicazione);
+            if(aPub > year){
+                errore = errore + "L'anno inserito da te non é valido, l'anno deve essere inferiore alla date attuale<br>";
+            }
         } catch (NumberFormatException er){
             errore = errore + "Il campo anno pubblicazione deve contenere solo numeri<br>";
         }
@@ -172,18 +174,29 @@ public class CaricaLibroServlet extends HttpServlet {
                     throw new MyServletException(errore);
             }
         }else{
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        String destinazione = CARTELLA_UPLOAD + File.separator + fileName;
-        Path pathDestinazione = Paths.get(getServletContext().getRealPath(destinazione));
-        for (int i = 2; Files.exists(pathDestinazione); i++) {
-            destinazione = CARTELLA_UPLOAD + File.separator + i + "_" + fileName;
-            pathDestinazione = Paths.get(getServletContext().getRealPath(destinazione));
+            if(edit != null){
+                String destinazione = CARTELLA_UPLOAD + File.separator + l.getPath();
+                String pathDestinazione = Paths.get(getServletContext().getRealPath(destinazione)).toString();
+                File file = new File(pathDestinazione);
+                if(file.exists() == true && file.delete() == false)
+                {
+                    throw new MyServletException("Errore durante la cancellazione");
+                }
+            }
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            String destinazione = CARTELLA_UPLOAD + File.separator + fileName;
+            Path pathDestinazione = Paths.get(getServletContext().getRealPath(destinazione));
+            for (int i = 2; Files.exists(pathDestinazione); i++) {
+                fileName = i + "_" + fileName;
+                destinazione = CARTELLA_UPLOAD + File.separator + fileName;
+                pathDestinazione = Paths.get(getServletContext().getRealPath(destinazione));
+            }
+            InputStream fileInputStream = filePart.getInputStream();
+            Files.createDirectories(pathDestinazione.getParent());
+            Files.copy(fileInputStream, pathDestinazione);
+            l.setPath(fileName);
         }
-        InputStream fileInputStream = filePart.getInputStream();
-        Files.createDirectories(pathDestinazione.getParent());
-        Files.copy(fileInputStream, pathDestinazione);
-        l.setPath(fileName);
-        }
+
         if(errore.length() > 0) {
             throw new MyServletException(errore);
         }else if(edit == null) {
@@ -192,5 +205,12 @@ public class CaricaLibroServlet extends HttpServlet {
             ldao.doUpdate(l);
         }
         response.sendRedirect("libro?id="+ l.getIsbn());
+    } else{
+        throw new MyServletException("Sezione dedicata ai soli amministratori, perfavore prima fai il login");
     }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {throw new MyServletException("Metodo non permesso");}
+
 }
