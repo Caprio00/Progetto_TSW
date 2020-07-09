@@ -26,12 +26,26 @@ public class CarrelloServlet extends HttpServlet {
             }
             LibroDAO libroDAO = new LibroDAO();
             Libro libro = libroDAO.doRetrieveByIsbn(request.getParameter("id"));
-            carrello.setLibro(libro);
-            session.setAttribute("carrello", carrello);
-        }
+            if(carrello.getLibro().size() == 0){
+                carrello.setLibro(libro);
+                session.setAttribute("carrello", carrello);
+                response.sendRedirect("carrello");
+            }else{
+                for(int i=0;i<carrello.getLibro().size();i++){
+                    if(carrello.getLibro().get(i).getIsbn().equals(libro.getIsbn()) && carrello.getLibro().get(i).getTipo().equals(libro.getTipo()) == true && libro.getTipo().equals("ebook") == true){
+                       throw new MyServletException("Errore");
+                    }
+                }
+                    carrello.setLibro(libro);
+                    session.setAttribute("carrello", carrello);
+                    response.sendRedirect("carrello");
+                    return;
+            }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/carrello.jsp");
-        dispatcher.forward(request,response);
+        }else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/carrello.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -4,6 +4,17 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+input:valid{
+  border: 2px dashed green;
+}
+
+input:invalid {
+  border: 2px dashed red;
+}
+input:invalid:focus {
+  border: 2px dashed red;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -526,7 +537,6 @@ a.button:hover{
 }
 
 .product_info {
-  text-align: justify;
   display: inline-block;
   margin-left: 10px;
 }
@@ -644,7 +654,6 @@ a.remove_button:hover{
   }
 
   #cerca{
-    width: 20%;
     font-size: 15px;
   }
 

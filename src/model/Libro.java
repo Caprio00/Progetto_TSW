@@ -24,6 +24,8 @@ public class Libro {
 	private String sdescrizione;
 	private String ssDescrizione;
 	private int quantitaCarrello;
+	private String categoriestring;
+
 
 	public List<Categoria> getCategorie(){
 		return categorie;
@@ -31,10 +33,20 @@ public class Libro {
 
 	public void setCategorie(List<Categoria> c){
 		categorie=c;
+		categoriestring = "";
+		for(int i=0;i<c.size();i++){
+			categoriestring = categoriestring + c.get(i).getNome();
+			if (i != c.size() -1)
+			categoriestring = categoriestring + ",";
+		}
 	}
 
 	public String getIsbn() {
 		return isbn;
+	}
+
+	public String getCategoriestring() {
+		return categoriestring;
 	}
 
 	public String getNumberisbn() {
@@ -50,7 +62,6 @@ public class Libro {
 		}else{
 			this.isbn = isbn;
 		}
-
 	}
 
 	public String getTitolo() {
@@ -75,15 +86,19 @@ public class Libro {
 
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
-		if(descrizione.length() <=250) {
-			sdescrizione = descrizione;
-			ssDescrizione = descrizione.substring(0,130) + "...";
-		}else {
+		if(descrizione.length() > 250) {
 			sdescrizione = descrizione.substring(0,250) + "...";
 			ssDescrizione = descrizione.substring(0,130) + "...";
+		} else if(descrizione.length() > 130) {
+			sdescrizione = descrizione;
+			ssDescrizione = descrizione.substring(0,130) + "...";;
+		}else {
+			sdescrizione = descrizione;
+			ssDescrizione = descrizione;
 		}
-
 	}
+
+	public String getPrezzoEuroNo(){return String.valueOf(((float)prezzo/100));}
 
 	public String getAutore() {
 		return autore;

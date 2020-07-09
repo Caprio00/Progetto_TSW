@@ -7,7 +7,7 @@
 </jsp:include>
 <div class="row">
     <div class="leftcolumn">
-        <div class="card">
+        <div class="card" id="titolo">
             <h2>Carrello</h2>
         </div>
         <c:if test = "${carrello.libro.size() == 0 || carrello == null}">
@@ -17,7 +17,7 @@
         </c:if>
         <c:if test = "${carrello.libro.size() > 0}">
             <c:forEach items="${carrello.getLibro()}" var="libro">
-                <div class="card">
+                <div class="card" id="${libro.isbn}">
                     <div class="product_page">
                         <div class="card info_page cart">
                             <img src="./img/${libro.path}" alt="libro" height="215px" class="image" />
@@ -34,13 +34,13 @@
                                 <c:if test="${libro.getTipo().equals('ebook')}">
                                         disabled
                                 </c:if>>
-                                <a href="RimuoviCarrelloServlet?id=${libro.isbn}"  class="remove_button">Rimuovi</a>
+                                <a onclick='rimuovi("${libro.isbn}")'  class="remove_button">Rimuovi</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </c:forEach>
-            <div class="card" style="display: flow-root">
+            <div class="card" id="totale" style="display: flow-root">
                 <div class="total">
                     <p id="tot">
                         Subtotale: ${carrello.convertiEuro(carrello.getTotaleNetto())} €<br>
@@ -56,10 +56,49 @@
     </div>
 
     <script>
+        function rimuovi(isbn){
+            var xmlHttpReq = new XMLHttpRequest();
+            xmlHttpReq.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                    var prezzi = this.responseText.split(" ");
+                    var conferma = prezzi[0];
+                    var totProdotti = prezzi[6];
+                    if (conferma == "ok" && totProdotti != "0") {
+                        var prezzoCarrelloNetto = prezzi[1];
+                        var prezzoTasse = prezzi[2];
+                        var prezzoTotale = prezzi[3];
+                        var prezzoSpedizione = prezzi[4];
+                        var prezzoCarrelloLordo = prezzi[5];
+                        var cod = "Subtotale: " + prezzoCarrelloNetto + " €" + "<br>" +
+                            "Tasse (22%): " + prezzoTasse + " €" + "<br>" +
+                            "Totale netto: " + prezzoTotale + " €" + "<br>" +
+                            "Costo Spedizione: " + prezzoSpedizione + " €" + "<br>" +
+                            "Totale Lordo: " + prezzoCarrelloLordo + " €";
+                        $("#tot").html(cod);
+                    }else if(conferma == "ok" && totProdotti == "0"){
+                        document.getElementById("totale").parentElement.removeChild(document.getElementById("totale"));
+                        document.getElementById('titolo').insertAdjacentHTML('afterend', '<div class="card">\n' +
+                            '                <h3>Al momento non ci sono prodotti nel carrello</h3>\n' +
+                            '            </div>');
+                    }
+                    $("#carrellonavbar").text("Carrello (" + totProdotti + ")");
+                }
+            }
+            xmlHttpReq.open("GET", "rimuovicarrello?id=" + isbn , true);
+            xmlHttpReq.send();
+
+            document.getElementById(isbn).parentElement.removeChild(document.getElementById(isbn));
+        }
+
         $(document).ready(function(){
+
+
+
+
         $("input").change((event)=>{
-            let id = (event.target.id).slice(16,event.target.id.lenght);
-            let quantita = (event.target.value);
+            var id = (event.target.id).slice(16,event.target.id.lenght);
+            var quantita = (event.target.value);
             $.ajax({
                 url : "ModificaCarrello",
                 data : {
@@ -68,26 +107,26 @@
                 },
                 error:()=> console.error("errore Ajax Carrello"),
                 success : (responseText)=>{
-                    let prezzi = responseText.split(" ");
-                    let prezzoProdottoTot = prezzi[0];
-                    let prezzoCarrelloNetto = prezzi[1];
-                    let prezzoTasse = prezzi[2];
-                    let prezzoTotale = prezzi[3];
-                    let prezzoSpedizione = prezzi[4];
-                    let prezzoCarrelloLordo = prezzi[5];
-                    let totProdotti = prezzi[6];
-                    let disponibili = prezzi[7];
-                    let cod = "Subtotale: " + prezzoCarrelloNetto + " €" + "<br>\n" +
+                    var prezzi = responseText.split(" ");
+                    var prezzoProdottoTot = prezzi[0];
+                    var prezzoCarrelloNetto = prezzi[1];
+                    var prezzoTasse = prezzi[2];
+                    var prezzoTotale = prezzi[3];
+                    var prezzoSpedizione = prezzi[4];
+                    var prezzoCarrelloLordo = prezzi[5];
+                    var totProdotti = prezzi[6];
+                    var disponibili = prezzi[7];
+                    var cod = "Subtotale: " + prezzoCarrelloNetto + " €" + "<br>\n" +
                         "Tasse (22%): " + prezzoTasse + " €" + "<br>\n" +
                         "Totale netto: " + prezzoTotale + " €" + "<br>\n" +
                         "Costo Spedizione: " + prezzoSpedizione + " €" + "<br>\n" +
                         "Totale Lordo: " + prezzoCarrelloLordo + " €";
                     $("#tot").html(cod);
                     $("#prezzoProdotto" + id).text(prezzoProdottoTot + " €");
-                    $("#carrellonavbar12345").text("Carrello (" + totProdotti + ")");
-                    console.log(quantita, disponibili);
-                    if(disponibili<=quantita){
-                        $("#modificaQuantita"+ id).val("" + disponibili);
+                    $("#carrellonavbar").text("Carrello (" + totProdotti + ")");
+
+                    if(parseInt(disponibili)<=parseInt(quantita)){
+                       $("#modificaQuantita"+ id).val("" + disponibili);
                     }
                     if(quantita<=0 || quantita==""){
                         $("#modificaQuantita"+ id).val("1");

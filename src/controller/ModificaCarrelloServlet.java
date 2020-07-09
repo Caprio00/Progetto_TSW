@@ -21,20 +21,18 @@ public class ModificaCarrelloServlet extends HttpServlet {
             int disponibili = 0;
         int prezzoTotaleProdotto = 0;
         int quantita = 0;
-        quantita = Integer.parseInt(request.getParameter("quantita"));
-        /*try{
+        try{
            quantita = Integer.parseInt(request.getParameter("quantita"));
         }
         catch (NumberFormatException er){
             throw new MyServletException(
                     "Errore aggiornamento quantità"
             );
-        }*/
+        }
             if(quantita<= 0){
                 quantita =1;
             }
         Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
-        try {
            ArrayList<Libro> libri = carrello.getLibro();
            for (Libro l : libri){
                 if(l.getIsbn().equals(id)){
@@ -53,10 +51,6 @@ public class ModificaCarrelloServlet extends HttpServlet {
            request.getSession().setAttribute("carrello", carrello);
             response.setContentType("text/plain");
             response.getWriter().write("" + carrello.convertiEuro(prezzoTotaleProdotto) + " " + carrello.convertiEuro(carrello.getTotaleNetto()) + " " + carrello.convertiEuro(carrello.getIva())  + " " + carrello.convertiEuro(carrello.getTotale()) + " " + carrello.convertiEuro(carrello.getCostoSpedizione()) + " " + carrello.convertiEuro(carrello.getTotaleLordo()) + " " + carrello.getTotprodotti() + " " + disponibili);
-        }
-        catch(NumberFormatException er){
-            throw  new MyServletException("Libro non trovato");
-        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

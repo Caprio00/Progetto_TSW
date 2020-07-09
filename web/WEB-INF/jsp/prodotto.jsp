@@ -29,13 +29,29 @@
             <div class="book">
                 <c:if test = "${utente == null || (utente != null && utente.admin == false)}">
             <h3 id="tempo"></h3>
-            <a href="carrello?id=${libro.isbn}" class="button">Aggiungi al carrello</a>
+                    <c:if test = "${libro.tipo == \"ebook\"}">
+                        <c:if test = "${carrello== null}">
+                            <a href="carrello?id=${libro.isbn}" class="button">Aggiungi al carrello</a>
+                        </c:if>
+                        <c:if test = "${carrello!= null && carrello.findLibrobyIsbn(libro.isbn) == false}">
+                            <a href="carrello?id=${libro.isbn}" class="button">Aggiungi al carrello</a>
+                        </c:if>
+                    </c:if>
+                    <c:if test = "${libro.tipo == \"cartaceo\"}">
+                        <a href="carrello?id=${libro.isbn}" class="button">Aggiungi al carrello</a>
+                    </c:if>
+                    <c:if test = "${libro.tipo == \"ebook\" &&carrello!= null && carrello.findLibrobyIsbn(libro.isbn) == true}">
+                    <a class="button" style="
+                      pointer-events: none;
+                      cursor: default;
+                      background-color: gray;
+                      ">Giá aggiunto al carrello!</a>
+                    </c:if>
                 </c:if>
-                <c:if test = "${utente != null && utente.admin == false && preferiti == null}">
-            <a href="addpreferito?id=${libro.isbn}" class="button">Aggiungi ai preferiti</a>
-                </c:if>
-                <c:if test = "${utente != null && utente.admin == false && preferiti != null}">
-                <a href="removepreferito?id=${libro.isbn}" class="button">Rimuovi dai preferiti</a>
+                <c:if test = "${utente != null && utente.admin == false}">
+            <a onclick="preferiti(this,'${libro.isbn}')" class="button" id="addpreferiti" <c:if test = "${preferiti != null}">style="display: none"</c:if>>Aggiungi ai preferiti</a>
+
+                <a onclick="preferiti(this,'${libro.isbn}')" id="removepreferiti" class="button" <c:if test = "${preferiti == null}"> style="display: none"</c:if>>Rimuovi dai preferiti</a>
                 </c:if>
                 <c:if test = "${utente != null && utente.admin == true}">
                     <a href="editlibro?id=${libro.isbn}" class="button">Modifica libro</a>
@@ -53,7 +69,9 @@
             <h3>Anno di pubblicazione:</h3>
             <p class="description">${libro.anno_pubblicazione}</p><hr>
             <h3>Pagine:</h3>
-            <p class="description">${libro.numero_pagine}</p>
+            <p class="description">${libro.numero_pagine}</p><hr>
+            <h3>Categoria/e:</h3>
+            <p class="description">${libro.categoriestring}</p><br>
         </div>
     </div>
 
@@ -104,7 +122,29 @@
             document.getElementById("tempo").innerHTML = "Ordina entro " + hours + ora + minutes + minuto + seconds + secondo + "per far si che venga spedito entro il " + delivery_day.getDate() + " " + months[delivery_day.getMonth()];
         },1000)
 
-    </script>
+   function preferiti(val,isbn) {
+        if(val.innerText == "Rimuovi dai preferiti"){
+            var id=1;
+        }else{
+            var id=0;
+        }
+
+        var xmlHttpReq = new XMLHttpRequest();
+        xmlHttpReq.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var flag = this.responseText;
+                if(flag == "1"){
+                    document.getElementById("removepreferiti").style.display="none";
+                    document.getElementById("addpreferiti").style="";
+                }else if(flag=="0"){
+                    document.getElementById("addpreferiti").style.display="none";
+                    document.getElementById("removepreferiti").style="";
+                }
+            }
+        }
+        xmlHttpReq.open("GET", "addremovepreferito?id=" + isbn + "&flag=" + id , true);
+        xmlHttpReq.send();
+    }</script>
     </c:if>
 
 

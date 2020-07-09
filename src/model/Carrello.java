@@ -36,6 +36,7 @@ public class Carrello {
                 break;
             }
         }
+        aggiornaTotProdotti();
     }
 
     public int getTotprodotti(){
@@ -74,6 +75,9 @@ public class Carrello {
             return 0;
         if(getTotale()>5000)
             return 750;
+        if(getTotale() == 0){
+            return 0;
+        }
         else
             return 1500;
     }
@@ -89,6 +93,15 @@ public class Carrello {
             return  x + ",00";
         }
         return  x + "," + y;
+    }
+
+    public Boolean findLibrobyIsbn(String isbn){
+        for(int i=0;i<libro.size();i++){
+            if(libro.get(i).getIsbn().equals(isbn)){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
