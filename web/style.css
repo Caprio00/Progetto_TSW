@@ -375,7 +375,7 @@ input[type="email"],input[type="password"],
 input[type="telefono"],input[type="number"],input[type="file"] ,textarea {
   width: 100%;
   padding: 12px;
-  //border: 1px solid #ccc;
+  border: 1px solid #ccc;
   border-radius: 4px;
   resize: none;
 }
@@ -593,6 +593,66 @@ a.remove_button:hover{
 }
 
 /* -------------------- FINE CORPO PAGINA CARRELLO -------------------- */
+
+/* -------------------- INIZIO CORPO PAGINA PAGAMENTO -------------------- */
+
+.payment-container .col-50 {
+  float: left;
+  width: 48%;
+}
+
+.payment-container .right{
+  float: right;
+}
+
+.payment-container input[type="text"], input[type="email"],
+input[type="telefono"], input[type="number"]{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  margin-bottom: 6px;
+}
+
+.payment-container label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+.payment-container input[type="submit"] {
+  background-color: #2d2c2a;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  margin-top: 10px;
+}
+
+.payment-container input[type="submit"]:hover {
+  background-color: white;
+  color: black;
+}
+
+.payment-container .row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.address{
+  display: block;
+  margin-bottom: 6px;
+}
+
+#civico, #indirizzo{
+  width: auto;
+}
+
+
+/* -------------------- FINE CORPO PAGINA PAGAMENTO -------------------- */
 
 /* -------------------------------------------------- INIZIO FOOTER -------------------------------------------------- */
 

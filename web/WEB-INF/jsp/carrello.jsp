@@ -49,7 +49,7 @@
                         <b>Costo Spedizione:</b> ${carrello.convertiEuro(carrello.getCostoSpedizione())} €<br>
                         <b>Totale Lordo:</b> ${carrello.convertiEuro(carrello.getTotaleLordo())} €
                     </p>
-                    <a href="" id="paybutton">Procedi al pagamento</a>
+                    <a href="pagamento" id="paybutton">Procedi al pagamento</a>
                 </div>
             </div>
         </c:if>

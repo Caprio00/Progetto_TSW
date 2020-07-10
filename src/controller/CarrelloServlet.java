@@ -35,7 +35,7 @@ public class CarrelloServlet extends HttpServlet {
                     }
                 }
                 carrello.setLibro(libro);
-                for( int i=0; i<carrello.getLibro().size(); i++){
+                for(int i=0; i<carrello.getLibro().size(); i++){
                     Libro temp = libroDAO.doRetrieveByIsbn(carrello.getLibro().get(i).getIsbn());
                     if(temp == null){
                         carrello.removeLibro(carrello.getLibro().get(i));
