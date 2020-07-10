@@ -54,7 +54,7 @@
         <c:if test = "${utente == null}">
         <a href="login">Accedi o iscriviti</a>
         </c:if>
-        <a href="carrello" id="carrellonavbar">Carrello(<c:if test = "${carrello == null}">0</c:if><c:if test = "${carrello != null}">${carrello.totprodotti}</c:if>)</a>
+        <a href="carrello" id="carrellonavbar">Carrello (<c:if test = "${carrello == null}">0</c:if><c:if test = "${carrello != null}">${carrello.totprodotti}</c:if>)</a>
     </div>
 </div>
 

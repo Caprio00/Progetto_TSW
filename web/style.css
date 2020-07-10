@@ -444,6 +444,7 @@ h5.check{
 
 .bookbox.descriptor{
   display: inline-block;
+  padding-bottom: 0;
 }
 
 a.button{
@@ -549,17 +550,14 @@ a.button:hover{
   font-size: 19px;
 }
 
-.product_info .descrizione {
+.product_info .description{
   margin-bottom: 2px;
   margin-top: 0;
   font-size: 13px;
 }
 
-.product_page img{
+.product_page img {
   max-height: 175px;
-  max-width: 100%;
-  height: auto;
-  width: auto;
 }
 
 .quantity{
@@ -691,6 +689,11 @@ a.remove_button:hover{
   }
 
   /* ---------- FINE DROPDOWN VERSIONE MOBILE ---------- */
+
+  .image{
+    max-height: 175px;
+  }
+
   input[type="search"] {
     width: 100%;
   }
@@ -776,9 +779,6 @@ a.remove_button:hover{
 
   .product_page img{
     max-height: 120px;
-    max-width: 100%;
-    height: auto;
-    width: auto;
   }
 
   #descrizione_normale{

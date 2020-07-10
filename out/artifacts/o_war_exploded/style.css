@@ -4,15 +4,16 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-input:valid{
-  border: 2px dashed green;
+input:focus{
+  border-color: transparent;
 }
 
-input:invalid {
-  border: 2px dashed red;
+input:valid,textarea:valid{
+  border: 2px solid green;
 }
-input:invalid:focus {
-  border: 2px dashed red;
+
+input:invalid,textarea:invalid {
+  border: 2px solid red;
 }
 
 input::-webkit-outer-spin-button,
@@ -374,7 +375,7 @@ input[type="email"],input[type="password"],
 input[type="telefono"],input[type="number"],input[type="file"] ,textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ccc;
+  //border: 1px solid #ccc;
   border-radius: 4px;
   resize: none;
 }
@@ -548,17 +549,14 @@ a.button:hover{
   font-size: 19px;
 }
 
-.product_info .descrizione {
+.product_info .description{
   margin-bottom: 2px;
   margin-top: 0;
   font-size: 13px;
 }
 
-.product_page img{
+.product_page img {
   max-height: 175px;
-  max-width: 100%;
-  height: auto;
-  width: auto;
 }
 
 .quantity{
@@ -650,7 +648,6 @@ a.remove_button:hover{
   }
 
   #cerca{
-    float: right;
     font-size: 15px;
     width: 195px;
   }
@@ -691,6 +688,11 @@ a.remove_button:hover{
   }
 
   /* ---------- FINE DROPDOWN VERSIONE MOBILE ---------- */
+
+  .image{
+    max-height: 175px;
+  }
+
   input[type="search"] {
     width: 100%;
   }
@@ -727,6 +729,7 @@ a.remove_button:hover{
 
   .card.buybox{
     width: 100%;
+    padding-left: 0;
   }
 
   .card.bookbox_page{
@@ -775,9 +778,6 @@ a.remove_button:hover{
 
   .product_page img{
     max-height: 120px;
-    max-width: 100%;
-    height: auto;
-    width: auto;
   }
 
   #descrizione_normale{

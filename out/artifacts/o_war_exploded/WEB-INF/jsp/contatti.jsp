@@ -15,7 +15,7 @@
         <div class="card">
           <div class="contact-container">
             <h3>Inviaci una mail</h3>
-            <form action="/action_page.php">
+            <form>
               <div class="row">
                 <div class="col-25">
                   <label for="firstname">Nome*</label>
@@ -68,6 +68,9 @@
                           id="telefono"
                           name="telefono"
                           placeholder="Il tuo numero di telefono"
+                          pattern="^(\((00|\+)39\)|(00|\+)39)?(38[890]|34[4-90]|36[680]|33[13-90]|32[89]|35[01]|37[019])\d{6,7}$"
+                          title="Numero di telefono malformato"
+                          required
                   />
                 </div>
               </div>
@@ -81,6 +84,7 @@
                     name="subject"
                     placeholder="Scrivi qui"
                     style="height: 200px;"
+                    required
                   ></textarea>
                 </div>
               </div>
