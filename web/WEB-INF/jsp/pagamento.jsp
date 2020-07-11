@@ -15,7 +15,7 @@
         </div>
         <div class="card">
             <div class="payment-container">
-            <div class="row">
+            <div class="row" id="payment">
                 <form>
                     <div class="col-50">
                        <h3>Dati del destinatario</h3>
@@ -48,44 +48,58 @@
                     <div class="row">
                         <div class="col-50 right">
                             <h3> Indirizzo di consegna</h3>
-                            <div class="address">
-                            <label for="regione">Regione</label>
-                            <select name="regione" id="regione" class="address_form">
-                                <option value=""> Seleziona la regione</option>
-                            </select>
+                            <div class="col-50">
+                                <div class="address">
+                                    <label for="regione">Regione</label>
+                                    <select name="regione" id="regione" class="address_form">
+                                        <option value=""> Seleziona la regione</option>
+                                    </select>
+                                </div>
+                                <div class="address">
+                                    <label for="provincia">Provincia</label>
+                                    <select name="provincia" id="provincia" class="address_form">
+                                        <option value=""> Seleziona la provincia</option>
+                                    </select>
+                                </div>
+                                <div class="address">
+                                    <label for="citta">Città</label>
+                                    <select name="citta" id="citta" class="address_form">
+                                        <option value=""> Seleziona la citta</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="address">
-                            <label for="provincia">Provincia</label>
-                            <select name="provincia" id="provincia" class="address_form">
-                                <option value=""> Seleziona la provincia</option>
-                            </select>
+                            <div class="col-50 right">
+                                <div class="address">
+                                    <label for="cap">CAP</label>
+                                    <input
+                                            type="number"
+                                            id="cap"
+                                            name="cap"
+                                            placeholder="12345"
+                                            required
+                                    />
+                                </div>
+                                <div class="address">
+                                    <label for="indirizzo">Via</label>
+                                    <input
+                                            type="text"
+                                            id="indirizzo"
+                                            name="indirizzo"
+                                            placeholder="Via Roma"
+                                            required
+                                    />
+                                </div>
+                                <div class="address">
+                                    <label for="civico">Numero civico</label>
+                                    <input
+                                            type="number"
+                                            id="civico"
+                                            name="civico"
+                                            placeholder="0"
+                                            required
+                                    />
+                                </div>
                             </div>
-                            <div class="address">
-                            <label for="citta">Città</label>
-                            <select name="citta" id="citta" class="address_form">
-                                <option value=""> Seleziona la citta</option>
-                            </select>
-                            </div>
-                            <div class="address">
-                            <label for="indirizzo">Via</label>
-                            <input
-                                    type="text"
-                                    id="indirizzo"
-                                    name="indirizzo"
-                                    placeholder="Via"
-                                    required
-                            />
-                        <label for="civico">Numero civico</label>
-                        <input
-                                type="number"
-                                id="civico"
-                                name="civico"
-                                required
-                        />
-                            </div>
-                            <label>
-                                <input type="checkbox" checked="checked" name="sameadr"> Stesso indirizzo di fatturazione e spedizione
-                            </label>
                         </div>
                     </div>
                 </form>
@@ -110,6 +124,7 @@
                             type="number"
                             id="cvv"
                             name="cvv"
+                            placeholder="123"
                             required
                     />
                 </div>
@@ -137,10 +152,29 @@
         </div>
         </div>
         <div class="card">
-            <div class="cart">
-                <p>${carrello.convertiEuro(carrello.getTotaleLordo())} €</p>
+            <div class="cart" style="display: flow-root">
+                <h3>Completamento Ordine</h3>
+                <p>
+                    <b>Subtotale:</b> ${carrello.convertiEuro(carrello.getTotaleNetto())} €<br>
+                    <b>Tasse (22%):</b> ${carrello.convertiEuro(carrello.getIva())} €<br>
+                    <b>Totale netto:</b> ${carrello.convertiEuro(carrello.getTotale())} €<br>
+                    <b>Costo Spedizione:</b> ${carrello.convertiEuro(carrello.getCostoSpedizione())} €<br>
+                    <b>Totale Lordo:</b> ${carrello.convertiEuro(carrello.getTotaleLordo())} €
+                </p>
+                <button onclick="myFunction()">Completa il pagamento</button>
+                <div id="snackbar">Il pagamento è stato completato</div>
             </div>
         </div>
     </div>
+
+
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+    </script>
 
     <jsp:include page="footererightcollum.jsp"/>
