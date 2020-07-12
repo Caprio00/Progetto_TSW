@@ -12,6 +12,8 @@ import java.util.UUID;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpFilter;
@@ -24,6 +26,7 @@ public class CookieLoginFilter extends HttpFilter {
 	private static final long serialVersionUID = 1L;
 	private final UtenteDAO utenteDAO = new UtenteDAO();
 	private final LoginDAO loginDAO = new LoginDAO();
+
 
 	@Override
 	protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -62,6 +65,11 @@ public class CookieLoginFilter extends HttpFilter {
 				}
 			}
 		}
+
+
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
+
 		chain.doFilter(request, response);
 	}
 

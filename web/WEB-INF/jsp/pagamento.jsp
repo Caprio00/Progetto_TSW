@@ -102,7 +102,6 @@
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
             </div>
         </div>
@@ -153,6 +152,7 @@
         </div>
         <div class="card">
             <div class="cart" style="display: flow-root">
+                <div class="payment-container">
                 <h3>Completamento Ordine</h3>
                 <p>
                     <b>Subtotale:</b> ${carrello.convertiEuro(carrello.getTotaleNetto())} €<br>
@@ -161,20 +161,12 @@
                     <b>Costo Spedizione:</b> ${carrello.convertiEuro(carrello.getCostoSpedizione())} €<br>
                     <b>Totale Lordo:</b> ${carrello.convertiEuro(carrello.getTotaleLordo())} €
                 </p>
-                <button onclick="myFunction()">Completa il pagamento</button>
-                <div id="snackbar">Il pagamento è stato completato</div>
+                <input type="submit" value="Completa il pagamento"></input>
+                </div>
             </div>
         </div>
     </div>
+    </form>
 
-
-
-    <script>
-        function myFunction() {
-            var x = document.getElementById("snackbar");
-            x.className = "show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-        }
-    </script>
 
     <jsp:include page="footererightcollum.jsp"/>
