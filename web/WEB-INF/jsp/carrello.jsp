@@ -23,8 +23,8 @@
                             <img src="./img/${libro.path}" alt="libro" height="215px" class="image" />
                             <div class="product_info">
                                 <p class="title">${libro.getTitolo()}</p>
-                                <p class="descrizione" id="descrizione_normale">${libro.getSdescrizione()}</p>
-                                <p class="descrizione" id="descrizione_corta">${libro.getSSDescrizione()}</p>
+                                <p class="description" id="descrizione_normale">${libro.getSdescrizione()}</p>
+                                <p class="description" id="descrizione_corta">${libro.getSSDescrizione()}</p>
                             </div>
                         </div>
                         <div class="card cartbox cart">

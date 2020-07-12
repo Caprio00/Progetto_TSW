@@ -252,7 +252,7 @@ input[type="submit"]:hover {
   display: none;
 }
 
-#cerca{
+.cerca{
   float: right;
   width: 27%;
 }
@@ -671,65 +671,6 @@ input[type="telefono"], .payment-container  input[type="number"]{
   margin-top: 1px;
 }
 
-button{
-  background-color: #2d2c2a;
-  color: #f2f2f2;
-  padding: 14px 16px;
-  border: none;
-  text-align: center;
-  font-size: 16px;
-}
-
-button:hover{
-  background-color: #f2f2f2;
-  color: #2d2c2a;
-}
-
-/* ---------- INIZIO SNACKAR ---------- */
-#snackbar {
-  visibility: hidden;
-  min-width: 250px;
-  margin-left: -125px;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  border-radius: 4px;
-  padding: 16px;
-  position: fixed;
-  z-index: 1;
-  left: 50%;
-  bottom: 30px;
-  font-size: 17px;
-}
-
-#snackbar.show {
-  visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-@-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
-}
-
-/* ---------- FINE SNACKAR ---------- */
-
 /* -------------------- FINE CORPO PAGINA PAGAMENTO -------------------- */
 
 /* -------------------------------------------------- INIZIO FOOTER -------------------------------------------------- */
@@ -786,7 +727,7 @@ button:hover{
     display: flow-root;
   }
 
-  #cerca{
+  .cerca{
     font-size: 15px;
     width: 195px;
   }
@@ -836,7 +777,7 @@ button:hover{
     width: 100%;
   }
 
-  #cerca{
+  .cerca{
     margin-top: 10px;
     width: 100%;
   }

@@ -20,7 +20,7 @@
                 <div class="card" id="${libro.isbn}">
                     <div class="product_page">
                         <div class="card info_page cart">
-                            <a href="libro?id=${libro.isbn}"><img src="./img/${libro.path}" alt="libro" height="215px"/></a>
+                            <img src="./img/${libro.path}" alt="libro" height="215px" class="image" />
                             <div class="product_info">
                                 <p class="title">${libro.getTitolo()}</p>
                                 <p class="description" id="descrizione_normale">${libro.getSdescrizione()}</p>
@@ -44,10 +44,10 @@
                 <div class="total">
                     <p id="tot">
                         <b>Subtotale:</b> ${carrello.convertiEuro(carrello.getTotaleNetto())} €<br>
-                        <b>Tasse (22%):</b> ${carrello.convertiEuro(carrello.getIva())} €<br>
-                        <b>Totale netto:</b> ${carrello.convertiEuro(carrello.getTotale())} €<br>
-                        <b>Costo Spedizione:</b> ${carrello.convertiEuro(carrello.getCostoSpedizione())} €<br>
-                        <b>Totale Lordo:</b> ${carrello.convertiEuro(carrello.getTotaleLordo())} €
+                            <b>Tasse (22%):</b> ${carrello.convertiEuro(carrello.getIva())} €<br>
+                                <b>Totale netto:</b> ${carrello.convertiEuro(carrello.getTotale())} €<br>
+                                    <b>Costo Spedizione:</b> ${carrello.convertiEuro(carrello.getCostoSpedizione())} €<br>
+                                        <b>Totale Lordo:</b> ${carrello.convertiEuro(carrello.getTotaleLordo())} €
                     </p>
                     <a href="pagamento" id="paybutton">Procedi al pagamento</a>
                 </div>
@@ -70,11 +70,11 @@
                         var prezzoTotale = prezzi[3];
                         var prezzoSpedizione = prezzi[4];
                         var prezzoCarrelloLordo = prezzi[5];
-                        var cod = "<b>Subtotale:</b> " + prezzoCarrelloNetto + " €" + "<br>" +
-                            "<b>Tasse (22%): </b>" + prezzoTasse + " €" + "<br>" +
-                            "<b>Totale netto: </b>" + prezzoTotale + " €" + "<br>" +
-                            "<b>Costo Spedizione: </b>" + prezzoSpedizione + " €" + "<br>" +
-                            "<b>Totale Lordo: </b>" + prezzoCarrelloLordo + " €";
+                        var cod = "<b>Subtotale:</b> " + prezzoCarrelloNetto + " €" + "<br>\n" +
+                            "<b>Tasse (22%):</b> " + prezzoTasse + " €" + "<br>\n" +
+                            "<b>Totale netto:</b> " + prezzoTotale + " €" + "<br>\n" +
+                            "<b>Costo Spedizione:</b> " + prezzoSpedizione + " €" + "<br>\n" +
+                            "<b>Totale Lordo:</b> " + prezzoCarrelloLordo + " €";
                         $("#tot").html(cod);
                     }else if(conferma == "ok" && totProdotti == "0"){
                         document.getElementById("totale").parentElement.removeChild(document.getElementById("totale"));
@@ -92,6 +92,9 @@
         }
 
         $(document).ready(function(){
+
+
+
 
         $("input").change((event)=>{
             var id = (event.target.id).slice(16,event.target.id.lenght);
@@ -113,11 +116,11 @@
                     var prezzoCarrelloLordo = prezzi[5];
                     var totProdotti = prezzi[6];
                     var disponibili = prezzi[7];
-                    var cod = "Subtotale: " + prezzoCarrelloNetto + " €" + "<br>\n" +
-                        "Tasse (22%): " + prezzoTasse + " €" + "<br>\n" +
-                        "Totale netto: " + prezzoTotale + " €" + "<br>\n" +
-                        "Costo Spedizione: " + prezzoSpedizione + " €" + "<br>\n" +
-                        "Totale Lordo: " + prezzoCarrelloLordo + " €";
+                    var cod = "<b>Subtotale:</b> " + prezzoCarrelloNetto + " €" + "<br>\n" +
+                        "<b>Tasse (22%):</b> " + prezzoTasse + " €" + "<br>\n" +
+                        "<b>Totale netto:</b> " + prezzoTotale + " €" + "<br>\n" +
+                        "<b>Costo Spedizione:</b> " + prezzoSpedizione + " €" + "<br>\n" +
+                        "<b>Totale Lordo:</b> " + prezzoCarrelloLordo + " €";
                     $("#tot").html(cod);
                     $("#prezzoProdotto" + id).text(prezzoProdottoTot + " €");
                     $("#carrellonavbar").text("Carrello (" + totProdotti + ")");

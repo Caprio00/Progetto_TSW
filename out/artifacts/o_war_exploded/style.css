@@ -8,11 +8,11 @@ input:focus{
   border-color: transparent;
 }
 
-input:valid,textarea:valid{
+.contact-container input:valid,textarea:valid{
   border: 2px solid green;
 }
 
-input:invalid,textarea:invalid {
+.contact-container input:invalid,textarea:invalid {
   border: 2px solid red;
 }
 
@@ -98,6 +98,10 @@ body {
 #diveditcategorie{
   padding-top: 25px;
   padding-left: 10px;
+}
+
+img{
+  border-radius: 4px;
 }
 
 /* -------------------------------------------------- INIZIO HEADER -------------------------------------------------- */
@@ -248,7 +252,7 @@ input[type="submit"]:hover {
   display: none;
 }
 
-#cerca{
+.cerca{
   float: right;
   width: 27%;
 }
@@ -370,12 +374,10 @@ select{
   resize: vertical;
 }
 
-.contact-container input[type="text"],
-input[type="email"],input[type="password"],
-input[type="telefono"],input[type="number"],input[type="file"] ,textarea {
+.contact-container input[type="text"],.contact-container input[type="email"],input[type="password"],.contact-container input[type="telefono"],.contact-container input[type="number"], .contact-containerinput[type="file"] , .contact-container textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ccc;
+  /*border: 1px solid #ccc;*/
   border-radius: 4px;
   resize: none;
 }
@@ -440,6 +442,7 @@ h5.check{
 .card.buybox{
   float: right;
   width: 49%;
+  padding-left: 0;
 }
 
 .bookbox.descriptor{
@@ -596,23 +599,30 @@ a.remove_button:hover{
 
 /* -------------------- INIZIO CORPO PAGINA PAGAMENTO -------------------- */
 
+
+
 .payment-container .col-50 {
   float: left;
-  width: 48%;
+  width: 50%;
+  padding-bottom: 0;
 }
 
 .payment-container .right{
   float: right;
 }
 
-.payment-container input[type="text"], input[type="email"],
-input[type="telefono"], input[type="number"]{
+.payment-container input[type="text"],.payment-container input[type="email"],.payment-container
+input[type="telefono"], .payment-container  input[type="number"]{
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: none;
   margin-bottom: 6px;
+}
+
+.payment-container select{
+  width: 100%;
 }
 
 .payment-container label {
@@ -647,10 +657,19 @@ input[type="telefono"], input[type="number"]{
   margin-bottom: 6px;
 }
 
-#civico, #indirizzo{
-  width: auto;
+#scadenza{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  margin-bottom: 6px;
 }
 
+#indirizzo, #cap{
+  margin-bottom: 0;
+  margin-top: 1px;
+}
 
 /* -------------------- FINE CORPO PAGINA PAGAMENTO -------------------- */
 
@@ -708,7 +727,7 @@ input[type="telefono"], input[type="number"]{
     display: flow-root;
   }
 
-  #cerca{
+  .cerca{
     font-size: 15px;
     width: 195px;
   }
@@ -758,7 +777,7 @@ input[type="telefono"], input[type="number"]{
     width: 100%;
   }
 
-  #cerca{
+  .cerca{
     margin-top: 10px;
     width: 100%;
   }
@@ -779,18 +798,17 @@ input[type="telefono"], input[type="number"]{
     width: 100%;
     margin-top: 0;
   }
-
+/*
   .row {
     display: grid;
   }
-
+*/
   .contact-container .col-25 {
     width: unset;
   }
 
   .card.buybox{
     width: 100%;
-    padding-left: 0;
   }
 
   .card.bookbox_page{
@@ -799,6 +817,10 @@ input[type="telefono"], input[type="number"]{
 
   .quantity .remove-product{
     width: 100%;
+  }
+
+  #payment{
+    display: block;
   }
 }
 
