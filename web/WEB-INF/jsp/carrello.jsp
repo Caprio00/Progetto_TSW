@@ -96,7 +96,7 @@
 
 
 
-        $("input").change((event)=>{
+        $("input[type=\"number\"] ").change((event)=>{
             var id = (event.target.id).slice(16,event.target.id.lenght);
             var quantita = (event.target.value);
             $.ajax({
