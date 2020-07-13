@@ -56,6 +56,9 @@ public class HomeServlet extends HttpServlet {
 			maxlimitint = 10;
 		}
 		int totlibri= (int) Math.ceil((double) totlibriindex/maxlimitint);
+		if(totlibri<maxlimitint){
+			response.sendRedirect("?page=" + totlibri + "&n=" +maxlimiti);
+		}
 		request.setAttribute("totlibri",totlibri);
 		try{
 			int l = Integer.parseInt(page);

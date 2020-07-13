@@ -12,7 +12,7 @@
       <div class="leftcolumn">
         <c:forEach items="${prodotti}" var="libro">
       <div class="card bookbox">
-          <img src="${pageContext.request.contextPath}/img/${libro.path}" alt="libro" height="215px" class="image" />
+          <img onclick="location.href='libro?id=${libro.path}'" src="${pageContext.request.contextPath}/img/${libro.path}" alt="libro" height="215px" class="image" />
           <div class="book">
             <h3>
               ${libro.titolo}

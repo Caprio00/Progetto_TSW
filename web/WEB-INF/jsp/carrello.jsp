@@ -20,7 +20,7 @@
                 <div class="card" id="${libro.isbn}">
                     <div class="product_page">
                         <div class="card info_page cart">
-                            <img src="./img/${libro.path}" alt="libro" height="215px" class="image" />
+                            <img onclick="location.href='libro?id=${libro.path}'" src="./img/${libro.path}" alt="libro" height="215px" class="image" />
                             <div class="product_info">
                                 <p class="title">${libro.getTitolo()}</p>
                                 <p class="description" id="descrizione_normale">${libro.getSdescrizione()}</p>

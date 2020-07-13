@@ -374,7 +374,7 @@ select{
   resize: vertical;
 }
 
-.contact-container input[type="text"],.contact-container input[type="email"],input[type="password"],.contact-container input[type="telefono"],.contact-container input[type="number"], .contact-containerinput[type="file"] , .contact-container textarea {
+.contact-container input[type="text"],.contact-container input[type="email"],input[type="password"],.contact-container input[type="telefono"],.contact-container input[type="number"], .contact-container input[type="file"] , .contact-container textarea {
   width: 100%;
   padding: 12px;
   /*border: 1px solid #ccc;*/
