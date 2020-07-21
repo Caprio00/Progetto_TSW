@@ -26,12 +26,10 @@
             <p>Image</p>
         </div>
     </div>
-    <div class="card right">
-        <h3>About us</h3>
-        <p>
-            Siamo gente che non aveva nulla da fare e purtroppo ci siamo
-            iscritti all'università
-        </p>
+    <div class="card right" id="FAQcard">
+        <h3>FAQ</h3>
+        <p>Consulta le nostre domande frequenti o contattaci per avere maggiori informazioni.</p>
+        <a href="FAQ"> FAQ</a>
     </div>
 </div>
 </div>

@@ -95,12 +95,12 @@
             <h5 class="check">I campi segnati con * sono obbligatori</h5>
           </div>
         </div>
-          <div class="card">
-            <h3>Chiamaci a telefono</h3>
-            <div class="row">
-              <a href="tel:+390123456789" class="button" id="call"> Chiama +39.0123.456789! </a>
-            </div>
-            <h5 class="check">I centralini sono attivi dal lunedì al venerdi dalle 9:00 alle 18:00</h5>
+        <div class="card">
+          <h3>Chiamaci a telefono</h3>
+          <div class="row">
+            <a href="tel:+390123456789" class="button" id="call"> Chiama +39.0123.456789! </a>
           </div>
+          <h5 class="check">I centralini sono attivi dal lunedì al venerdi dalle 9:00 alle 18:00</h5>
         </div>
+      </div>
         <jsp:include page="footererightcollum.jsp"/>

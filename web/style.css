@@ -224,6 +224,23 @@ img{
   display: flow-root;
 }
 
+
+#FAQcard a{
+  background-color: #2d2c2a;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  float: right;
+}
+
+#FAQcard a:hover{
+  background-color: white;
+  color: #2d2c2a;
+}
+
 /* ---------- INIZIO CARD DI RICERCA ---------- */
 input[type="search"] {
   width: 68%;
@@ -674,6 +691,56 @@ input[type="telefono"], .payment-container  input[type="number"]{
 }
 
 /* -------------------- FINE CORPO PAGINA PAGAMENTO -------------------- */
+
+/* -------------------- INIZIO CORPO PAGINA FAQ -------------------- */
+.card.FAQ{
+  display: flow-root;
+}
+
+.FAQ .up{
+  float: right;
+}
+
+.FAQ a{
+  background-color: #2d2c2a;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.FAQ a:hover{
+  background-color: white;
+  color: #2d2c2a;
+}
+
+.FAQ p{
+  display: none;
+  text-align: justify;
+}
+
+#buttonid{
+  margin-left: 20%;
+}
+
+.FAQ button{
+  background-color: #2d2c2a;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.FAQ button:hover{
+  background-color: white;
+  color: #2d2c2a;
+}
+
+/* -------------------- FINE CORPO PAGINA FAQ -------------------- */
 
 /* -------------------------------------------------- INIZIO FOOTER -------------------------------------------------- */
 
