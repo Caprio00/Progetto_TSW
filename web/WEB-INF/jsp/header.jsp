@@ -35,7 +35,12 @@
     <div class="righttopnav">
         <c:if test = "${utente != null}">
         <div class="dropdown">
-            <button class="dropbtn">Ciao, ${utente.nome}</button>
+            <c:if test = "${utente.admin == true}">
+            <button class="dropbtn">Gestione amministratore</button>
+            </c:if>
+            <c:if test = "${utente.admin == false}">
+            <button class="dropbtn">Gestione utente</button>
+            </c:if>
             <div class="dropdown-content">
                 <a href="profilo"/>I miei dati</a>
                 <c:if test = "${utente.admin == false}">
@@ -55,7 +60,10 @@
         <c:if test = "${utente == null}">
         <a href="login">Accedi o iscriviti</a>
         </c:if>
+        <c:if test = "${utente == null || (utente != null && utente.admin == false)}">
         <a href="carrello" id="carrellonavbar">Carrello (<c:if test = "${carrello == null}">0</c:if><c:if test = "${carrello != null}">${carrello.totprodotti}</c:if>)</a>
+        </c:if>
+
     </div>
 </div>
 

@@ -191,8 +191,7 @@ public class Libro {
 		if (this == o) return true;
 		if (!(o instanceof Libro)) return false;
 		Libro libro = (Libro) o;
-		return getIsbn() == libro.getIsbn() &&
-				getPrezzo() == libro.getPrezzo() &&
+		return  getPrezzo() == libro.getPrezzo() &&
 				getAnno_pubblicazione() == libro.getAnno_pubblicazione() &&
 				getNumero_pagine() == libro.getNumero_pagine() &&
 				getNumero_disponibili() == libro.getNumero_disponibili() &&

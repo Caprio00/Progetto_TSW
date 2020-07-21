@@ -17,10 +17,9 @@ public class ProdottoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        String isbn = (String) request.getParameter("id");
-
-        try {
             LibroDAO libroDAO = new LibroDAO();
             Libro libro = libroDAO.doRetrieveByIsbn(isbn);
+            if(libro != null){
             request.setAttribute("libro",libro);
             HttpSession session = request.getSession();
             if(session.getAttribute("utente")!= null){
@@ -30,10 +29,10 @@ public class ProdottoServlet extends HttpServlet {
                     request.setAttribute("preferiti",1);
                 }
             }
-        }
-           catch(NumberFormatException er){
+            }else {
                 throw  new MyServletException("Libro non trovato");
-           }
+            }
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/prodotto.jsp");
         requestDispatcher.forward(request, response);
     }

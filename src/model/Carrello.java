@@ -40,6 +40,7 @@ public class Carrello {
     }
 
     public int getTotprodotti(){
+        aggiornaTotProdotti();
         return totprodotti;
     }
 
