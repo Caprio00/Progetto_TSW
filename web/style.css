@@ -710,6 +710,7 @@ input[type="telefono"], .payment-container  input[type="number"]{
   text-decoration: none;
   display: inline-block;
   margin-left: 15px;
+  text-align: center;
 }
 
 .FAQ a:hover{
@@ -720,10 +721,11 @@ input[type="telefono"], .payment-container  input[type="number"]{
 .FAQ p{
   display: none;
   text-align: justify;
-}
-
-#buttonid{
-  margin-left: 20%;
+  background-color: #42403D;
+  border-radius: 6px;
+  padding: 10px;
+  color: white;
+  margin-top: 0;
 }
 
 .FAQ button{
@@ -867,11 +869,11 @@ input[type="telefono"], .payment-container  input[type="number"]{
     width: 100%;
     margin-top: 0;
   }
-/*
+
   .row {
     display: grid;
   }
-*/
+
   .contact-container .col-25 {
     width: unset;
   }
@@ -904,7 +906,23 @@ input[type="telefono"], .payment-container  input[type="number"]{
     padding-left: 0;
   }
 
+  .FAQ a{
+    margin-bottom: 10px;
+    width: 100%;
+    margin-left: 0;
+  }
 
+  .FAQ button{
+    width: 100%;
+  }
+
+  .FAQ #buttondiv{
+    display: grid;
+  }
+
+  .FAQ .up{
+    width: auto;
+  }
 
 }
 

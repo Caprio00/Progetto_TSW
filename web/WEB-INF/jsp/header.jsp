@@ -44,7 +44,7 @@
             <div class="dropdown-content">
                 <a href="profilo"/>I miei dati</a>
                 <c:if test = "${utente.admin == false}">
-                    <a href=""/>I miei ordini</a>
+                    <a href="ordini"/>I miei ordini</a>
                     <a href="preferiti"/>I miei libri preferiti</a>
                 </c:if>
 

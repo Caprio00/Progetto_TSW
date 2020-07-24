@@ -26,11 +26,13 @@
             <p>Image</p>
         </div>
     </div>
+    <c:if test="${faq ==  null}">
     <div class="card right" id="FAQcard">
         <h3>FAQ</h3>
         <p>Consulta le nostre domande frequenti o contattaci per avere maggiori informazioni.</p>
         <a href="FAQ"> FAQ</a>
     </div>
+    </c:if>
 </div>
 </div>
 </div>

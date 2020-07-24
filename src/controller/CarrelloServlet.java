@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
 @WebServlet("/carrello")
 public class CarrelloServlet extends HttpServlet {
 
@@ -27,7 +28,6 @@ public class CarrelloServlet extends HttpServlet {
             if (session.getAttribute("carrello") == null) {
                 carrello = new Carrello();
             }
-
             Libro libro = libroDAO.doRetrieveByIsbn(request.getParameter("id"));
             if(carrello.getLibro().size() == 0){
                 carrello.setLibro(libro);

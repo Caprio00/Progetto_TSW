@@ -31,19 +31,6 @@ public class DeleteLibroServlet extends HttpServlet {
             LibroDAO dao = new LibroDAO();
             if (dao.doRetrieveByIsbn(id) != null){
                 Libro l = dao.doRetrieveByIsbn(id);
-                String destinazione = "img" + File.separator + l.getPath();
-                String pathDestinazione = Paths.get(getServletContext().getRealPath(destinazione)).toString();
-                File file = new File(pathDestinazione);
-                if(file.delete())
-                {
-                    dao.doDelete(id);
-                    request.getRequestDispatcher("WEB-INF/jsp/deletelibro.jsp").forward(request,response);
-
-                }
-                else
-                {
-                    throw new MyServletException("Errore durante la cancellazione");
-                }
             }else{
                 throw new MyServletException("Il libro da eliminare non esiste");
             }

@@ -20,7 +20,7 @@
                 <div class="card" id="${libro.isbn}">
                     <div class="product_page">
                         <div class="card info_page cart">
-                            <img onclick="location.href='libro?id=${libro.path}'" src="./img/${libro.path}" alt="libro" height="215px" class="image" />
+                            <img onclick="location.href='libro?id=${libro.isbn}'" src="./img/${libro.path}" alt="libro" height="215px" class="image" />
                             <div class="product_info">
                                 <p class="title">${libro.getTitolo()}</p>
                                 <p class="description" id="descrizione_normale">${libro.getSdescrizione()}</p>
@@ -49,7 +49,12 @@
                                     <b>Costo Spedizione:</b> ${carrello.convertiEuro(carrello.getCostoSpedizione())} €<br>
                                         <b>Totale Lordo:</b> ${carrello.convertiEuro(carrello.getTotaleLordo())} €
                     </p>
-                    <a href="pagamento" id="paybutton">Procedi al pagamento</a>
+                     <c:if test = "${utente == null}">
+                         <a href="login" id="paybutton">Per poter ordinare devi effettuare il login</a>
+                     </c:if>
+            <c:if test = "${utente != null && utente.admin == false}">
+                    <a href="effettuaordine" id="paybutton">Procedi al pagamento</a>
+            </c:if>
                 </div>
             </div>
         </c:if>
@@ -77,18 +82,22 @@
                             "<b>Totale Lordo:</b> " + prezzoCarrelloLordo + " €";
                         $("#tot").html(cod);
                     }else if(conferma == "ok" && totProdotti == "0"){
-                        document.getElementById("totale").parentElement.removeChild(document.getElementById("totale"));
-                        document.getElementById('titolo').insertAdjacentHTML('afterend', '<div class="card">\n' +
+                        $("#totale").fadeOut("normal", function() {
+                            $(this).remove();
+                        });
+                        document.getElementById('titolo').insertAdjacentHTML('afterend', '<div class="card" id="carrellovuoto" style="display: none">\n' +
                             '                <h3>Al momento non ci sono prodotti nel carrello</h3>\n' +
                             '            </div>');
+                        $("#carrellovuoto").fadeIn("slow");
                     }
                     $("#carrellonavbar").text("Carrello (" + totProdotti + ")");
                 }
             }
             xmlHttpReq.open("GET", "rimuovicarrello?id=" + isbn , true);
             xmlHttpReq.send();
-
-            document.getElementById(isbn).parentElement.removeChild(document.getElementById(isbn));
+            $("#" + isbn).fadeOut("normal", function() {
+                $(this).remove();
+            });
         }
 
         $(document).ready(function(){
@@ -124,6 +133,10 @@
                     $("#tot").html(cod);
                     $("#prezzoProdotto" + id).text(prezzoProdottoTot + " €");
                     $("#carrellonavbar").text("Carrello (" + totProdotti + ")");
+
+                    if(quantita.length > 8){
+                        quantita =  quantita.substring(0,7);
+                    }
 
                     if(parseInt(disponibili)<=parseInt(quantita)){
                        $("#modificaQuantita"+ id).val("" + disponibili);

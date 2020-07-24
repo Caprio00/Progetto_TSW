@@ -18,7 +18,7 @@
                 Siamo editori di magazine, di carta e digitali: brand di successo che portano nel mondo lo stile italiano, anche grazie alle edizioni internazionali delle nostre testate più note.</h4>
         </div>
         <div class="card">
-            <video id="video" controls autoplay muted onloadedmetadata="this.muted = true" width=100% style="border-radius: 4px">
+            <video id="video" controls autoplay width=100% style="border-radius: 4px">
                 <source src="img/progetto.mp4" type="video/mp4">
                 Il tuo broswer non supporta HTML5
             </video>

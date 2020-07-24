@@ -13,6 +13,7 @@ import java.io.IOException;
 public class FAQServlet  extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        request.setAttribute("faq",1);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/FAQ.jsp");
         requestDispatcher.forward(request, response);
     }

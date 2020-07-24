@@ -180,15 +180,6 @@ public class CaricaLibroServlet extends HttpServlet {
         }
 
         if(filePart.getSize() != 0){
-            if(edit != null){
-                String destinazione = CARTELLA_UPLOAD + File.separator + l.getPath();
-                String pathDestinazione = Paths.get(getServletContext().getRealPath(destinazione)).toString();
-                File file = new File(pathDestinazione);
-                if(file.exists() == true && file.delete() == false)
-                {
-                    throw new MyServletException("Errore durante la cancellazione");
-                }
-            }
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
             String destinazione = CARTELLA_UPLOAD + File.separator + fileName;
             Path pathDestinazione = Paths.get(getServletContext().getRealPath(destinazione));

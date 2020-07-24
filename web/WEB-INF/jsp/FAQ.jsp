@@ -14,7 +14,7 @@
         </div>
         <div class="card FAQ" id="buttonCard">
             <h3> Scegli tra le seguenti categorie quella che più ti interessa</h3>
-            <div ip="buttondiv">
+            <div id="buttondiv">
                 <a href="#ordini"> Ordini</a>
                 <a href="#pagamenti">Pagamenti</a>
                 <a href="#spedizioni">Spedizioni</a>
