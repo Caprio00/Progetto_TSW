@@ -4,6 +4,7 @@ import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 import model.*;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,12 @@ public class OrdiniServlet extends HttpServlet {
         doGet(request,response);
     }
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/ordini.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
+    /*
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrdiniDAO dao = new OrdiniDAO();
         HttpSession session = request.getSession();
@@ -50,4 +57,5 @@ public class OrdiniServlet extends HttpServlet {
             throw new MyServletException("Non sei loggato o sei un amministratore");
         }
     }
+     */
 }

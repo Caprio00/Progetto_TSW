@@ -1,4 +1,3 @@
-
 package controller;
 
 import model.Login;
@@ -27,7 +26,6 @@ public class CookieLoginFilter extends HttpFilter {
 	private final UtenteDAO utenteDAO = new UtenteDAO();
 	private final LoginDAO loginDAO = new LoginDAO();
 
-
 	@Override
 	protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -39,12 +37,10 @@ public class CookieLoginFilter extends HttpFilter {
 				Cookie cookies[] = request.getCookies();
 				Cookie loginCookie = cookies == null ? null
 						: Arrays.stream(cookies).filter(c -> c.getName().equals("login")).findAny().orElse(null);
-
 				if (loginCookie != null) {
 					String[] sp = loginCookie.getValue().split("_");
 					String id = sp[0];
 					String token = sp.length > 1 ? sp[1] : null;
-
 					Login login = loginDAO.doRetrieveById(id);
 					if (login != null && login.getToken().equals(token)) {
 						utente = utenteDAO.doRetrieveById(login.getIdutente());
@@ -65,9 +61,8 @@ public class CookieLoginFilter extends HttpFilter {
 				}
 			}
 		}
-			request.setCharacterEncoding("UTF-8");
-			response.setCharacterEncoding("UTF-8");
-
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		chain.doFilter(request, response);
 	}
 

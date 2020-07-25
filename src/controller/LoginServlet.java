@@ -85,7 +85,7 @@ public class LoginServlet extends HttpServlet {
                 error=error + "La password e la conferma password sono diverse<br>";
                 ceck=false;
             }
-            if(password.length() ==0){
+            if(passwordconfirm.length() ==0){
                 error=error + "La conferma password non può essere vuota<br>";
                 ceck=false;
             }

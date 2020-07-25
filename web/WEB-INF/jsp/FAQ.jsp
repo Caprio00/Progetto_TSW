@@ -111,7 +111,7 @@
             </div>
             <div class="toggle">
                 <button id="p3" onclick="functionToggle(this.id)">QUANDO SARÀ EFFETTUATO L’ADDEBITO SULLA MIA CARTA DI CREDITO?</button>
-                <p>L'importo relativo all'acquisto effettuato verrà addebitato sulla tua carta di credito al momento della spedizione dell'ordine.
+                <p>L'importo relativo all'acquisto effettuato verrà addebitato sulla tua carta di credito al momento della spedizione dell'ordine.<br>
                     ATTENZIONE: quello che viene visualizzato al momento dell’inserimento dell’ordine non è un prelevamento di fondi ma solo l’autorizzazione
                     che viene richiesta, mentre l’importo viene effettivamente addebitato soltanto nel momento della spedizione della merce.</p>
             </div>
@@ -130,9 +130,9 @@
             <h3>SPEDIZIONI</h3>
             <div class="toggle">
                 <button id="s1" onclick="functionToggle(this.id)">QUANTO COSTA LA SPEDIZIONE?</button>
-                <p>Il costo delle nostre spedizioni varia dipendentemente dal costo dell'ordine totale, ovvero:
-                    • 15€ per qualsiasi ordine il cui costo totale è inferiore a 50€
-                    • 7,50€ per qualsiasi ordine il cui costo totale è inferiore a 100€
+                <p>Il costo delle nostre spedizioni varia dipendentemente dal costo dell'ordine totale, ovvero:<br>
+                    • 15€ per qualsiasi ordine il cui costo totale è inferiore a 50€<br>
+                    • 7,50€ per qualsiasi ordine il cui costo totale è inferiore a 100€<br>
                     • gratuita per qualsiasi ordine il cui costo totale è superiore a 100€
                 </p>
             </div>
