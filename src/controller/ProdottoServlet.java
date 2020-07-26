@@ -22,11 +22,17 @@ public class ProdottoServlet extends HttpServlet {
             if(libro != null){
             request.setAttribute("libro",libro);
             HttpSession session = request.getSession();
-            if(session.getAttribute("utente")!= null){
+            Utente utente = (Utente) session.getAttribute("utente");
+            if(utente!= null){
                 PreferitoDAO dao = new PreferitoDAO();
-                Libro user = dao.doRetrieveByUserIdandIsbn((Utente) session.getAttribute("utente"),libro);
+                Libro user = dao.doRetrieveByUserIdandIsbn(utente,libro);
                 if(user != null){
                     request.setAttribute("preferiti",1);
+                }
+                if(utente.isAdmin() ==  false){
+                    OrdiniDAO odao =  new OrdiniDAO();
+                    Boolean b = odao.ceckIfExistbyIsbnAndUserID(libro.getIsbn(),utente.getId());
+                    if(b) request.setAttribute("ebookbuy",b);
                 }
             }
             }else {

@@ -15,17 +15,12 @@ import java.io.IOException;
 import java.time.Instant;
 
 @WebServlet("/effettuaordine")
-public class OrdiniServlet extends HttpServlet {
+public class EffettuaOrdineServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/ordini.jsp");
-        requestDispatcher.forward(request, response);
-    }
 
-    /*
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrdiniDAO dao = new OrdiniDAO();
         HttpSession session = request.getSession();
@@ -44,7 +39,10 @@ public class OrdiniServlet extends HttpServlet {
                 for(int i=0;i<carrello.getLibro().size();i++){
                     ltemp = ldao.doRetrieveByIsbn(carrello.getLibro().get(i).getIsbn());
                     if(ltemp.getTipo().equals("cartaceo")) {
-                        ltemp.setNumero_disponibili(ltemp.getNumero_disponibili() - carrello.getLibro().get(i).getQuantitaCarrello());
+                        if(carrello.getLibro().get(i).getQuantitaCarrello() <= ltemp.getNumero_disponibili())
+                            ltemp.setNumero_disponibili(ltemp.getNumero_disponibili() - carrello.getLibro().get(i).getQuantitaCarrello());
+                        else
+                            throw new MyServletException("La quantitá inserita nel carrello eccede quella disponibile");
                     ldao.doUpdate(ltemp);
                     }
                 }
@@ -57,5 +55,5 @@ public class OrdiniServlet extends HttpServlet {
             throw new MyServletException("Non sei loggato o sei un amministratore");
         }
     }
-     */
+
 }

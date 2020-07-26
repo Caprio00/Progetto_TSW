@@ -29,7 +29,7 @@
             <div class="book">
                 <c:if test = "${utente == null || (utente != null && utente.admin == false)}">
             <h3 id="tempo"></h3>
-                    <c:if test = "${libro.tipo == \"ebook\"}">
+                    <c:if test = "${libro.tipo == \"ebook\" && ebookbuy == null}">
                         <c:if test = "${carrello== null}">
                             <a href="carrello?id=${libro.isbn}" class="button">Aggiungi al carrello</a>
                         </c:if>
@@ -37,10 +37,24 @@
                             <a href="carrello?id=${libro.isbn}" class="button">Aggiungi al carrello</a>
                         </c:if>
                     </c:if>
-                    <c:if test = "${libro.tipo == \"cartaceo\"}">
+                    <c:if test = "${libro.tipo == \"cartaceo\" && libro.numero_disponibili > 0}">
                         <a href="carrello?id=${libro.isbn}" class="button">Aggiungi al carrello</a>
                     </c:if>
-                    <c:if test = "${libro.tipo == \"ebook\" &&carrello!= null && carrello.findLibrobyIsbn(libro.isbn) == true}">
+                    <c:if test = "${libro.tipo == \"cartaceo\" && libro.numero_disponibili == 0}">
+                        <a class="button" style="
+                      pointer-events: none;
+                      cursor: default;
+                      background-color: gray;
+                      ">Terminato al momento</a>
+                    </c:if>
+                    <c:if test = "${libro.tipo == \"ebook\" &&utente!= null && ebookbuy != null && ebookbuy == true}">
+                        <a class="button" style="
+                      pointer-events: none;
+                      cursor: default;
+                      background-color: gray;
+                      ">Ebook già acquistato</a>
+                    </c:if>
+                    <c:if test = "${libro.tipo == \"ebook\" &&carrello!= null && carrello.findLibrobyIsbn(libro.isbn) == true }">
                     <a class="button" style="
                       pointer-events: none;
                       cursor: default;

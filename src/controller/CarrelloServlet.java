@@ -1,10 +1,7 @@
 package controller;
 
 import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
-import model.Carrello;
-import model.Libro;
-import model.LibroDAO;
-import model.Utente;
+import model.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,6 +26,15 @@ public class CarrelloServlet extends HttpServlet {
                 carrello = new Carrello();
             }
             Libro libro = libroDAO.doRetrieveByIsbn(request.getParameter("id"));
+            if(libro.getNumero_disponibili() == 0 && libro.getTipo().equals("cartaceo")){
+                throw new MyServletException("Il libro da lei selezionato è terminato");
+            }
+            OrdiniDAO dao = new OrdiniDAO();
+            if(user != null && user.isAdmin() == false && libro.getTipo().equals("ebook")){
+                if(dao.ceckIfExistbyIsbnAndUserID(libro.getIsbn(),user.getId())){
+                    throw new MyServletException("Il libro da lei selezionato è già presente nei suoi ordini");
+                }
+            }
             if(carrello.getLibro().size() == 0){
                 carrello.setLibro(libro);
                 session.setAttribute("carrello", carrello);
@@ -45,21 +51,6 @@ public class CarrelloServlet extends HttpServlet {
                         break;
                     }
                 }
-
-                int quantita = 0;
-                for(int i=0; i<carrello.getLibro().size(); i++){
-                    Libro temp = libroDAO.doRetrieveByIsbn(carrello.getLibro().get(i).getIsbn());
-                    if(temp == null){
-                        carrello.removeLibro(carrello.getLibro().get(i));
-                        i--;
-                    }else if(temp.equals(carrello.getLibro().get(i)) == false){
-                        quantita = carrello.getLibro().get(i).getQuantitaCarrello();
-                        carrello.removeLibro(carrello.getLibro().get(i));
-                        temp.setQuantitaCarrello(quantita);
-                        carrello.setLibro(temp);
-
-                    }
-                    }
 
                     session.setAttribute("carrello", carrello);
                     response.sendRedirect("carrello");

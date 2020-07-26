@@ -49,13 +49,14 @@ primary key(id)
 
 create table ordini(
 id_utente int(11),
-oradiordine timestamp not null,
+oradiordine varchar(100) not null,
 id int primary key auto_increment,
 ISBN varchar(14) not null,
 tipo varchar(10) not null,
 anno_pubblicazione int not null,
 numero_pagine int not null,
 prezzo int not null,
+quantitalibro int not null,
 descrizione mediumtext not null,
 autore varchar (50) not null,
 titolo text not null,
@@ -266,19 +267,3 @@ SELECT isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,d
 select * from utente;
 
 select * from libro_preferito;
-
-select * from libro;
-
-select * from ordini;
-
-select * from ordini where id_utente=2 order by oradiordine;
-
-Delete from ordini;
-
-drop table ordini;
-
-select * from login;
-
-Insert into ordini (oradiordine,id_utente,isbn,tipo,anno_pubblicazione,numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina,quantita,totale) values("1595611105",2,"977-1120611001","cartaceo",2018,108,78,"To","Walt Disney","Topolino n. 32510","Topolino.jpg",1,1525);
-
-SELECT libro.isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina FROM libro,libro_preferito,utente WHERE libro.isbn=libro_preferito.isbn and utente.id=libro_preferito.id and libro.isbn=? and utente.id=?;

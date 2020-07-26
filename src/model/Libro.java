@@ -25,16 +25,6 @@ public class Libro {
 	private String ssDescrizione;
 	private int quantitaCarrello;
 	private String categoriestring;
-	public boolean finito;
-
-	public boolean getisFinito(){
-		return finito;
-	}
-
-	public void setFinito(boolean finito){
-		this.finito = finito;
-	}
-
 
 	public List<Categoria> getCategorie(){
 		return categorie;
