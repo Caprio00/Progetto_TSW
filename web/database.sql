@@ -34,7 +34,7 @@ numero_disponibili int ,
 descrizione mediumtext not null,
 autore varchar (50),
 titolo text not null,
-acquisti int not null default 0,
+acquisti int default 0,
 copertina varchar(50) not null unique,
 FULLTEXT KEY (titolo),
 FULLTEXT KEY (titolo,descrizione),
@@ -271,3 +271,5 @@ select * from utente;
 select * from libro_preferito;
 
 select * from ordini;
+
+SELECT isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina,acquisti FROM libro where tipo="cartaceo" order by acquisti desc LIMIT 0, 15;

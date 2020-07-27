@@ -30,7 +30,8 @@ public class DeleteLibroServlet extends HttpServlet {
             String id = request.getParameter("id");
             LibroDAO dao = new LibroDAO();
             if (dao.doRetrieveByIsbn(id) != null){
-                Libro l = dao.doRetrieveByIsbn(id);
+                dao.doDelete(id);
+                request.getRequestDispatcher("/WEB-INF/jsp/deletelibro.jsp").forward(request,response);
             }else{
                 throw new MyServletException("Il libro da eliminare non esiste");
             }
