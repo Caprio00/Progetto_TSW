@@ -12,11 +12,19 @@
     <div class="leftcolumn">
         <div class="card profile">
             <h2>Il mio profilo</h2>
+            <div id="image_profile">
+                <c:if test="${utente.sesso == 'Femmina'}">
+                <img src="img/imageedit_1_6924563966.png" height="150px"/>
+                </c:if>
+                <c:if test="${utente.sesso == 'Maschio'}">
+                    <img src="img/imageedit_1_9058503223.png"height="150px"/>
+                </c:if>
+            </div>
             <ul id="profile">
-                <li>Nome:${utente.nome}</li>
-                <li>Cognome:${utente.cognome}</li>
-                <li>Sesso:${utente.sesso}</li>
-                <li>Username:${utente.username}</li>
+                <li><b>Nome: </b>${utente.nome}</li>
+                <li><b>Cognome: </b>${utente.cognome}</li>
+                <li><b>Sesso: </b>${utente.sesso}</li>
+                <li><b>Username: </b>${utente.username}</li>
             </ul>
         <form class="contact-container" action="changepassword"><input type="submit" value="Cambia password"></form>
         </div>

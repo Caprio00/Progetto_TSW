@@ -14,10 +14,12 @@
             <h2>Ordine n.${ordine.oraordine}</h2>
         </div>
         <div class="card">
-            <b>Prodotti ordinati in data:</b> ${ordine.data} alle ${ordine.ora}<br>
-            <b>Pagato con carta di credito</b> <br>
-            <b>Totale prodotti ordinati:</b>${ordine.quantita}<br>
-            <b>Costo prodotto + spedizione e iva:</b>${ordine.getTotaleEuro()}<br>
+            <div class="card" id="riassuntoacquisto">
+                <p><b>Prodotti ordinati in data: </b>${ordine.data} <b> alle ore: </b>${ordine.ora}</p>
+                <p><b>Pagato con carta di credito </b></p>
+                <p><b>Totale prodotti ordinati: </b>${ordine.quantita}</p>
+                <p><b>Costo prodotto + spedizione e iva: </b>${ordine.getTotaleEuro()}</p>
+            </div>
             <c:if test="${utenteo != null}">
             <br>
             <b>Nome:</b>${utenteo.nome}<br>
