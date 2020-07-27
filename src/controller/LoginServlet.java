@@ -1,5 +1,6 @@
 package controller;
 
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 import model.Login;
 import model.LoginDAO;
 import model.Utente;
@@ -46,14 +47,14 @@ public class LoginServlet extends HttpServlet {
             if(nome.length() == 0){
                 error=error + "Il nome non può essere vuoto<br>";
                 ceck=false;
-            }else if(!nome.matches("/[a-zA-Z]+/g")){
+            }else if(!nome.matches("[a-zA-Z]+")){
                 error=error + "Il nome deve contenere solo caratteri<br>";
                 ceck=false;
             }
             if(cognome.length() ==0){
                 error=error + "Il cognome non può essere vuoto<br>";
                 ceck=false;
-            }else if(!cognome.matches("/[a-zA-Z]+/g")){
+            }else if(!cognome.matches("[a-zA-Z]+")){
                 error=error + "Il cognome deve contenere solo caratteri<br>";
                 ceck=false;
             }
@@ -71,14 +72,14 @@ public class LoginServlet extends HttpServlet {
             }else if(dao.doRetrieveByEmail(email) == true){
                 error=error + "L'email é già stata usata da un altro account<br>";
                 ceck=false;
-            }else if(!email.matches("/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w+)+$/")){
+            }else if(!email.matches("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w+)+$")){
                 error=error + "L'email é mal formata, l'email deve contere una @ e un . ad esempio: \"example@email.com\"<br>";
                 ceck=false;
             }
             if(password.length() ==0){
                 error=error + "La password non può essere vuota<br>";
                 ceck=false;
-            }else if(!password.matches("/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/g")){
+            }else if(!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$")){
                 error=error + "La password é mal formata.<br>&nbsp;&nbsp;&nbsp;La password deve essere lunga 8 caratteri e al massimo 32<br>&nbsp;&nbsp;&nbsp;Deve contenere una lettere maiuscola e una minuscola<br>&nbsp;&nbsp;&nbsp;Deve contenere un numero<br>";
                 ceck=false;
             }else if(!password.equals(passwordconfirm)){
@@ -103,7 +104,14 @@ public class LoginServlet extends HttpServlet {
                 utente.setSesso(sesso);
                 utente.setEmail(email);
                 dao.doSave(utente);
-                throw new MyServletException("Utente aggiunto");
+                utente= dao.doRetrieveByUsernamePassword(username,password);
+                HttpSession session = request.getSession();
+                session.setAttribute("utente",utente);
+                if(utente != null){
+                    response.sendRedirect("profilo");
+                }else{
+                    throw new MyServletException("errore");
+                }
             }else{
                 error= "Sono stati trovati i seguenti errori: <br><br>" + error;
                 request.setAttribute("fomrerror",error);

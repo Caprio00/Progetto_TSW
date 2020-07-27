@@ -18,6 +18,7 @@
                 <h3>Non ci sono ordini</h3>
             </div>
         </c:if>
+        <c:if test="${ordini.size() != 0}">
         <div class="card">
             <div class="tableorder" style="overflow-x:auto;">
                 <table>
@@ -42,5 +43,6 @@
                 </table>
             </div>
         </div>
+        </c:if>
     </div>
     <jsp:include page="footererightcollum.jsp"/>

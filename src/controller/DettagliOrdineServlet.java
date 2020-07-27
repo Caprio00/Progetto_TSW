@@ -4,6 +4,7 @@ import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 import model.Ordine;
 import model.OrdiniDAO;
 import model.Utente;
+import model.UtenteDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,8 +41,12 @@ public class DettagliOrdineServlet extends HttpServlet {
             }
             OrdiniDAO dao = new OrdiniDAO();
             Ordine ordine = dao.doRetrievebyUserIdAndOra(id,useridn);
+            Utente user = new Utente();
+            UtenteDAO ldao =  new UtenteDAO();
+            user = ldao.doRetrieveById(useridn);
             if(ordine == null) throw new MyServletException("Errore");
             request.setAttribute("ordine",ordine);
+            request.setAttribute("utenteo",user);
             request.getRequestDispatcher("WEB-INF/jsp/dettagliordine.jsp").forward(request,response);
         }else{
             throw new MyServletException("Sezione dedicata agli utenti registrati");

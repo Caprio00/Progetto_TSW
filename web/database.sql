@@ -34,6 +34,7 @@ numero_disponibili int ,
 descrizione mediumtext not null,
 autore varchar (50),
 titolo text not null,
+acquisti int not null default 0,
 copertina varchar(50) not null unique,
 FULLTEXT KEY (titolo),
 FULLTEXT KEY (titolo,descrizione),
@@ -62,7 +63,8 @@ autore varchar (50) not null,
 titolo text not null,
 copertina varchar(50) not null,
 quantita int,
-totale int
+totale int,
+FOREIGN KEY (id_utente) REFERENCES utente(id) on update cascade on delete cascade
 );
 
 CREATE TABLE login (
@@ -267,3 +269,5 @@ SELECT isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,d
 select * from utente;
 
 select * from libro_preferito;
+
+select * from ordini;

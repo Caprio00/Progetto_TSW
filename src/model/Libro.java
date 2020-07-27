@@ -25,6 +25,15 @@ public class Libro {
 	private String ssDescrizione;
 	private int quantitaCarrello;
 	private String categoriestring;
+	private int acquisti=0;
+
+	public int getAcquisti() {
+		return acquisti;
+	}
+
+	public void setAcquisti(int acquisti) {
+		this.acquisti = acquisti;
+	}
 
 	public List<Categoria> getCategorie(){
 		return categorie;

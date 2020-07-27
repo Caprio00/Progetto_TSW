@@ -39,8 +39,10 @@ public class EffettuaOrdineServlet extends HttpServlet {
                 for(int i=0;i<carrello.getLibro().size();i++){
                     ltemp = ldao.doRetrieveByIsbn(carrello.getLibro().get(i).getIsbn());
                     if(ltemp.getTipo().equals("cartaceo")) {
-                        if(carrello.getLibro().get(i).getQuantitaCarrello() <= ltemp.getNumero_disponibili())
+                        if(carrello.getLibro().get(i).getQuantitaCarrello() <= ltemp.getNumero_disponibili()) {
                             ltemp.setNumero_disponibili(ltemp.getNumero_disponibili() - carrello.getLibro().get(i).getQuantitaCarrello());
+                            ltemp.setAcquisti(ltemp.getAcquisti() + carrello.getLibro().get(i).getQuantitaCarrello());
+                        }
                         else
                             throw new MyServletException("La quantitá inserita nel carrello eccede quella disponibile");
                     ldao.doUpdate(ltemp);

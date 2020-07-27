@@ -215,7 +215,7 @@
                         $("#lisbn").css("color","red");
                         alert("Un libro con questo isbn esiste giá");
                     }else{
-                        $("#isbn").css("border","2px solid green");
+                        $("#isbn").css("border","");
                         $("#lisbn").css("color","black");
                     }
                 }});

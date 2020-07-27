@@ -35,29 +35,5 @@
                 </div>
             </c:forEach>
         </c:if>
-        <c:if test = "${libri.size() != 0}">
-            <div class="card" id="indexbox">
-                <a href="cerca?page=${limit-1}&q=${q}" id="back"
-                        <c:set var = "limit" scope = "session" value = "limit"/>
-                        <c:if test = "${limit <=1}">
-                            style="
-                            pointer-events: none;
-                            cursor: default;
-                            background-color: gray;
-                            "
-                        </c:if>
-                >«Indietro</a>
-                <h3 id="pageindex">Pagina ${limit}</h3>
-                <a href="cerca?page=${limit+1}&q=${q}" id="next"
-                        <c:if test = "${next != null}">
-                            style="
-                            pointer-events: none;
-                            cursor: default;
-                            background-color: gray;
-                            "
-                        </c:if>
-                >Avanti»</a>
-            </div>
-        </c:if>
     </div>
     <jsp:include page="footererightcollum.jsp"/>

@@ -1,11 +1,9 @@
 package controller;
 
-import model.Login;
-import model.LoginDAO;
-import model.Utente;
-import model.UtenteDAO;
+import model.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -61,6 +59,10 @@ public class CookieLoginFilter extends HttpFilter {
 				}
 			}
 		}
+		HttpSession session = request.getSession();
+		LibroDAO dao = new LibroDAO();
+		ArrayList<Libro> classifica = dao.getListOrderBook();
+		session.setAttribute("classifica",classifica);
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		chain.doFilter(request, response);

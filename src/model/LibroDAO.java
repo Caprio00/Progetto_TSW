@@ -62,7 +62,7 @@ public class LibroDAO {
 		}
 		try (Connection con = ConPool.getConnection()) {
 			PreparedStatement ps = con
-					.prepareStatement("SELECT isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina FROM libro WHERE isbn=?");
+					.prepareStatement("SELECT isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina,acquisti FROM libro WHERE isbn=?");
 			ps.setString(1, isbn);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -77,6 +77,7 @@ public class LibroDAO {
 				p.setAutore(rs.getString(8));
 				p.setTitolo(rs.getString(9));
 				p.setPath(rs.getString(10));
+				p.setAcquisti(rs.getInt(11));
 				p.setCategorie(getCategorie(con,p.getIsbn()));
 				return p;
 			}
@@ -212,9 +213,9 @@ public class LibroDAO {
 
 	public void doUpdate(Libro libro) {
 		try (Connection con = ConPool.getConnection()) {
-			if(libro.getTipo().equals("carataceo")){
+			if(libro.getTipo().equals("cartaceo")){
 				PreparedStatement ps = con.prepareStatement(
-						"UPDATE  libro SET tipo=?, anno_pubblicazione=?,numero_pagine=?,prezzo=?,numero_disponibili=?,descrizione=?,autore=?,titolo=?,copertina=?) WHERE ISBN=?",
+						"UPDATE  libro SET tipo=?, anno_pubblicazione=?,numero_pagine=?,prezzo=?,numero_disponibili=?,descrizione=?,autore=?,titolo=?,copertina=?,acquisti=? WHERE ISBN=?",
 						Statement.RETURN_GENERATED_KEYS);
 				ps.setString(1, libro.getTipo());
 				ps.setInt(2, libro.getAnno_pubblicazione());
@@ -225,24 +226,24 @@ public class LibroDAO {
 				ps.setString(7, libro.getAutore());
 				ps.setString(8, libro.getTitolo());
 				ps.setString(9, libro.getPath());
-				ps.setString(10, libro.getIsbn());
+				ps.setInt(10,libro.getAcquisti());
+				ps.setString(11, libro.getIsbn());
 				if (ps.executeUpdate() != 1) {
 					throw new RuntimeException("INSERT error.");
 				}
 			}else{
 				PreparedStatement ps = con.prepareStatement(
-						"UPDATE  libro SET tipo=?, anno_pubblicazione=?,numero_pagine=?,prezzo=?,numero_disponibili=?,descrizione=?,autore=?,titolo=?,copertina=? WHERE ISBN=?",
+						"UPDATE  libro SET tipo=?, anno_pubblicazione=?,numero_pagine=?,prezzo=?,descrizione=?,autore=?,titolo=?,copertina=? WHERE ISBN=?",
 						Statement.RETURN_GENERATED_KEYS);
 				ps.setString(1, libro.getTipo());
 				ps.setInt(2, libro.getAnno_pubblicazione());
 				ps.setInt(3, libro.getNumero_pagine());
 				ps.setInt(4, libro.getPrezzo());
-				ps.setInt(5,libro.getNumero_disponibili());
-				ps.setString(6, libro.getDescrizione());
-				ps.setString(7, libro.getAutore());
-				ps.setString(8, libro.getTitolo());
-				ps.setString(9, libro.getPath());
-				ps.setString(10, libro.getIsbn());
+				ps.setString(5, libro.getDescrizione());
+				ps.setString(6, libro.getAutore());
+				ps.setString(7, libro.getTitolo());
+				ps.setString(8, libro.getPath());
+				ps.setString(9, libro.getIsbn());
 				if (ps.executeUpdate() != 1) {
 					throw new RuntimeException("INSERT error.");
 				}
@@ -296,5 +297,31 @@ public class LibroDAO {
 			categorie.add(c);
 		}
 		return categorie;
+	}
+
+	public ArrayList<Libro> getListOrderBook() {
+		try (Connection con = ConPool.getConnection()) {
+			PreparedStatement ps = con.prepareStatement("SELECT isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina FROM libro where tipo=\"cartaceo\" order by acquisti desc LIMIT 0, 15");
+			ArrayList<Libro> libri = new ArrayList<Libro>();
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Libro p = new Libro();
+				p.setIsbn(rs.getString(1));
+				p.setTipo(rs.getString(2));
+				p.setAnno_pubblicazione(rs.getInt(3));
+				p.setNumero_pagine(rs.getInt(4));
+				p.setPrezzo(rs.getInt(5));
+				p.setNumero_disponibili(rs.getInt(6));
+				p.setDescrizione(rs.getString(7));
+				p.setAutore(rs.getString(8));
+				p.setTitolo(rs.getString(9));
+				p.setPath(rs.getString(10));
+				libri.add(p);
+			}
+			return libri;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

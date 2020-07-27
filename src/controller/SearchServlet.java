@@ -18,9 +18,8 @@ import java.util.List;
 public class SearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LibroDAO d = new LibroDAO();
-        List<Libro> libri = d.doRetrieveByNomeOrDescrizione(request.getParameter("q"), 0, 5);
+        List<Libro> libri = d.doRetrieveByNomeOrDescrizione(request.getParameter("q"), 0, 100);
         request.setAttribute("libri", libri);
-        request.setAttribute("limit","1");
         request.setAttribute("q",request.getParameter("q"));
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/search.jsp");
         requestDispatcher.forward(request, response);

@@ -9,22 +9,10 @@
     <div class="card right">
         <h3>Classifica libri più venduti</h3>
         <ol>
-            <li>Il principe di sto casdsadasdasdada....</li>
+            <c:forEach items="${classifica}" var="libro">
+            <li><a href="libro?id=${libro.isbn}">${libro.titolo}</a></li>
+            </c:forEach>
         </ol>
-        <div class="fakeimg" style="height: 100px;">Image</div>
-        <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-    </div>
-    <div class="card right">
-        <h3>Popular Post</h3>
-        <div class="fakeimg">
-            <p>Image</p>
-        </div>
-        <div class="fakeimg">
-            <p>Image</p>
-        </div>
-        <div class="fakeimg">
-            <p>Image</p>
-        </div>
     </div>
     <c:if test="${faq ==  null}">
     <div class="card right" id="FAQcard">
