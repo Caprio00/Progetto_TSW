@@ -43,7 +43,7 @@ primary key (ISBN)
 
 CREATE TABLE categoria(
 id int auto_increment,
-nome varchar(30) not null,
+nome text not null,
 descrizione mediumtext not null,
 primary key(id)
 );
