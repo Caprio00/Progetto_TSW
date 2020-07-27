@@ -29,6 +29,25 @@ public class LoginDAO {
 		}
 	}
 
+	public Login doRetrieveByUserId(int id) {
+		try (Connection con = ConPool.getConnection()) {
+			PreparedStatement ps = con.prepareStatement("SELECT id, idutente, token, time FROM login WHERE idutente=?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				Login l = new Login();
+				l.setId(rs.getString(1));
+				l.setIdutente(rs.getInt(2));
+				l.setToken(rs.getString(3));
+				l.setTime(rs.getTimestamp(4));
+				return l;
+			}
+			return null;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public void doSave(Login login) {
 		try (Connection con = ConPool.getConnection()) {
 			PreparedStatement ps = con.prepareStatement(

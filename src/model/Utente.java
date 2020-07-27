@@ -49,6 +49,15 @@ public class Utente {
 	private String email;
 	private String sesso;
 	private boolean admin;
+	private boolean disabled=false;
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
 
 	public int getId() {
 		return id;

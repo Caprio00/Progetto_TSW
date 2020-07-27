@@ -56,8 +56,9 @@ public class HomeServlet extends HttpServlet {
 			maxlimitint = 10;
 		}
 		int totlibri= (int) Math.ceil((double) totlibriindex/maxlimitint);
-		if(totlibri<maxlimitint){
+		if(totlibriindex<=maxlimitint && !page.equals("1")){
 			response.sendRedirect("?page=" + totlibri + "&n=" +maxlimiti);
+			return;
 		}
 		request.setAttribute("totlibri",totlibri);
 		try{
@@ -70,7 +71,7 @@ public class HomeServlet extends HttpServlet {
 			}else if (l+1>totlibriindex){
 				request.setAttribute("next", "-1");
 			}
-			if(page == "1"){
+			if(page.equals("1")){
 				request.setAttribute("title", "Home");
 			}else{
 				request.setAttribute("title", "Pagina " + page);

@@ -13,9 +13,9 @@
           <h2>Contatti</h2>
         </div>
         <div class="card">
-          <div class="contact-container">
+          <div class="contact-container" >
             <h3>Inviaci una mail</h3>
-            <form>
+            <form action="sendmail">
               <div class="row">
                 <div class="col-25">
                   <label for="firstname">Nome*</label>

@@ -14,17 +14,16 @@
             <h2>Ordine n.${ordine.oraordine}</h2>
         </div>
         <div class="card">
-            <div class="card" id="riassuntoacquisto">
                 <p><b>Prodotti ordinati in data: </b>${ordine.data} <b> alle ore: </b>${ordine.ora}</p>
                 <p><b>Pagato con carta di credito </b></p>
                 <p><b>Totale prodotti ordinati: </b>${ordine.quantita}</p>
                 <p><b>Costo prodotto + spedizione e iva: </b>${ordine.getTotaleEuro()}</p>
-            </div>
+
             <c:if test="${utenteo != null}">
             <br>
-            <b>Nome:</b>${utenteo.nome}<br>
-            <b>Cognome:</b>${utenteo.cognome}<br>
-            <b>Nome utente:</b>${utenteo.username}<br>
+           <p><b>Nome:</b>${utenteo.nome}</p>
+                <p><b>Cognome:</b>${utenteo.cognome}</p>
+                <p><b>Nome utente:</b>${utenteo.username}</p>
             </c:if>
         </div>
             <c:forEach items="${ordine.getLibri()}" var="libro">

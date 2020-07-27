@@ -11,6 +11,7 @@ CREATE TABLE utente (
   sesso varchar(7) NOT NULL,
   email varchar(100) NOT NULL,
   admin tinyint(1) NOT NULL,
+  disabled tinyint(1) default 0,
   PRIMARY KEY (id),
   UNIQUE KEY (username),
   UNIQUE KEY (email)
@@ -102,7 +103,7 @@ primary key(isbn,id)
 );
 
 LOCK TABLES utente WRITE;
-INSERT INTO utente VALUES (1,'utente1',SHA1('password1'),'Utente 1','cognome','Maschio' ,'utente1@test.com',1),(2,'utente2',SHA1('password2'),'Utente 2','cognome','Maschio','utente2@test.com',0),(3,'utente3',SHA1('password3'),'Utente 3','cognome','Maschio','utente3@test.com',0);
+INSERT INTO utente VALUES (1,'utente1',SHA1('password1'),'Utente 1','cognome','Maschio' ,'utente1@test.com',1,0),(2,'utente2',SHA1('password2'),'Utente 2','cognome','Maschio','utente2@test.com',0,0),(3,'utente3',SHA1('password3'),'Utente 3','cognome','Maschio','utente3@test.com',0,0);
 UNLOCK TABLES;
 
 LOCK TABLES libro WRITE;
@@ -264,12 +265,3 @@ INSERT INTO carrello VALUES
 ("978-8838940507",3), ("978-8804618379",3), ("978-8807900105",11);
 UNLOCK TABLES;
 
-SELECT isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina FROM libro ;
-
-select * from utente;
-
-select * from libro_preferito;
-
-select * from ordini;
-
-SELECT isbn, tipo, anno_pubblicazione, numero_pagine,prezzo,numero_disponibili,descrizione,autore,titolo,copertina,acquisti FROM libro where tipo="cartaceo" order by acquisti desc LIMIT 0, 15;

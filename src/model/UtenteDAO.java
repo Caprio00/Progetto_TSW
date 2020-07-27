@@ -42,12 +42,10 @@ import java.util.List;
 
 public class UtenteDAO {
 
-	public List<Utente> doRetrieveAll(int offset, int limit) {
+	public List<Utente> doRetrieveAll() {
 		try (Connection con = ConPool.getConnection()) {
 			PreparedStatement ps = con
-					.prepareStatement("SELECT id, username, passwordhash, nome, cognome, sesso, email, admin FROM utente LIMIT ?, ?");
-			ps.setInt(1, offset);
-			ps.setInt(2, limit);
+					.prepareStatement("SELECT id, username, passwordhash, nome, cognome, sesso, email, admin, disabled FROM utente");
 			ArrayList<Utente> utenti = new ArrayList<>();
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -60,6 +58,7 @@ public class UtenteDAO {
 				p.setSesso(rs.getString(6));
 				p.setEmail(rs.getString(7));
 				p.setAdmin(rs.getBoolean(8));
+				p.setDisabled(rs.getBoolean(9));
 				utenti.add(p);
 			}
 			return utenti;
@@ -68,10 +67,26 @@ public class UtenteDAO {
 		}
 	}
 
+	public boolean ceckPassword(String username,String password){
+		try (Connection con = ConPool.getConnection()) {
+			PreparedStatement ps = con.prepareStatement(
+					"SELECT passwordhash from utente WHERE username=? AND passwordhash=SHA1(?)");
+			ps.setString(1, username);
+			ps.setString(2,password);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				return true;
+			}
+			return false;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public Utente doRetrieveByUsernamePassword(String username, String password) {
 		try (Connection con = ConPool.getConnection()) {
 			PreparedStatement ps = con.prepareStatement(
-					"SELECT id, username, passwordhash, nome, cognome, sesso, email, admin FROM utente WHERE username=? AND passwordhash=SHA1(?)");
+					"SELECT id, username, passwordhash, nome, cognome, sesso, email, admin,disabled FROM utente WHERE username=? AND passwordhash=SHA1(?)");
 			ps.setString(1, username);
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
@@ -85,6 +100,7 @@ public class UtenteDAO {
 				p.setSesso(rs.getString(6));
 				p.setEmail(rs.getString(7));
 				p.setAdmin(rs.getBoolean(8));
+				p.setDisabled(rs.getBoolean(9));
 				return p;
 			}
 			return null;
@@ -96,7 +112,7 @@ public class UtenteDAO {
 	public Utente doRetrieveByUsername(String username) {
 		try (Connection con = ConPool.getConnection()) {
 			PreparedStatement ps = con.prepareStatement(
-					"SELECT id, username, passwordhash, nome, cognome, sesso, email, admin FROM utente WHERE username=?");
+					"SELECT id, username, passwordhash, nome, cognome, sesso, email, admin , disabled FROM utente WHERE username=?");
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -109,6 +125,7 @@ public class UtenteDAO {
 				p.setSesso(rs.getString(6));
 				p.setEmail(rs.getString(7));
 				p.setAdmin(rs.getBoolean(8));
+				p.setDisabled(rs.getBoolean(9));
 				return p;
 			}
 			return null;
@@ -120,7 +137,7 @@ public class UtenteDAO {
 	public Utente doRetrieveById(int id) {
 		try (Connection con = ConPool.getConnection()) {
 			PreparedStatement ps = con.prepareStatement(
-					"SELECT id, username, passwordhash, nome, cognome, sesso, email, admin FROM utente WHERE id=?");
+					"SELECT id, username, passwordhash, nome, cognome, sesso, email, admin, disabled FROM utente WHERE id=?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -133,6 +150,7 @@ public class UtenteDAO {
 				p.setSesso(rs.getString(6));
 				p.setEmail(rs.getString(7));
 				p.setAdmin(rs.getBoolean(8));
+				p.setDisabled(rs.getBoolean(9));
 				return p;
 			}
 			return null;
@@ -152,6 +170,49 @@ public class UtenteDAO {
 			}
 			return false;
 		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void doUpdatePassword(String username,String password) {
+		try (Connection con = ConPool.getConnection()) {
+				PreparedStatement ps = con.prepareStatement(
+						"UPDATE utente set passwordhash=SHA1(?) where username=?;",
+						Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1,password);
+				ps.setString(2,username);
+				if (ps.executeUpdate() != 1) {
+					throw new RuntimeException("INSERT error.");
+				}
+			} catch(SQLException e){
+				throw new RuntimeException(e);
+			}
+		}
+
+		public void doDisableProfile(Utente utente,Boolean disabled){
+			try (Connection con = ConPool.getConnection()) {
+				PreparedStatement ps = con.prepareStatement(
+						"UPDATE utente set disabled=? where id=?");
+				ps.setInt(2,utente.getId());
+				ps.setBoolean(1,disabled);
+				if (ps.executeUpdate() != 1) {
+					throw new RuntimeException("INSERT error.");
+				}
+			} catch(SQLException e){
+				throw new RuntimeException(e);
+			}
+		}
+
+	public void doSetAdmin(Utente utente,Boolean admin){
+		try (Connection con = ConPool.getConnection()) {
+			PreparedStatement ps = con.prepareStatement(
+					"UPDATE utente set admin=? where id=?");
+			ps.setBoolean(1,admin);
+			ps.setInt(2,utente.getId());
+			if (ps.executeUpdate() != 1) {
+				throw new RuntimeException("INSERT error.");
+			}
+		} catch(SQLException e){
 			throw new RuntimeException(e);
 		}
 	}

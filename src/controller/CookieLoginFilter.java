@@ -28,7 +28,7 @@ public class CookieLoginFilter extends HttpFilter {
 	protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		String path = request.getRequestURI();
-		if (!path.contains("/Login") && !path.contains("/Logout")) {
+		if (!path.contains("/login") && !path.contains("/esci")) {
 			HttpSession session = request.getSession();
 			Utente utente = (Utente) session.getAttribute("utente");
 			if (utente == null) {
@@ -59,7 +59,27 @@ public class CookieLoginFilter extends HttpFilter {
 				}
 			}
 		}
+
 		HttpSession session = request.getSession();
+		Utente utente = (Utente) session.getAttribute("utente");
+		if(utente!=null){
+			UtenteDAO udao = new UtenteDAO();
+			Utente u1 = udao.doRetrieveById(utente.getId());
+			if(u1.isDisabled()){
+				request.getSession().removeAttribute("utente");
+				Cookie cookies[] = request.getCookies();
+				if (cookies != null) {
+					Cookie cookie = Arrays.stream(cookies).filter(c -> c.getName().equals("login")).findAny().orElse(null);
+					if (cookie != null) {
+						cookie.setMaxAge(0);
+						response.addCookie(cookie);
+						String id = cookie.getValue().split("_")[0];
+						loginDAO.doDelete(id);
+					}
+				}
+			}
+		}
+
 		LibroDAO dao = new LibroDAO();
 		ArrayList<Libro> classifica = dao.getListOrderBook();
 		session.setAttribute("classifica",classifica);

@@ -30,8 +30,16 @@ input[type=number] {
   display: flex;
 }
 
-#errorserver {
+#errorserver,#errorformmessage {
   background-color: #ff00008f;
+  border-radius: 6px;
+  padding: 3px;
+  font-size: 11px;
+  color:white;
+}
+
+#okformmessage {
+  background-color: rgb(36, 117, 24);
   border-radius: 6px;
   padding: 3px;
   font-size: 11px;
@@ -64,10 +72,6 @@ float: left;
 
 #selector{
   display: flex;
-}
-
-.description {
-  text-align: justify;
 }
 
 li {
@@ -313,7 +317,7 @@ input[type="submit"]:hover {
   width: 100%;
 }
 
-.book a {
+.book a,.profile a {
   float: right;
   background-color: #2d2c2a;
   color: #f2f2f2;
@@ -323,7 +327,7 @@ input[type="submit"]:hover {
   border-radius: 4px;
 }
 
-.book a:hover {
+.book a:hover,.profile a:hover {
   background-color: #ddd;
   color: #2d2c2a;
 }
@@ -1019,6 +1023,14 @@ input[type="telefono"], .payment-container  input[type="number"]{
 /* -------------------- INIZIO MEDIAQUERY VERSIONE PICCOLA -------------------- */
 
 @media screen and (max-width:500px) {
+  body{
+    padding: 0px;
+  }
+
+  .header h1{
+    font-size: 45px;
+  }
+
   #divcategorie{
     display: table;
   }

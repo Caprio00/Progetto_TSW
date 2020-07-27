@@ -231,7 +231,7 @@
                 }
 
                 function formceck() {
-                    var error = "Sono stati troviati i seguenti errori:\n\n";
+                    var error = "Sono stati trovati i seguenti errori:\n\n";
                     verificaemail()
                     confrontapassword();
                     verificausername();

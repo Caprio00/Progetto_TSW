@@ -122,9 +122,9 @@ public class LoginServlet extends HttpServlet {
             String password = request.getParameter("password");
             String ricordaAccesso = request.getParameter("remember");
             Utente utente= dao.doRetrieveByUsernamePassword(username,password);
-            HttpSession session = request.getSession();
-            session.setAttribute("utente",utente);
-            if(utente != null){
+            if(utente != null && utente.isDisabled() == false){
+                HttpSession session = request.getSession();
+                session.setAttribute("utente",utente);
                 if(ricordaAccesso!= null && ricordaAccesso.equals("yes")){
                     Login login = new Login();
                     login.setIdutente(utente.getId());
@@ -139,9 +139,12 @@ public class LoginServlet extends HttpServlet {
                     response.addCookie(cookie);
                 }
                 response.sendRedirect("profilo");
-            }
-            else {
-                request.setAttribute("errorserverlogin", "Username o password errati!");
+            }else {
+                if(utente!= null && utente.isDisabled() == true){
+                    request.setAttribute("errorserverlogin", "Il tuo account é stato eliminato");
+                }else{
+                    request.setAttribute("errorserverlogin", "Username o password errati!");
+                }
                 RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
                 dispatcher.forward(request, response);
             }

@@ -36,11 +36,15 @@ public class CategoriaServlet extends HttpServlet {
         Categoria categoriaAssociata = null;
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/view-categorie.jsp");
         int numlibri = libroDAO.countByCategoria(Integer.parseInt(id));
+        int totlibriindex = (int) Math.ceil((double) numlibri/maxlimitint);
         if(numlibri<maxlimitint){
             request.setAttribute("totlibri", 1);
         }else {
-            int totlibriindex = (int) Math.ceil((double) numlibri/maxlimitint);
             request.setAttribute("totlibri",totlibriindex);
+        }
+        if(numlibri<=maxlimitint && !page.equals("1")){
+            response.sendRedirect("categoria?page=" + totlibriindex +"&id="+id+ "&n=" +maxlimiti );
+            return;
         }
         int l=-1;
         try{

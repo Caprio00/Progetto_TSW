@@ -238,7 +238,7 @@
                     if(parseInt($("#anno").val()) > new Date().getFullYear()){
                         $("#lanno").css("color", "red");
                         $("#anno").css("border","2px solid red;");
-                        errore = errore + "L'anno inserito da te non é valido, l'anno deve essere inferiore alla date attuale\n";
+                        errore = errore + "L'anno inserito da te non é valido, l'anno deve essere inferiore alla data attuale\n";
                     }
 
                     if ($("input[type=checkbox]").is(

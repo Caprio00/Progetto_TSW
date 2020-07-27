@@ -26,7 +26,7 @@ public class LogoutServlet extends HttpServlet {
 		if (cookies != null) {
 			Cookie cookie = Arrays.stream(cookies).filter(c -> c.getName().equals("login")).findAny().orElse(null);
 			if (cookie != null) {
-				cookie.setMaxAge(0); // rimuove cookie
+				cookie.setMaxAge(0);
 				response.addCookie(cookie);
 				String id = cookie.getValue().split("_")[0];
 				loginDAO.doDelete(id);

@@ -28,7 +28,7 @@
         <c:if test="${libri.size() > 0}">
         <c:forEach items="${libri}" var="libro">
             <div class="card bookbox">
-                <img src="${pageContext.request.contextPath}/img/${libro.path}" alt="libro" height="215px" class="image" />
+                <img onclick="location.href='libro?id=${libro.isbn}'" src="${pageContext.request.contextPath}/img/${libro.path}" alt="libro" height="215px" class="image" />
                 <div class="book">
                     <h3>
                             ${libro.titolo}
