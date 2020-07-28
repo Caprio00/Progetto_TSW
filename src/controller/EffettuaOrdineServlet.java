@@ -1,10 +1,7 @@
 package controller;
 
-import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 import model.*;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,8 +40,9 @@ public class EffettuaOrdineServlet extends HttpServlet {
                             ltemp.setNumero_disponibili(ltemp.getNumero_disponibili() - carrello.getLibro().get(i).getQuantitaCarrello());
                             ltemp.setAcquisti(ltemp.getAcquisti() + carrello.getLibro().get(i).getQuantitaCarrello());
                         }
-                        else
+                        else{
                             throw new MyServletException("La quantitá inserita nel carrello eccede quella disponibile");
+                        }
                     ldao.doUpdate(ltemp);
                     }
                 }

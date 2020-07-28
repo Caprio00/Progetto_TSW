@@ -17,14 +17,14 @@
         <div class="card">
             <h3>Errore numero ${requestScope['javax.servlet.error.status_code']}</h3>
         </div>
-        <!-- <div class="card">
+        <div class="card">
             <p><%
                 if (exception != null) {
                     out.flush();
                     exception.printStackTrace(response.getWriter());
                 }
             %></p>
-        </div> -->
+        </div>
         <div class="card" id="homediv">
             <a href="${pageContext.request.contextPath}" id="home">Torna alla home</a>
         </div>

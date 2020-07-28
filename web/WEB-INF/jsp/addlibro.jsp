@@ -235,6 +235,18 @@
 
                 $('#addlibro').submit(function() {
                     var errore = "Sono stati trovati i seguenti errori:\n\n";
+
+                    $.get({url: "ceckisbn?id=" + $("#isbn").val(), success: function(result){
+                            if(result == "no"){
+                                $("#isbn").css("border","2px solid red");
+                                $("#lisbn").css("color","red");
+                                errore = errore + "Un libro con questo isbn esiste giá\n";
+                            }else{
+                                $("#isbn").css("border","");
+                                $("#lisbn").css("color","black");
+                            }
+                        }});
+
                     if(parseInt($("#anno").val()) > new Date().getFullYear()){
                         $("#lanno").css("color", "red");
                         $("#anno").css("border","2px solid red;");

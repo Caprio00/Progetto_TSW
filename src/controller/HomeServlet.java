@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import model.Categoria;
 import model.CategoriaDAO;
@@ -55,8 +54,14 @@ public class HomeServlet extends HttpServlet {
 		if(ceck!=0 || maxlimitint<=0){
 			maxlimitint = 10;
 		}
+		int pageint = 0;
+		try{
+			pageint = Integer.parseInt(page);
+		}catch (NumberFormatException er){
+			throw  new MyServletException("Non ci sono libri presenti in questa pagina");
+		}
 		int totlibri= (int) Math.ceil((double) totlibriindex/maxlimitint);
-		if(totlibriindex<=maxlimitint && !page.equals("1")){
+		if(totlibri<=pageint && !page.equals("1")){
 			response.sendRedirect("?page=" + totlibri + "&n=" +maxlimiti);
 			return;
 		}

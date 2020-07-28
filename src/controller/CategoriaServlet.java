@@ -42,10 +42,19 @@ public class CategoriaServlet extends HttpServlet {
         }else {
             request.setAttribute("totlibri",totlibriindex);
         }
-        if(numlibri<=maxlimitint && !page.equals("1")){
-            response.sendRedirect("categoria?page=" + totlibriindex +"&id="+id+ "&n=" +maxlimiti );
-            return;
+        int pageint =0;
+        if(page != null && maxlimiti!=null) {
+            try {
+                pageint = Integer.parseInt(page);
+            } catch (NumberFormatException er) {
+                throw new MyServletException("Non ci sono libri presenti in questa pagina");
+            }
+            if(totlibriindex<=pageint &&!page.equals("1")){
+                response.sendRedirect("categoria?page=" + totlibriindex +"&id="+id+ "&n=" +maxlimiti );
+                return;
+            }
         }
+
         int l=-1;
         try{
             if(page == null){
