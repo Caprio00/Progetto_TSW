@@ -55,7 +55,7 @@ public class LibroDAO {
 
 
 	public Libro doRetrieveByIsbn(String isbn) {
-		if(isbn.indexOf("-")<0){
+		if(isbn.indexOf("-")<0 && isbn.length() > 5){
 			String a = isbn.substring(0,3);
 			String b = isbn.substring(3);
 			isbn = a+"-"+ b;

@@ -30,6 +30,9 @@ public class AggiungiLibroServlet extends HttpServlet {
             request.setAttribute("titolo","Modifica libro");
             LibroDAO dao = new LibroDAO();
              libro = dao.doRetrieveByIsbn(isbn);
+             if(libro ==null){
+                 throw new MyServletException("Libro non trovato");
+             }
             request.setAttribute("libro",libro);
         int f = list.size();
             Iterator<Categoria> iter1 = list.iterator();
