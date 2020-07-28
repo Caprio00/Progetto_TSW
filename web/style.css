@@ -886,7 +886,6 @@ input[type="telefono"], .payment-container  input[type="number"]{
 
   .ordinebox{
     float: right;
-    width: 75%;
     margin-left: 0;
   }
 

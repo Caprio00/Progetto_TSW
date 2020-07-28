@@ -61,7 +61,7 @@ public class HomeServlet extends HttpServlet {
 			throw  new MyServletException("Non ci sono libri presenti in questa pagina");
 		}
 		int totlibri= (int) Math.ceil((double) totlibriindex/maxlimitint);
-		if(totlibri<=pageint && !page.equals("1")){
+		if(totlibri<pageint && !page.equals("1")){
 			response.sendRedirect("?page=" + totlibri + "&n=" +maxlimiti);
 			return;
 		}

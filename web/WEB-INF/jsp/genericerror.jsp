@@ -17,9 +17,6 @@
         <div class="card">
             <h3>Errore numero ${requestScope['javax.servlet.error.status_code']}</h3>
         </div>
-        <div class="card">
-            <img src="/img/error.png">
-        </div>
         <div class="card" id="homediv">
             <a href="${pageContext.request.contextPath}" id="home">Torna alla home</a>
         </div>

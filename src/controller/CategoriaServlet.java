@@ -49,7 +49,7 @@ public class CategoriaServlet extends HttpServlet {
             } catch (NumberFormatException er) {
                 throw new MyServletException("Non ci sono libri presenti in questa pagina");
             }
-            if(totlibriindex<=pageint &&!page.equals("1")){
+            if(totlibriindex<pageint &&!page.equals("1")){
                 response.sendRedirect("categoria?page=" + totlibriindex +"&id="+id+ "&n=" +maxlimiti );
                 return;
             }
