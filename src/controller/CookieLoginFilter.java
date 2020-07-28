@@ -28,6 +28,7 @@ public class CookieLoginFilter extends HttpFilter {
 	protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		String path = request.getRequestURI();
+
 		if (!path.contains("/login") && !path.contains("/esci")) {
 			HttpSession session = request.getSession();
 			Utente utente = (Utente) session.getAttribute("utente");
@@ -82,7 +83,9 @@ public class CookieLoginFilter extends HttpFilter {
 
 		LibroDAO dao = new LibroDAO();
 		ArrayList<Libro> classifica = dao.getListOrderBook();
-		session.setAttribute("classifica",classifica);
+		if(classifica != null){
+			session.setAttribute("classifica",classifica);
+		}
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		chain.doFilter(request, response);
