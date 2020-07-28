@@ -37,7 +37,7 @@ public class AggiungiLibroServlet extends HttpServlet {
         int f = list.size();
             Iterator<Categoria> iter1 = list.iterator();
             Categoria current = null;
-            while (iter1.hasNext()) {
+            while (iter1.hasNext()) {//iterazione sulle categorie da rimuovere
                 current = iter1.next();
                 for(int i=0;i<libro.getCategorie().size();i++){
                     if(current.getId() == libro.getCategorie().get(i).getId()){
