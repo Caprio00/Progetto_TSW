@@ -174,6 +174,24 @@ public class UtenteDAO {
 		}
 	}
 
+	public void doUpdateUserInfo(Utente u){
+		try (Connection con = ConPool.getConnection()) {
+			PreparedStatement ps = con.prepareStatement(
+					"UPDATE utente set nome=?,cognome=?,email=?,username=? where id=?;",
+					Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1,u.getNome());
+			ps.setString(2,u.getCognome());
+			ps.setString(3,u.getEmail());
+			ps.setString(4,u.getUsername());
+			ps.setInt(5,u.getId());
+			if (ps.executeUpdate() != 1) {
+				throw new RuntimeException("INSERT error.");
+			}
+		} catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+	}
+
 	public void doUpdatePassword(String username,String password) {
 		try (Connection con = ConPool.getConnection()) {
 				PreparedStatement ps = con.prepareStatement(

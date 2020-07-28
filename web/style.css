@@ -30,7 +30,7 @@ input[type=number] {
   display: flex;
 }
 
-#errorserver,#errorformmessage {
+#errorserver,#errorformmessage,#errorformmessage1{
   background-color: #ff00008f;
   border-radius: 6px;
   padding: 3px;
@@ -38,7 +38,7 @@ input[type=number] {
   color:white;
 }
 
-#okformmessage {
+#okformmessage,#okformmessage1 {
   background-color: rgb(36, 117, 24);
   border-radius: 6px;
   padding: 3px;

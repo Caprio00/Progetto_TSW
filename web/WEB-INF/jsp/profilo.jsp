@@ -88,6 +88,86 @@
             </form>
         </div>
     </div>
+        <div class="card">
+            <h2>Cambia informazioni personali</h2>
+            <div id="errorformmessage1" style="display: none"><p></p></div>
+            <div id="okformmessage1" style="display:none;"><p>Cambio informazioni effettuato!</p></div>
+            <div class="contact-container" style="display: grid">
+                <form onsubmit="return edit()">
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="nome">Nome</label>
+                        </div>
+                        <div class="col-75">
+                            <input
+                                    type="text"
+                                    id="nome"
+                                    name="nome"
+                                    placeholder="Nome"
+                                    value="${utente.nome}"
+                                    autocomplete="on"
+                                    pattern="[A-Za-z]+" title="Questo campo puó contenere solo caratteri"
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="cognome">Cognome</label>
+                        </div>
+                        <div class="col-75">
+                            <input
+                                    type="text"
+                                    id="cognome"
+                                    name="cognome"
+                                    value="${utente.cognome}"
+                                    placeholder="Cognome"
+                                    autocomplete="on"
+                                    pattern="[A-Za-z]+" title="Questo campo puó contenere solo caratteri"
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="col-75">
+                            <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value="${utente.email}"
+                                    placeholder="Email"
+                                    autocomplete="on"
+                                    onchange="verificaemail()"
+                                    required
+                            />
+                            <font color="red" size="2" style="display: none" id="erroremail">L'email da lei inserita é giá usata da un altro account</font>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="usernamesubmit">Nome utente</label>
+                        </div>
+                        <div class="col-75">
+                            <input
+                                    type="text"
+                                    id="usernamesubmit"
+                                    name="usernamesubmit"
+                                    placeholder="Nome utente"
+                                    autocomplete="on"
+                                    value="${utente.username}"
+                                    onchange="verificausername()"
+                                    required
+                            />
+                            <font color="red" size="2" style="display: none" id="errorusername">L'username da lei inserito é giá usato da un altro account</font>
+                        </div>
+                    </div>
+                    <input id="send" type="submit" value="Aggiorna informazioni"/>
+                </form>
+            </div>
+    </div>
         <script>
             var ceckpasswordflag = false;
             var expasswordflag = false;
@@ -160,6 +240,93 @@
                 return false;
 
             }
+
+            var ceckusernameflag = false;
+            var ceckemailflag =  false;
+
+            function verificausername() {
+                if("${utente.username}" != document.getElementById("usernamesubmit").value){
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        if (this.responseText == "true") {
+                            document.getElementById("errorusername").style.display = "";
+                            document.getElementById("usernamesubmit").style.border = "2px solid red";
+                            ceckusernameflag=true;
+                        } else {
+                            document.getElementById("errorusername").style.display = "none";
+                            document.getElementById("usernamesubmit").style.border = "";
+                            ceckusernameflag=false;
+                        }
+                    }
+                };
+                xhttp.open("GET", "ceckusername?id=" + document.getElementById("usernamesubmit").value, true);
+                xhttp.send();
+                }
+
+            }
+
+            function verificaemail() {
+                if("${utente.email}" != document.getElementById("email").value){
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        if (this.responseText == "true") {
+                            document.getElementById("erroremail").style.display = "";
+                            document.getElementById("email").style.border = "2px solid red";
+                            ceckemailflag=true;
+                        } else {
+                            document.getElementById("email").style.border = "";
+                            document.getElementById("erroremail").style.display = "none";
+                            ceckemailflag=false;
+                        }
+                    }
+                };
+                xhttp.open("GET", "ceckemail?id=" + document.getElementById("email").value, true);
+                xhttp.send();
+                }
+            }
+
+            function edit() {
+                verificaemail();
+                verificausername();
+                var error = "Sono stati trovati i seguenti errori:\n\n";
+                if(ceckemailflag){
+                    error = error + "L'email da lei inserita é giá usata da un altro account\n";
+                }
+                if(ceckusernameflag){
+                    error = error + "L'username da lei inserito é giá usato da un altro account\n";
+                }
+                if(error.length>44){
+                    document.getElementById("errorformmessage1").innerText=error;
+                    document.getElementById("errorformmessage1").style.display="";
+                    document.getElementById("okformmessage1").style.display="none";
+                }else {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            if (this.responseText == "true") {
+                                document.getElementById("okformmessage1").style.display = "";
+                                document.getElementById("errorformmessage1").style.display="none";
+                                document.getElementById("profile").getElementsByTagName("li")[0].innerHTML="<b>Nome:</b> "+document.getElementById("nome").value;
+                                document.getElementById("profile").getElementsByTagName("li")[1].innerHTML="<b>Cognome:</b> "+document.getElementById("cognome").value;
+                                document.getElementById("profile").getElementsByTagName("li")[3].innerHTML="<b>Username:</b> "+document.getElementById("usernamesubmit").value;
+                                document.getElementById("profile").getElementsByTagName("li")[4].innerHTML="<b>Email:</b> "+document.getElementById("email").value;
+                            } else {
+                                document.getElementById("errorformmessage1").innerText=this.responseText;
+                                document.getElementById("errorformmessage1").style.display="";
+                                document.getElementById("okformmessage1").style.display="none";
+                            }
+                        }
+                    };
+                    xhttp.open("GET", "changeinfo?id=" + document.getElementById("nome").value + "&id1=" + document.getElementById("cognome").value + "&id2=" + document.getElementById("email").value + "&id3="+ document.getElementById("usernamesubmit").value, true);
+                    xhttp.send();
+                }
+                return false;
+
+            }
+
+
 
 
         </script>
